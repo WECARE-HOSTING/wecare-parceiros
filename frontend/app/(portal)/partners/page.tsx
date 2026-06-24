@@ -42,13 +42,13 @@ export default function PartnersPage() {
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold text-gray-900">Parceiros</h1>
-          <p className="text-gray-500 text-sm mt-1">
+          <h1 className="text-2xl font-bold text-foreground">Parceiros</h1>
+          <p className="text-muted-foreground text-sm mt-1">
             Gerencie os parceiros do programa WeCare.
           </p>
         </div>
         <Link href="/partners/new">
-          <Button className="bg-[#E55A4F] hover:bg-[#E55A4F]/90 text-white gap-2">
+          <Button className="gap-2">
             <UserPlus size={16} />
             Novo parceiro
           </Button>
@@ -57,7 +57,7 @@ export default function PartnersPage() {
 
       {/* Search */}
       <div className="relative max-w-sm">
-        <Search size={15} className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" />
+        <Search size={15} className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground/80" />
         <Input
           placeholder="Buscar por nome, email ou código…"
           value={search}
@@ -74,10 +74,10 @@ export default function PartnersPage() {
       )}
 
       {/* Table */}
-      <div className="bg-white border border-gray-200 rounded-xl overflow-hidden">
+      <div className="border border-border rounded-xl overflow-hidden">
         <Table>
           <TableHeader>
-            <TableRow className="bg-gray-50">
+            <TableRow className="bg-muted">
               <TableHead>Nome</TableHead>
               <TableHead>Email</TableHead>
               <TableHead>Segmento</TableHead>
@@ -99,15 +99,15 @@ export default function PartnersPage() {
               ))
             ) : filtered.length === 0 ? (
               <TableRow>
-                <TableCell colSpan={6} className="text-center text-gray-400 py-10">
+                <TableCell colSpan={6} className="text-center text-muted-foreground/80 py-10">
                   Nenhum parceiro encontrado.
                 </TableCell>
               </TableRow>
             ) : (
               filtered.map((p) => (
-                <TableRow key={p.id} className="hover:bg-gray-50 cursor-pointer">
-                  <TableCell className="font-medium text-gray-900">
-                    <Link href={`/partners/${p.id}`} className="hover:text-[#E55A4F]">
+                <TableRow key={p.id} className="hover:bg-muted cursor-pointer">
+                  <TableCell className="font-medium text-foreground">
+                    <Link href={`/partners/${p.id}`} className="hover:text-primary">
                       {p.full_name}
                     </Link>
                     {p.is_admin && (
@@ -116,17 +116,17 @@ export default function PartnersPage() {
                       </span>
                     )}
                   </TableCell>
-                  <TableCell className="text-gray-600">{p.email}</TableCell>
-                  <TableCell className="text-gray-600">{p.segment ?? "—"}</TableCell>
+                  <TableCell className="text-muted-foreground">{p.email}</TableCell>
+                  <TableCell className="text-muted-foreground">{p.segment ?? "—"}</TableCell>
                   <TableCell>
-                    <code className="text-xs bg-gray-100 px-2 py-0.5 rounded font-mono">
+                    <code className="text-xs bg-muted px-2 py-0.5 rounded font-mono">
                       {p.utm_code}
                     </code>
                   </TableCell>
                   <TableCell>
                     <StatusBadge status={p.status} />
                   </TableCell>
-                  <TableCell className="text-gray-500 text-sm">
+                  <TableCell className="text-muted-foreground text-sm">
                     {new Date(p.created_at).toLocaleDateString("pt-BR")}
                   </TableCell>
                 </TableRow>

@@ -88,8 +88,8 @@ export default function CommissionsPage() {
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold text-gray-900">Comissões</h1>
-          <p className="text-gray-500 text-sm mt-1">Extrato completo das comissões.</p>
+          <h1 className="text-2xl font-bold text-foreground">Comissões</h1>
+          <p className="text-muted-foreground text-sm mt-1">Extrato completo das comissões.</p>
         </div>
         {commissions && commissions.length > 0 && (
           <Button variant="outline" size="sm" onClick={handleExport} className="gap-1.5">
@@ -100,13 +100,13 @@ export default function CommissionsPage() {
 
       {commissions && (
         <div className="grid grid-cols-2 gap-4">
-          <div className="bg-white rounded-xl border border-gray-200 p-5">
-            <p className="text-sm text-gray-500 mb-1">A Receber</p>
-            <p className="text-2xl font-bold text-[#E55A4F]">{brl(totalPending)}</p>
+          <div className="bg-card rounded-xl border border-border p-5">
+            <p className="text-sm text-muted-foreground mb-1">A Receber</p>
+            <p className="text-2xl font-bold text-primary">{brl(totalPending)}</p>
           </div>
-          <div className="bg-white rounded-xl border border-gray-200 p-5">
-            <p className="text-sm text-gray-500 mb-1">Total Recebido</p>
-            <p className="text-2xl font-bold text-gray-900">{brl(totalPaid)}</p>
+          <div className="bg-card rounded-xl border border-border p-5">
+            <p className="text-sm text-muted-foreground mb-1">Total Recebido</p>
+            <p className="text-2xl font-bold text-foreground">{brl(totalPaid)}</p>
           </div>
         </div>
       )}
@@ -114,7 +114,7 @@ export default function CommissionsPage() {
       {/* Busca + Filtros */}
       <div className="flex flex-col sm:flex-row gap-3">
         <div className="relative max-w-xs w-full">
-          <Search size={15} className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" />
+          <Search size={15} className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground/80" />
           <Input
             placeholder="Buscar por imóvel ID ou NFS-e…"
             value={search}
@@ -129,8 +129,8 @@ export default function CommissionsPage() {
               onClick={() => setStatusFilter(f.value)}
               className={`px-3 py-1.5 rounded-lg text-xs font-medium border transition-colors ${
                 statusFilter === f.value
-                  ? "bg-[#E55A4F] text-white border-[#E55A4F]"
-                  : "bg-white text-gray-600 border-gray-200 hover:border-gray-300"
+                  ? "bg-primary text-primary-foreground border-primary"
+                  : "bg-card text-muted-foreground border-border hover:border-border"
               }`}
             >
               {f.label}
@@ -148,10 +148,10 @@ export default function CommissionsPage() {
         <div className="text-red-600 bg-red-50 border border-red-200 rounded-xl p-4 text-sm">{error}</div>
       )}
 
-      <div className="bg-white rounded-xl border border-gray-200 overflow-hidden">
+      <div className="bg-card rounded-xl border border-border overflow-hidden">
         <Table>
           <TableHeader>
-            <TableRow className="bg-gray-50">
+            <TableRow className="bg-muted">
               <TableHead>Imóvel</TableHead>
               <TableHead>Modelo</TableHead>
               <TableHead>Base</TableHead>
@@ -173,7 +173,7 @@ export default function CommissionsPage() {
               : paginated!.length === 0
               ? (
                   <TableRow>
-                    <TableCell colSpan={7} className="text-center text-gray-400 py-12">
+                    <TableCell colSpan={7} className="text-center text-muted-foreground/80 py-12">
                       {statusFilter || search
                         ? "Nenhuma comissão encontrada para este filtro."
                         : "Nenhuma comissão apurada ainda."}
@@ -181,22 +181,22 @@ export default function CommissionsPage() {
                   </TableRow>
                 )
               : paginated!.map((c) => (
-                  <TableRow key={c.id} className="hover:bg-gray-50 cursor-pointer">
-                    <TableCell className="text-gray-500 text-sm">
-                      <Link href={`/properties/${c.property_id}`} className="hover:text-[#E55A4F]">
+                  <TableRow key={c.id} className="hover:bg-muted cursor-pointer">
+                    <TableCell className="text-muted-foreground text-sm">
+                      <Link href={`/properties/${c.property_id}`} className="hover:text-primary">
                         Imóvel #{c.property_id}
                       </Link>
                     </TableCell>
-                    <TableCell className="text-gray-500 text-sm">Modelo {c.contract_model}</TableCell>
-                    <TableCell className="text-gray-700 text-sm font-medium">{brl(c.commission_base)}</TableCell>
+                    <TableCell className="text-muted-foreground text-sm">Modelo {c.contract_model}</TableCell>
+                    <TableCell className="text-foreground text-sm font-medium">{brl(c.commission_base)}</TableCell>
                     <TableCell>
-                      <Link href={`/commissions/${c.id}`} className="text-[#E55A4F] font-bold hover:underline">
+                      <Link href={`/commissions/${c.id}`} className="text-primary font-bold hover:underline">
                         {brl(c.commission_amount)}
                       </Link>
                     </TableCell>
                     <TableCell><StatusBadge status={c.status} /></TableCell>
-                    <TableCell className="text-gray-500 text-sm">{fmtDate(c.payment_due_date)}</TableCell>
-                    <TableCell className="text-gray-500 text-sm">
+                    <TableCell className="text-muted-foreground text-sm">{fmtDate(c.payment_due_date)}</TableCell>
+                    <TableCell className="text-muted-foreground text-sm">
                       {c.nfse_number ?? <span className="text-yellow-600">Pendente</span>}
                     </TableCell>
                   </TableRow>
@@ -207,7 +207,7 @@ export default function CommissionsPage() {
 
       {/* Paginação */}
       {totalPages > 1 && (
-        <div className="flex items-center justify-between text-sm text-gray-500">
+        <div className="flex items-center justify-between text-sm text-muted-foreground">
           <span>
             {filtered!.length} comissão{filtered!.length !== 1 ? "ões" : ""} • página {page} de {totalPages}
           </span>

@@ -69,12 +69,12 @@ export default function PropertiesPage() {
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold text-gray-900">Imóveis</h1>
-          <p className="text-gray-500 text-sm mt-1">Imóveis provenientes das indicações.</p>
+          <h1 className="text-2xl font-bold text-foreground">Imóveis</h1>
+          <p className="text-muted-foreground text-sm mt-1">Imóveis provenientes das indicações.</p>
         </div>
         {partner?.is_admin && (
           <Link href="/properties/new">
-            <Button className="bg-[#E55A4F] hover:bg-[#E55A4F]/90 text-white gap-2">
+            <Button className="gap-2">
               <Plus size={16} />Novo imóvel
             </Button>
           </Link>
@@ -84,7 +84,7 @@ export default function PropertiesPage() {
       {/* Busca + Filtros */}
       <div className="flex flex-col sm:flex-row gap-3">
         <div className="relative max-w-xs w-full">
-          <Search size={15} className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" />
+          <Search size={15} className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground/80" />
           <Input
             placeholder="Buscar por proprietário ou cidade…"
             value={search}
@@ -99,8 +99,8 @@ export default function PropertiesPage() {
               onClick={() => setStatusFilter(f.value)}
               className={`px-3 py-1.5 rounded-lg text-xs font-medium border transition-colors ${
                 statusFilter === f.value
-                  ? "bg-[#E55A4F] text-white border-[#E55A4F]"
-                  : "bg-white text-gray-600 border-gray-200 hover:border-gray-300"
+                  ? "bg-primary text-primary-foreground border-primary"
+                  : "bg-card text-muted-foreground border-border hover:border-border"
               }`}
             >
               {f.label}
@@ -118,10 +118,10 @@ export default function PropertiesPage() {
         <div className="text-red-600 bg-red-50 border border-red-200 rounded-xl p-4 text-sm">{error}</div>
       )}
 
-      <div className="bg-white rounded-xl border border-gray-200 overflow-hidden">
+      <div className="bg-card rounded-xl border border-border overflow-hidden">
         <Table>
           <TableHeader>
-            <TableRow className="bg-gray-50">
+            <TableRow className="bg-muted">
               <TableHead>Proprietário</TableHead>
               <TableHead>Cidade / UF</TableHead>
               <TableHead>Contrato</TableHead>
@@ -141,7 +141,7 @@ export default function PropertiesPage() {
               : paginated!.length === 0
               ? (
                   <TableRow>
-                    <TableCell colSpan={5} className="text-center text-gray-400 py-12">
+                    <TableCell colSpan={5} className="text-center text-muted-foreground/80 py-12">
                       {statusFilter || search
                         ? "Nenhum imóvel encontrado para este filtro."
                         : "Nenhum imóvel cadastrado ainda."}
@@ -149,16 +149,16 @@ export default function PropertiesPage() {
                   </TableRow>
                 )
               : paginated!.map((p) => (
-                  <TableRow key={p.id} className="hover:bg-gray-50 cursor-pointer">
+                  <TableRow key={p.id} className="hover:bg-muted cursor-pointer">
                     <TableCell>
-                      <Link href={`/properties/${p.id}`} className="font-medium text-gray-900 hover:text-[#E55A4F]">
+                      <Link href={`/properties/${p.id}`} className="font-medium text-foreground hover:text-primary">
                         {p.owner_name}
                       </Link>
                     </TableCell>
-                    <TableCell className="text-gray-500 text-sm">{p.address_city} / {p.address_state}</TableCell>
-                    <TableCell className="text-gray-500 text-sm">{MODEL_LABEL[p.contract_model] ?? p.contract_model}</TableCell>
+                    <TableCell className="text-muted-foreground text-sm">{p.address_city} / {p.address_state}</TableCell>
+                    <TableCell className="text-muted-foreground text-sm">{MODEL_LABEL[p.contract_model] ?? p.contract_model}</TableCell>
                     <TableCell><StatusBadge status={p.status} /></TableCell>
-                    <TableCell className="text-gray-500 text-sm">{fmtDate(p.operational_since)}</TableCell>
+                    <TableCell className="text-muted-foreground text-sm">{fmtDate(p.operational_since)}</TableCell>
                   </TableRow>
                 ))}
           </TableBody>
@@ -167,7 +167,7 @@ export default function PropertiesPage() {
 
       {/* Paginação */}
       {totalPages > 1 && (
-        <div className="flex items-center justify-between text-sm text-gray-500">
+        <div className="flex items-center justify-between text-sm text-muted-foreground">
           <span>
             {filtered!.length} imóve{filtered!.length === 1 ? "l" : "is"} • página {page} de {totalPages}
           </span>

@@ -17,11 +17,11 @@ const MONTHS = [
 function Field({ label, required, hint, children }: { label: string; required?: boolean; hint?: string; children: React.ReactNode }) {
   return (
     <div className="space-y-1.5">
-      <label className="text-sm font-medium text-gray-700">
+      <label className="text-sm font-medium text-foreground">
         {label}{required && <span className="text-red-500 ml-0.5">*</span>}
       </label>
       {children}
-      {hint && <p className="text-xs text-gray-400">{hint}</p>}
+      {hint && <p className="text-xs text-muted-foreground/80">{hint}</p>}
     </div>
   );
 }
@@ -91,7 +91,7 @@ export default function NewRevenuePage() {
           ? <Sparkles size={32} className="text-yellow-600" />
           : <CheckCircle2 size={32} className="text-green-600" />}
       </div>
-      <h2 className="text-xl font-bold text-gray-900">Receita registrada!</h2>
+      <h2 className="text-xl font-bold text-foreground">Receita registrada!</h2>
       {success.isFirst && (
         <div className="bg-yellow-50 border border-yellow-200 rounded-xl p-4 text-sm text-yellow-800 text-center max-w-sm">
           <strong>1º mês completo de operação!</strong><br />
@@ -102,7 +102,7 @@ export default function NewRevenuePage() {
         <Button variant="outline" onClick={() => router.push(`/properties/${form.property_id}`)}>
           Ver imóvel
         </Button>
-        <Button className="bg-[#E55A4F] hover:bg-[#E55A4F]/90 text-white" onClick={() => router.push("/commissions")}>
+        <Button onClick={() => router.push("/commissions")}>
           Ver comissões
         </Button>
       </div>
@@ -113,18 +113,18 @@ export default function NewRevenuePage() {
     <div className="max-w-xl space-y-6">
       <div className="flex items-center gap-3">
         <Link href="/properties">
-          <Button variant="ghost" size="sm" className="gap-1.5 text-gray-500">
+          <Button variant="ghost" size="sm" className="gap-1.5 text-muted-foreground">
             <ArrowLeft size={15} />Voltar
           </Button>
         </Link>
         <div>
-          <h1 className="text-2xl font-bold text-gray-900">Registrar receita</h1>
-          <p className="text-gray-500 text-sm">O 1º mês gera a comissão do parceiro automaticamente.</p>
+          <h1 className="text-2xl font-bold text-foreground">Registrar receita</h1>
+          <p className="text-muted-foreground text-sm">O 1º mês gera a comissão do parceiro automaticamente.</p>
         </div>
       </div>
 
       <form onSubmit={handleSubmit} className="space-y-5">
-        <Card className="shadow-none border-gray-200">
+        <Card className="shadow-none border-border">
           <CardHeader className="pb-3">
             <CardTitle className="text-base">Imóvel e período</CardTitle>
           </CardHeader>
@@ -156,7 +156,7 @@ export default function NewRevenuePage() {
           </CardContent>
         </Card>
 
-        <Card className="shadow-none border-gray-200">
+        <Card className="shadow-none border-border">
           <CardHeader className="pb-3">
             <CardTitle className="text-base">Valores (R$)</CardTitle>
             <CardDescription>O repasse ao proprietário é calculado automaticamente.</CardDescription>
@@ -182,7 +182,7 @@ export default function NewRevenuePage() {
           <Link href="/properties">
             <Button type="button" variant="outline" disabled={loading}>Cancelar</Button>
           </Link>
-          <Button type="submit" disabled={loading} className="bg-[#E55A4F] hover:bg-[#E55A4F]/90 text-white gap-2 min-w-[160px]">
+          <Button type="submit" disabled={loading} className="gap-2 min-w-[160px]">
             {loading ? <><Loader2 size={15} className="animate-spin" />Salvando…</> : "Registrar receita"}
           </Button>
         </div>

@@ -33,12 +33,12 @@ function Field({
 }) {
   return (
     <div className="space-y-1.5">
-      <label className="text-sm font-medium text-gray-700">
+      <label className="text-sm font-medium text-foreground">
         {label}
         {required && <span className="text-red-500 ml-0.5">*</span>}
       </label>
       {children}
-      {hint && <p className="text-xs text-gray-400">{hint}</p>}
+      {hint && <p className="text-xs text-muted-foreground/80">{hint}</p>}
     </div>
   );
 }
@@ -109,8 +109,8 @@ export default function NewPartnerPage() {
         <div className="w-16 h-16 rounded-full bg-green-100 flex items-center justify-center">
           <CheckCircle2 size={32} className="text-green-600" />
         </div>
-        <h2 className="text-xl font-bold text-gray-900">Parceiro cadastrado!</h2>
-        <p className="text-gray-500 text-sm">
+        <h2 className="text-xl font-bold text-foreground">Parceiro cadastrado!</h2>
+        <p className="text-muted-foreground text-sm">
           O link de indicação foi gerado automaticamente. Redirecionando…
         </p>
       </div>
@@ -122,14 +122,14 @@ export default function NewPartnerPage() {
       {/* Header */}
       <div className="flex items-center gap-3">
         <Link href="/partners">
-          <Button variant="ghost" size="sm" className="gap-1.5 text-gray-500">
+          <Button variant="ghost" size="sm" className="gap-1.5 text-muted-foreground">
             <ArrowLeft size={15} />
             Voltar
           </Button>
         </Link>
         <div>
-          <h1 className="text-2xl font-bold text-gray-900">Novo parceiro</h1>
-          <p className="text-gray-500 text-sm">
+          <h1 className="text-2xl font-bold text-foreground">Novo parceiro</h1>
+          <p className="text-muted-foreground text-sm">
             O código UTM e o link de indicação serão gerados automaticamente.
           </p>
         </div>
@@ -137,7 +137,7 @@ export default function NewPartnerPage() {
 
       <form onSubmit={handleSubmit} className="space-y-6">
         {/* Dados pessoais */}
-        <Card className="shadow-none border-gray-200">
+        <Card className="shadow-none border-border">
           <CardHeader className="pb-3">
             <CardTitle className="text-base">Dados pessoais</CardTitle>
             <CardDescription>Informações de identificação do parceiro.</CardDescription>
@@ -186,7 +186,7 @@ export default function NewPartnerPage() {
         </Card>
 
         {/* Dados profissionais */}
-        <Card className="shadow-none border-gray-200">
+        <Card className="shadow-none border-border">
           <CardHeader className="pb-3">
             <CardTitle className="text-base">Dados profissionais</CardTitle>
             <CardDescription>Segmento de atuação e empresa (opcional).</CardDescription>
@@ -218,7 +218,7 @@ export default function NewPartnerPage() {
         </Card>
 
         {/* Acesso */}
-        <Card className="shadow-none border-gray-200">
+        <Card className="shadow-none border-border">
           <CardHeader className="pb-3">
             <CardTitle className="text-base">Acesso ao portal</CardTitle>
             <CardDescription>
@@ -256,7 +256,7 @@ export default function NewPartnerPage() {
           <Button
             type="submit"
             disabled={loading}
-            className="bg-[#E55A4F] hover:bg-[#E55A4F]/90 text-white gap-2 min-w-[140px]"
+            className="gap-2 min-w-[140px]"
           >
             {loading ? (
               <>

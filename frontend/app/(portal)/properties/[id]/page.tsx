@@ -45,9 +45,9 @@ function pct(v: string | null | undefined) {
 
 function Row({ label, value }: { label: string; value: React.ReactNode }) {
   return (
-    <div className="flex justify-between py-2 border-b border-gray-50 last:border-0">
-      <span className="text-sm text-gray-500">{label}</span>
-      <span className="text-sm font-medium text-gray-900 text-right">{value}</span>
+    <div className="flex justify-between py-2 border-b border-border/50 last:border-0">
+      <span className="text-sm text-muted-foreground">{label}</span>
+      <span className="text-sm font-medium text-foreground text-right">{value}</span>
     </div>
   );
 }
@@ -106,15 +106,15 @@ function EditPropertyForm({
 
   const F = ({ label, children }: { label: string; children: React.ReactNode }) => (
     <div className="space-y-1">
-      <label className="text-xs font-medium text-gray-600">{label}</label>
+      <label className="text-xs font-medium text-muted-foreground">{label}</label>
       {children}
     </div>
   );
 
   return (
-    <Card className="shadow-none border-[#E55A4F]/30 bg-[#E55A4F]/5">
+    <Card className="shadow-none border-primary/30 bg-primary/5">
       <CardHeader className="pb-3">
-        <CardTitle className="text-base text-[#E55A4F]">Editar dados do imóvel</CardTitle>
+        <CardTitle className="text-base text-primary">Editar dados do imóvel</CardTitle>
       </CardHeader>
       <CardContent className="space-y-4">
         <div className="grid grid-cols-2 gap-3">
@@ -157,7 +157,7 @@ function EditPropertyForm({
 
         {/* Parâmetros do contrato */}
         {prop.contract_model === "A" && (
-          <div className="grid grid-cols-2 gap-3 pt-1 border-t border-gray-200">
+          <div className="grid grid-cols-2 gap-3 pt-1 border-t border-border">
             <F label="Taxa de setup (R$)">
               <Input type="number" step="0.01" value={form.model_a_setup_fee ?? ""} onChange={setNum("model_a_setup_fee")} />
             </F>
@@ -167,7 +167,7 @@ function EditPropertyForm({
           </div>
         )}
         {prop.contract_model === "B" && (
-          <div className="grid grid-cols-3 gap-3 pt-1 border-t border-gray-200">
+          <div className="grid grid-cols-3 gap-3 pt-1 border-t border-border">
             <F label="Taxa de setup (R$)">
               <Input type="number" step="0.01" value={form.model_b_setup_fee ?? ""} onChange={setNum("model_b_setup_fee")} />
             </F>
@@ -180,7 +180,7 @@ function EditPropertyForm({
           </div>
         )}
         {prop.contract_model === "C" && (
-          <div className="grid grid-cols-2 gap-3 pt-1 border-t border-gray-200">
+          <div className="grid grid-cols-2 gap-3 pt-1 border-t border-border">
             <F label="1ª alocação (R$)">
               <Input type="number" step="0.01" value={form.model_c_first_allocation ?? ""} onChange={setNum("model_c_first_allocation")} />
             </F>
@@ -195,7 +195,7 @@ function EditPropertyForm({
         )}
 
         <div className="flex gap-2 pt-1">
-          <Button onClick={handleSave} disabled={saving} className="bg-[#E55A4F] hover:bg-[#E55A4F]/90 text-white gap-1.5">
+          <Button onClick={handleSave} disabled={saving} className="gap-1.5">
             {saving ? <><Loader2 size={14} className="animate-spin" />Salvando…</> : <><Check size={14} />Salvar</>}
           </Button>
           <Button variant="outline" onClick={onCancel} disabled={saving} className="gap-1.5">
@@ -269,13 +269,13 @@ export default function PropertyDetailPage() {
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-3">
           <Link href="/properties">
-            <Button variant="ghost" size="sm" className="gap-1.5 text-gray-500">
+            <Button variant="ghost" size="sm" className="gap-1.5 text-muted-foreground">
               <ArrowLeft size={15} />Voltar
             </Button>
           </Link>
           <div>
-            <h1 className="text-2xl font-bold text-gray-900">{prop.owner_name}</h1>
-            <p className="text-gray-500 text-sm">{prop.address_city}/{prop.address_state}</p>
+            <h1 className="text-2xl font-bold text-foreground">{prop.owner_name}</h1>
+            <p className="text-muted-foreground text-sm">{prop.address_city}/{prop.address_state}</p>
           </div>
         </div>
         <div className="flex items-center gap-2">
@@ -299,23 +299,23 @@ export default function PropertyDetailPage() {
 
       {/* Avançar status */}
       {nextStatus && (
-        <div className="bg-[#E55A4F]/5 border border-[#E55A4F]/20 rounded-xl p-4 flex items-center justify-between">
+        <div className="bg-primary/5 border border-primary/20 rounded-xl p-4 flex items-center justify-between">
           <div>
-            <p className="text-sm font-medium text-[#E55A4F]">Próximo passo</p>
-            <p className="text-xs text-gray-500 mt-0.5">
+            <p className="text-sm font-medium text-primary">Próximo passo</p>
+            <p className="text-xs text-muted-foreground mt-0.5">
               Avançar de <strong>{STATUS_LABEL[prop.status]}</strong> para{" "}
               <strong>{STATUS_LABEL[nextStatus]}</strong>
             </p>
           </div>
           <Button onClick={advance} disabled={advancing}
-            className="bg-[#E55A4F] hover:bg-[#E55A4F]/90 text-white gap-2">
+            className="gap-2">
             {advancing ? "Avançando…" : <>Avançar <ChevronRight size={15} /></>}
           </Button>
         </div>
       )}
 
       {/* Detalhes */}
-      <Card className="shadow-none border-gray-200">
+      <Card className="shadow-none border-border">
         <CardHeader className="pb-2">
           <CardTitle className="text-base">Dados do imóvel</CardTitle>
         </CardHeader>
@@ -331,7 +331,7 @@ export default function PropertyDetailPage() {
       </Card>
 
       {/* Detalhes do contrato */}
-      <Card className="shadow-none border-gray-200">
+      <Card className="shadow-none border-border">
         <CardHeader className="pb-2">
           <CardTitle className="text-base">Parâmetros do contrato — {CONTRACT_LABEL[prop.contract_model]}</CardTitle>
         </CardHeader>
@@ -353,12 +353,12 @@ export default function PropertyDetailPage() {
       </Card>
 
       {/* Receitas */}
-      <Card className="shadow-none border-gray-200">
+      <Card className="shadow-none border-border">
         <CardHeader className="pb-2 flex flex-row items-center justify-between">
           <CardTitle className="text-base">Receitas mensais</CardTitle>
           {prop.status === "OPERATIONAL" && (
             <Link href={`/revenue/new?property_id=${prop.id}`}>
-              <Button size="sm" className="bg-[#E55A4F] hover:bg-[#E55A4F]/90 text-white gap-1.5">
+              <Button size="sm" className="gap-1.5">
                 <Plus size={14} />Registrar
               </Button>
             </Link>
@@ -366,15 +366,15 @@ export default function PropertyDetailPage() {
         </CardHeader>
         <CardContent>
           {revenues.length === 0 ? (
-            <p className="text-sm text-gray-400 text-center py-4">
+            <p className="text-sm text-muted-foreground/80 text-center py-4">
               {prop.status === "OPERATIONAL" ? "Nenhuma receita registrada ainda." : "Imóvel ainda não está operacional."}
             </p>
           ) : (
             <div className="space-y-0">
               {revenues.map((r) => (
-                <div key={r.id} className="flex items-center justify-between py-2.5 border-b border-gray-50 last:border-0">
+                <div key={r.id} className="flex items-center justify-between py-2.5 border-b border-border/50 last:border-0">
                   <div>
-                    <p className="text-sm font-medium text-gray-900">
+                    <p className="text-sm font-medium text-foreground">
                       {String(r.reference_month).padStart(2, "0")}/{r.reference_year}
                     </p>
                     {r.is_first_complete_month && (
@@ -382,8 +382,8 @@ export default function PropertyDetailPage() {
                     )}
                   </div>
                   <div className="text-right">
-                    <p className="text-sm font-medium text-gray-900">{brl(r.gross_revenue)}</p>
-                    <p className="text-xs text-gray-400">taxa: {brl(r.wecare_admin_fee)}</p>
+                    <p className="text-sm font-medium text-foreground">{brl(r.gross_revenue)}</p>
+                    <p className="text-xs text-muted-foreground/80">taxa: {brl(r.wecare_admin_fee)}</p>
                   </div>
                 </div>
               ))}

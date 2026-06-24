@@ -47,18 +47,18 @@ function StatCard({
   accent?: string;
 }) {
   return (
-    <Card className="bg-white border-gray-200 shadow-none">
+    <Card className="bg-card border-border shadow-none">
       <CardHeader className="pb-2">
         <div className="flex items-center justify-between">
-          <CardTitle className="text-sm font-medium text-gray-500">{title}</CardTitle>
-          <div className={`p-2 rounded-lg ${accent ?? "bg-gray-100"}`}>
-            <Icon size={16} className={accent ? "text-white" : "text-gray-500"} />
+          <CardTitle className="text-sm font-medium text-muted-foreground">{title}</CardTitle>
+          <div className={`p-2 rounded-lg ${accent ?? "bg-muted"}`}>
+            <Icon size={16} className={accent ? "text-white" : "text-muted-foreground"} />
           </div>
         </div>
       </CardHeader>
       <CardContent>
-        <p className="text-2xl font-bold text-gray-900">{value}</p>
-        {sub && <p className="text-xs text-gray-500 mt-1">{sub}</p>}
+        <p className="text-2xl font-bold text-foreground">{value}</p>
+        {sub && <p className="text-xs text-muted-foreground mt-1">{sub}</p>}
       </CardContent>
     </Card>
   );
@@ -85,28 +85,28 @@ function PendingBanner({ partner }: { partner: PartnerResponse }) {
 
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
         {/* Cadastro */}
-        <div className="flex items-center gap-3 bg-white rounded-lg border border-yellow-100 px-4 py-3">
+        <div className="flex items-center gap-3 bg-card rounded-lg border border-yellow-100 px-4 py-3">
           <CheckCircle2 size={18} className="text-green-500 shrink-0" />
           <div>
-            <p className="text-xs font-semibold text-gray-800">Cadastro</p>
-            <p className="text-xs text-gray-400">Realizado</p>
+            <p className="text-xs font-semibold text-foreground">Cadastro</p>
+            <p className="text-xs text-muted-foreground/80">Realizado</p>
           </div>
         </div>
 
         {/* Termo */}
-        <div className={`flex items-center gap-3 rounded-lg border px-4 py-3 ${hasTerm ? "bg-white border-yellow-100" : "bg-yellow-100/50 border-yellow-200"}`}>
+        <div className={`flex items-center gap-3 rounded-lg border px-4 py-3 ${hasTerm ? "bg-card border-yellow-100" : "bg-yellow-100/50 border-yellow-200"}`}>
           {hasTerm
             ? <CheckCircle2 size={18} className="text-green-500 shrink-0" />
             : <FileText size={18} className="text-yellow-500 shrink-0" />
           }
           <div className="flex-1 min-w-0">
-            <p className="text-xs font-semibold text-gray-800">Termo de Parceria</p>
+            <p className="text-xs font-semibold text-foreground">Termo de Parceria</p>
             {hasTerm ? (
-              <p className="text-xs text-gray-400">
+              <p className="text-xs text-muted-foreground/80">
                 Assinado em {new Date(partner.term_accepted_at!).toLocaleDateString("pt-BR")}
               </p>
             ) : (
-              <Link href="/cadastro-parceiro" className="text-xs text-[#E55A4F] hover:underline">
+              <Link href="/cadastro-parceiro" className="text-xs text-primary hover:underline">
                 Assinar agora →
               </Link>
             )}
@@ -114,19 +114,19 @@ function PendingBanner({ partner }: { partner: PartnerResponse }) {
         </div>
 
         {/* Documentos */}
-        <div className={`flex items-center gap-3 rounded-lg border px-4 py-3 ${hasDocs ? "bg-white border-yellow-100" : "bg-yellow-100/50 border-yellow-200"}`}>
+        <div className={`flex items-center gap-3 rounded-lg border px-4 py-3 ${hasDocs ? "bg-card border-yellow-100" : "bg-yellow-100/50 border-yellow-200"}`}>
           {hasDocs
             ? <CheckCircle2 size={18} className="text-green-500 shrink-0" />
             : <Upload size={18} className="text-yellow-500 shrink-0" />
           }
           <div className="flex-1 min-w-0">
-            <p className="text-xs font-semibold text-gray-800">Documentos</p>
+            <p className="text-xs font-semibold text-foreground">Documentos</p>
             {hasDocs ? (
-              <p className="text-xs text-gray-400">
+              <p className="text-xs text-muted-foreground/80">
                 {partner.documents!.length} arquivo{partner.documents!.length > 1 ? "s" : ""} enviado{partner.documents!.length > 1 ? "s" : ""}
               </p>
             ) : (
-              <Link href={`/partners/${partner.id}`} className="text-xs text-[#E55A4F] hover:underline">
+              <Link href={`/partners/${partner.id}`} className="text-xs text-primary hover:underline">
                 Enviar agora →
               </Link>
             )}
@@ -166,16 +166,16 @@ function AdminView() {
       {!data ? <SkeletonGrid cols={4} /> : (
         <>
           <div>
-            <p className="text-xs font-semibold text-gray-400 uppercase tracking-wide mb-3">Parceiros</p>
+            <p className="text-xs font-semibold text-muted-foreground/80 uppercase tracking-wide mb-3">Parceiros</p>
             <div className="grid grid-cols-2 lg:grid-cols-3 gap-4">
-              <StatCard title="Parceiros ativos"   value={data.partners_active}  icon={UserPlus}   accent="bg-[#E55A4F]" />
+              <StatCard title="Parceiros ativos"   value={data.partners_active}  icon={UserPlus}   accent="bg-primary" />
               <StatCard title="Aguardando ativação" value={data.partners_pending} icon={AlertCircle} accent="bg-yellow-500" />
               <StatCard title="Total de parceiros" value={data.partners_total}   icon={Users} />
             </div>
           </div>
 
           <div>
-            <p className="text-xs font-semibold text-gray-400 uppercase tracking-wide mb-3">Leads</p>
+            <p className="text-xs font-semibold text-muted-foreground/80 uppercase tracking-wide mb-3">Leads</p>
             <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
               <StatCard title="Leads esta semana" value={data.leads_week}      icon={TrendingUp}  accent="bg-indigo-500" />
               <StatCard title="Em andamento"       value={data.leads_active}    icon={Clock}       accent="bg-yellow-500" />
@@ -185,9 +185,9 @@ function AdminView() {
           </div>
 
           <div>
-            <p className="text-xs font-semibold text-gray-400 uppercase tracking-wide mb-3">Imóveis &amp; Comissões</p>
+            <p className="text-xs font-semibold text-muted-foreground/80 uppercase tracking-wide mb-3">Imóveis &amp; Comissões</p>
             <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
-              <StatCard title="Em operação"       value={data.properties_operational}               icon={Building2}   accent="bg-[#E55A4F]" />
+              <StatCard title="Em operação"       value={data.properties_operational}               icon={Building2}   accent="bg-primary" />
               <StatCard title="Total de imóveis"  value={data.properties_total}                     icon={Building2} />
               <StatCard title="Comissões a pagar" value={brl(data.commissions_pending_amount)}
                 sub={`${data.commissions_pending_count} pendentes`}                                  icon={DollarSign}  accent="bg-yellow-500" />
@@ -222,14 +222,14 @@ function PartnerView({ partnerId, name }: { partnerId: number; name: string }) {
           <StatCard title="Leads Convertidos"    value={data.converted_leads}               icon={TrendingUp}  accent="bg-indigo-500" />
           <StatCard title="Imóveis"              value={data.total_properties}              sub={`${data.operational_properties} em operação`} icon={Building2} />
           <StatCard title="Comissões Pendentes"  value={data.pending_commissions}           icon={Clock}       accent="bg-yellow-500" />
-          <StatCard title="A Receber"            value={brl(data.total_commissions_pending)} icon={DollarSign}  accent="bg-[#E55A4F]" />
+          <StatCard title="A Receber"            value={brl(data.total_commissions_pending)} icon={DollarSign}  accent="bg-primary" />
           <StatCard title="Total Recebido"       value={brl(data.total_commissions_paid)}   icon={CheckCircle} accent="bg-green-600" />
         </div>
       )}
 
-      <div className="bg-[#E55A4F]/5 border border-[#E55A4F]/20 rounded-xl p-5">
-        <h2 className="text-sm font-semibold text-[#E55A4F] mb-2">Como funciona sua comissão</h2>
-        <ul className="text-sm text-gray-600 space-y-1">
+      <div className="bg-primary/5 border border-primary/20 rounded-xl p-5">
+        <h2 className="text-sm font-semibold text-primary mb-2">Como funciona sua comissão</h2>
+        <ul className="text-sm text-muted-foreground space-y-1">
           <li>• Você recebe o equivalente à taxa de administração WeCare do <strong>1º mês completo</strong> de operação do imóvel indicado.</li>
           <li>• Pagamento em até o dia <strong>10 do mês seguinte</strong> ao primeiro mês de operação, mediante emissão de NFS-e.</li>
           <li>• Janela de atribuição: <strong>180 dias</strong> a partir do registro do lead.</li>
@@ -253,10 +253,10 @@ export default function DashboardPage() {
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="text-2xl font-bold text-gray-900">
+        <h1 className="text-2xl font-bold text-foreground">
           Olá, {partner?.full_name.split(" ")[0]} 👋
         </h1>
-        <p className="text-gray-500 text-sm mt-1">
+        <p className="text-muted-foreground text-sm mt-1">
           {partner?.is_admin
             ? "Visão geral do programa WeCare."
             : "Aqui está o resumo da sua parceria com a WeCare."}

@@ -139,19 +139,19 @@ function KanbanCardView({
   return (
     <Card
       className={cn(
-        "shadow-sm border-[#0C2330]/10 bg-white cursor-grab active:cursor-grabbing",
+        "shadow-sm border-border bg-card cursor-grab active:cursor-grabbing",
         isDragging && "opacity-50 ring-2 ring-[#B79152]"
       )}
       size="sm"
     >
       <CardContent className="space-y-2.5 pt-3">
         <div className="flex items-start gap-1.5">
-          <GripVertical size={14} className="text-gray-300 shrink-0 mt-0.5" />
+          <GripVertical size={14} className="text-muted-foreground/60 shrink-0 mt-0.5" />
           <div className="flex-1 min-w-0">
             <p className="font-medium text-[#0C2330] text-sm leading-tight truncate">
               {card.full_name}
             </p>
-            <p className="text-xs text-gray-500 truncate">{cityLabel(card)}</p>
+            <p className="text-xs text-muted-foreground truncate">{cityLabel(card)}</p>
           </div>
           <Badge
             variant="outline"
@@ -161,7 +161,7 @@ function KanbanCardView({
           </Badge>
         </div>
 
-        <p className="text-[11px] text-gray-400 truncate pl-5">{card.partner_name}</p>
+        <p className="text-[11px] text-muted-foreground/80 truncate pl-5">{card.partner_name}</p>
 
         {card.commission && card.commission.count_pending > 0 && (
           <p className="text-[11px] text-[#B79152] pl-5">
@@ -355,7 +355,7 @@ export default function AdminKanbanPage() {
       <div className="flex flex-wrap items-start justify-between gap-4">
         <div>
           <h1 className="text-2xl font-bold text-[#0C2330]">Kanban Gerencial</h1>
-          <p className="text-gray-500 text-sm mt-0.5">
+          <p className="text-muted-foreground text-sm mt-0.5">
             Pipeline de leads e imóveis — arraste os cards entre colunas
           </p>
         </div>

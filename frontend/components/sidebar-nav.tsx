@@ -68,19 +68,19 @@ export function SidebarNav({ utmLink }: { utmLink?: string }) {
   }
 
   return (
-    <aside className="w-60 min-h-screen bg-white border-r border-gray-100 flex flex-col">
+    <aside className="w-60 min-h-screen bg-sidebar text-sidebar-foreground border-r border-sidebar-border flex flex-col">
       {/* Brand */}
-      <div className="px-6 py-5 border-b border-gray-100">
+      <div className="px-6 py-5 border-b border-sidebar-border">
         <Image src="/logo.png" alt="WeCare" width={110} height={36} priority />
-        <p className="text-gray-400 text-xs mt-1.5">Portal do Parceiro</p>
+        <p className="text-sidebar-foreground/60 text-xs mt-1.5">Portal do Parceiro</p>
       </div>
 
       {/* Partner info */}
       {partner && (
-        <div className="px-4 py-4 border-b border-gray-100">
-          <p className="text-gray-400 text-xs uppercase tracking-wider mb-1">Parceiro</p>
-          <p className="text-gray-800 text-sm font-medium truncate">{partner.full_name}</p>
-          <p className="text-gray-400 text-xs truncate">{partner.email}</p>
+        <div className="px-4 py-4 border-b border-sidebar-border">
+          <p className="text-sidebar-foreground/60 text-xs uppercase tracking-wider mb-1">Parceiro</p>
+          <p className="text-sidebar-foreground text-sm font-medium truncate">{partner.full_name}</p>
+          <p className="text-sidebar-foreground/60 text-xs truncate">{partner.email}</p>
         </div>
       )}
 
@@ -95,14 +95,14 @@ export function SidebarNav({ utmLink }: { utmLink?: string }) {
               className={cn(
                 "flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-colors",
                 active
-                  ? "bg-[#E55A4F]/10 text-[#E55A4F]"
-                  : "text-gray-500 hover:bg-gray-50 hover:text-gray-800"
+                  ? "bg-sidebar-primary text-wecare-navy"
+                  : "text-sidebar-foreground/70 hover:bg-sidebar-accent hover:text-sidebar-foreground"
               )}
             >
-              <Icon size={16} />
+              <Icon size={16} className={active ? "text-wecare-navy" : "text-sidebar-foreground/70"} />
               {label}
               {href === "/notifications" && unreadCount > 0 && (
-                <Badge className="ml-auto bg-[#E55A4F] hover:bg-[#E55A4F]">{unreadCount}</Badge>
+                <Badge className="ml-auto bg-sidebar-primary text-wecare-navy hover:bg-sidebar-primary">{unreadCount}</Badge>
               )}
             </Link>
           );
@@ -111,18 +111,18 @@ export function SidebarNav({ utmLink }: { utmLink?: string }) {
 
       {/* UTM link copy */}
       {utmLink && (
-        <div className="px-4 py-4 border-t border-gray-100">
-          <p className="text-gray-400 text-xs uppercase tracking-wider mb-2">Meu link de indicação</p>
+        <div className="px-4 py-4 border-t border-sidebar-border">
+          <p className="text-sidebar-foreground/60 text-xs uppercase tracking-wider mb-2">Meu link de indicação</p>
           <button
             onClick={copyLink}
-            className="w-full flex items-center gap-2 bg-gray-50 hover:bg-gray-100 transition-colors rounded-lg px-3 py-2 text-left"
+            className="w-full flex items-center gap-2 bg-sidebar-accent hover:bg-sidebar-accent/80 transition-colors rounded-lg px-3 py-2 text-left"
           >
             {copied ? (
-              <CheckCheck size={14} className="text-[#E55A4F] shrink-0" />
+              <CheckCheck size={14} className="text-sidebar-primary shrink-0" />
             ) : (
-              <Copy size={14} className="text-gray-400 shrink-0" />
+              <Copy size={14} className="text-sidebar-foreground/60 shrink-0" />
             )}
-            <span className="text-gray-500 text-xs truncate">
+            <span className="text-sidebar-foreground/70 text-xs truncate">
               {copied ? "Copiado!" : utmLink.replace("https://", "")}
             </span>
           </button>
@@ -133,7 +133,7 @@ export function SidebarNav({ utmLink }: { utmLink?: string }) {
       <div className="px-3 pb-4">
         <button
           onClick={logout}
-          className="w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium text-gray-500 hover:bg-gray-50 hover:text-gray-800 transition-colors"
+          className="w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium text-sidebar-foreground/70 hover:bg-sidebar-accent hover:text-sidebar-foreground transition-colors"
         >
           <LogOut size={16} />
           Sair

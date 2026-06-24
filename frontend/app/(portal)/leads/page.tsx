@@ -31,7 +31,7 @@ function daysLeft(iso: string) {
   const diff = Math.ceil((new Date(iso).getTime() - Date.now()) / 86_400_000);
   if (diff <= 0) return <span className="text-red-500 text-xs">Expirado</span>;
   if (diff <= 30) return <span className="text-yellow-600 text-xs">{diff} dias</span>;
-  return <span className="text-gray-500 text-xs">{diff} dias</span>;
+  return <span className="text-muted-foreground text-xs">{diff} dias</span>;
 }
 
 export default function LeadsPage() {
@@ -84,8 +84,8 @@ export default function LeadsPage() {
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold text-gray-900">Leads</h1>
-          <p className="text-gray-500 text-sm mt-1">Proprietários indicados via seu link exclusivo.</p>
+          <h1 className="text-2xl font-bold text-foreground">Leads</h1>
+          <p className="text-muted-foreground text-sm mt-1">Proprietários indicados via seu link exclusivo.</p>
         </div>
         {leads && leads.length > 0 && (
           <Button variant="outline" size="sm" onClick={handleExport} className="gap-1.5">
@@ -97,7 +97,7 @@ export default function LeadsPage() {
       {/* Busca + Filtros */}
       <div className="flex flex-col sm:flex-row gap-3">
         <div className="relative max-w-xs w-full">
-          <Search size={15} className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" />
+          <Search size={15} className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground/80" />
           <Input
             placeholder="Buscar por nome, e-mail ou CPF…"
             value={search}
@@ -112,8 +112,8 @@ export default function LeadsPage() {
               onClick={() => setStatusFilter(f.value)}
               className={`px-3 py-1.5 rounded-lg text-xs font-medium border transition-colors ${
                 statusFilter === f.value
-                  ? "bg-[#E55A4F] text-white border-[#E55A4F]"
-                  : "bg-white text-gray-600 border-gray-200 hover:border-gray-300"
+                  ? "bg-primary text-primary-foreground border-primary"
+                  : "bg-card text-muted-foreground border-border hover:border-border"
               }`}
             >
               {f.label}
@@ -131,15 +131,15 @@ export default function LeadsPage() {
         <div className="text-red-600 bg-red-50 border border-red-200 rounded-xl p-4 text-sm">{error}</div>
       )}
 
-      <div className="bg-white rounded-xl border border-gray-200 overflow-hidden">
+      <div className="bg-card rounded-xl border border-border overflow-hidden">
         <Table>
           <TableHeader>
-            <TableRow className="bg-gray-50">
-              <TableHead className="font-semibold text-gray-700">Nome</TableHead>
-              <TableHead className="font-semibold text-gray-700">E-mail</TableHead>
-              <TableHead className="font-semibold text-gray-700">Status</TableHead>
-              <TableHead className="font-semibold text-gray-700">Registrado em</TableHead>
-              <TableHead className="font-semibold text-gray-700">Janela expira</TableHead>
+            <TableRow className="bg-muted">
+              <TableHead className="font-semibold text-foreground">Nome</TableHead>
+              <TableHead className="font-semibold text-foreground">E-mail</TableHead>
+              <TableHead className="font-semibold text-foreground">Status</TableHead>
+              <TableHead className="font-semibold text-foreground">Registrado em</TableHead>
+              <TableHead className="font-semibold text-foreground">Janela expira</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
@@ -154,7 +154,7 @@ export default function LeadsPage() {
               : filtered!.length === 0
               ? (
                   <TableRow>
-                    <TableCell colSpan={5} className="text-center text-gray-400 py-12">
+                    <TableCell colSpan={5} className="text-center text-muted-foreground/80 py-12">
                       {search || statusFilter
                         ? "Nenhum lead encontrado para este filtro."
                         : "Nenhum lead registrado ainda. Compartilhe seu link de indicação!"}
@@ -162,15 +162,15 @@ export default function LeadsPage() {
                   </TableRow>
                 )
               : paginated!.map((lead) => (
-                  <TableRow key={lead.id} className="hover:bg-gray-50 cursor-pointer">
-                    <TableCell className="font-medium text-gray-900">
-                      <Link href={`/leads/${lead.id}`} className="hover:text-[#E55A4F]">
+                  <TableRow key={lead.id} className="hover:bg-muted cursor-pointer">
+                    <TableCell className="font-medium text-foreground">
+                      <Link href={`/leads/${lead.id}`} className="hover:text-primary">
                         {lead.full_name}
                       </Link>
                     </TableCell>
-                    <TableCell className="text-gray-500 text-sm">{lead.email}</TableCell>
+                    <TableCell className="text-muted-foreground text-sm">{lead.email}</TableCell>
                     <TableCell><StatusBadge status={lead.status} /></TableCell>
-                    <TableCell className="text-gray-500 text-sm">{fmtDate(lead.created_at)}</TableCell>
+                    <TableCell className="text-muted-foreground text-sm">{fmtDate(lead.created_at)}</TableCell>
                     <TableCell>{daysLeft(lead.attribution_expires_at)}</TableCell>
                   </TableRow>
                 ))}
@@ -180,7 +180,7 @@ export default function LeadsPage() {
 
       {/* Paginação */}
       {totalPages > 1 && (
-        <div className="flex items-center justify-between text-sm text-gray-500">
+        <div className="flex items-center justify-between text-sm text-muted-foreground">
           <span>
             {filtered!.length} lead{filtered!.length !== 1 ? "s" : ""} • página {page} de {totalPages}
           </span>

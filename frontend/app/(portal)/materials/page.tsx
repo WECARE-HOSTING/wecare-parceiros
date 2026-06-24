@@ -100,8 +100,8 @@ export default function MaterialsPage() {
     <div className="space-y-6">
       <div className="flex items-start justify-between gap-4">
         <div>
-          <h1 className="text-2xl font-bold text-gray-900">Portal de Materiais</h1>
-          <p className="text-gray-500 text-sm mt-1">
+          <h1 className="text-2xl font-bold text-foreground">Portal de Materiais</h1>
+          <p className="text-muted-foreground text-sm mt-1">
             Baixe artes, textos e apresentações para apoiar suas indicações.
           </p>
         </div>
@@ -142,19 +142,19 @@ export default function MaterialsPage() {
       )}
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        {loading && <p className="text-sm text-gray-500">Carregando materiais...</p>}
+        {loading && <p className="text-sm text-muted-foreground">Carregando materiais...</p>}
         {!loading && items.length === 0 && (
-          <p className="text-sm text-gray-500">Nenhum material disponível para esta categoria.</p>
+          <p className="text-sm text-muted-foreground">Nenhum material disponível para esta categoria.</p>
         )}
         {!loading &&
           items.map((material) => (
-            <Card key={material.id} className="bg-white border-gray-200 shadow-none">
+            <Card key={material.id} className="bg-card border-border shadow-none">
               <CardHeader className="pb-3">
                 <CardTitle className="text-base">{material.title}</CardTitle>
               </CardHeader>
               <CardContent className="space-y-3">
-                <p className="text-sm text-gray-600">{material.description ?? "Sem descrição."}</p>
-                <div className="text-xs text-gray-500">
+                <p className="text-sm text-muted-foreground">{material.description ?? "Sem descrição."}</p>
+                <div className="text-xs text-muted-foreground">
                   <p>Arquivo: {material.file_name}</p>
                   <p>Tamanho: {formatSize(material.file_size_bytes)}</p>
                 </div>

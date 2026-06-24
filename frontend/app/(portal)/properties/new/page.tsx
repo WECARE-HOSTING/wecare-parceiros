@@ -15,11 +15,11 @@ const ESTADOS = ["AC","AL","AP","AM","BA","CE","DF","ES","GO","MA","MT","MS","MG
 function Field({ label, required, hint, children }: { label: string; required?: boolean; hint?: string; children: React.ReactNode }) {
   return (
     <div className="space-y-1.5">
-      <label className="text-sm font-medium text-gray-700">
+      <label className="text-sm font-medium text-foreground">
         {label}{required && <span className="text-red-500 ml-0.5">*</span>}
       </label>
       {children}
-      {hint && <p className="text-xs text-gray-400">{hint}</p>}
+      {hint && <p className="text-xs text-muted-foreground/80">{hint}</p>}
     </div>
   );
 }
@@ -144,8 +144,8 @@ export default function NewPropertyPage() {
       <div className="w-16 h-16 rounded-full bg-green-100 flex items-center justify-center">
         <CheckCircle2 size={32} className="text-green-600" />
       </div>
-      <h2 className="text-xl font-bold text-gray-900">Imóvel criado!</h2>
-      <p className="text-gray-500 text-sm">O lead foi marcado como convertido. Redirecionando…</p>
+      <h2 className="text-xl font-bold text-foreground">Imóvel criado!</h2>
+      <p className="text-muted-foreground text-sm">O lead foi marcado como convertido. Redirecionando…</p>
     </div>
   );
 
@@ -153,19 +153,19 @@ export default function NewPropertyPage() {
     <div className="max-w-2xl space-y-6">
       <div className="flex items-center gap-3">
         <Link href="/properties">
-          <Button variant="ghost" size="sm" className="gap-1.5 text-gray-500">
+          <Button variant="ghost" size="sm" className="gap-1.5 text-muted-foreground">
             <ArrowLeft size={15} />Voltar
           </Button>
         </Link>
         <div>
-          <h1 className="text-2xl font-bold text-gray-900">Novo imóvel</h1>
-          <p className="text-gray-500 text-sm">Converte um lead em imóvel e define o contrato.</p>
+          <h1 className="text-2xl font-bold text-foreground">Novo imóvel</h1>
+          <p className="text-muted-foreground text-sm">Converte um lead em imóvel e define o contrato.</p>
         </div>
       </div>
 
       <form onSubmit={handleSubmit} className="space-y-5">
         {/* Lead */}
-        <Card className="shadow-none border-gray-200">
+        <Card className="shadow-none border-border">
           <CardHeader className="pb-3">
             <CardTitle className="text-base">Lead de origem</CardTitle>
             <CardDescription>Selecione o lead que gerou este imóvel.</CardDescription>
@@ -186,7 +186,7 @@ export default function NewPropertyPage() {
         </Card>
 
         {/* Proprietário */}
-        <Card className="shadow-none border-gray-200">
+        <Card className="shadow-none border-border">
           <CardHeader className="pb-3">
             <CardTitle className="text-base">Dados do proprietário</CardTitle>
           </CardHeader>
@@ -209,7 +209,7 @@ export default function NewPropertyPage() {
         </Card>
 
         {/* Endereço */}
-        <Card className="shadow-none border-gray-200">
+        <Card className="shadow-none border-border">
           <CardHeader className="pb-3">
             <CardTitle className="text-base">Endereço do imóvel</CardTitle>
           </CardHeader>
@@ -244,7 +244,7 @@ export default function NewPropertyPage() {
         </Card>
 
         {/* Contrato */}
-        <Card className="shadow-none border-gray-200">
+        <Card className="shadow-none border-border">
           <CardHeader className="pb-3">
             <CardTitle className="text-base">Modelo de contrato</CardTitle>
           </CardHeader>
@@ -253,12 +253,12 @@ export default function NewPropertyPage() {
             <div className="grid grid-cols-3 gap-3">
               {(["A", "B", "C"] as const).map((m) => (
                 <button key={m} type="button" onClick={() => setForm((p) => ({ ...p, contract_model: m }))}
-                  className={`border rounded-xl p-3 text-center transition ${form.contract_model === m ? "border-[#E55A4F] bg-[#E55A4F]/5 text-[#E55A4F]" : "border-gray-200 text-gray-500 hover:border-gray-300"}`}>
+                  className={`border rounded-xl p-3 text-center transition ${form.contract_model === m ? "border-primary bg-primary/5 text-primary" : "border-border text-muted-foreground hover:border-border"}`}>
                   <span className="block text-lg font-bold">Modelo {m}</span>
                 </button>
               ))}
             </div>
-            <p className="text-xs text-gray-500 bg-gray-50 rounded-lg p-3">{MODEL_INFO[form.contract_model]}</p>
+            <p className="text-xs text-muted-foreground bg-muted rounded-lg p-3">{MODEL_INFO[form.contract_model]}</p>
 
             {/* Campos Modelo A */}
             {form.contract_model === "A" && (
@@ -311,7 +311,7 @@ export default function NewPropertyPage() {
           <Link href="/properties">
             <Button type="button" variant="outline" disabled={loading}>Cancelar</Button>
           </Link>
-          <Button type="submit" disabled={loading} className="bg-[#E55A4F] hover:bg-[#E55A4F]/90 text-white gap-2 min-w-[140px]">
+          <Button type="submit" disabled={loading} className="gap-2 min-w-[140px]">
             {loading ? <><Loader2 size={15} className="animate-spin" />Salvando…</> : "Criar imóvel"}
           </Button>
         </div>

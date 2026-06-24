@@ -20,9 +20,9 @@ const SEGMENTS = [
 
 function Row({ label, value }: { label: string; value: React.ReactNode }) {
   return (
-    <div className="flex justify-between py-2 border-b border-gray-50 last:border-0">
-      <span className="text-sm text-gray-500">{label}</span>
-      <span className="text-sm font-medium text-gray-900 text-right">{value ?? "—"}</span>
+    <div className="flex justify-between py-2 border-b border-border/50 last:border-0">
+      <span className="text-sm text-muted-foreground">{label}</span>
+      <span className="text-sm font-medium text-foreground text-right">{value ?? "—"}</span>
     </div>
   );
 }
@@ -100,8 +100,8 @@ export default function ProfilePage() {
     <div className="max-w-xl space-y-6">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold text-gray-900">Meu perfil</h1>
-          <p className="text-gray-500 text-sm mt-1">Seus dados e link de indicação.</p>
+          <h1 className="text-2xl font-bold text-foreground">Meu perfil</h1>
+          <p className="text-muted-foreground text-sm mt-1">Seus dados e link de indicação.</p>
         </div>
         {!editing && (
           <Button variant="outline" size="sm" onClick={startEdit} className="gap-1.5">
@@ -111,7 +111,7 @@ export default function ProfilePage() {
       </div>
 
       {/* Dados de identificação (somente leitura) */}
-      <Card className="shadow-none border-gray-200">
+      <Card className="shadow-none border-border">
         <CardHeader className="pb-2">
           <CardTitle className="text-base">Identificação</CardTitle>
         </CardHeader>
@@ -126,7 +126,7 @@ export default function ProfilePage() {
       </Card>
 
       {/* Dados editáveis */}
-      <Card className="shadow-none border-gray-200">
+      <Card className="shadow-none border-border">
         <CardHeader className="pb-2">
           <CardTitle className="text-base">Dados de contato</CardTitle>
         </CardHeader>
@@ -134,11 +134,11 @@ export default function ProfilePage() {
           {editing ? (
             <div className="space-y-4">
               <div className="space-y-1.5">
-                <label className="text-sm font-medium text-gray-700">Telefone / WhatsApp</label>
+                <label className="text-sm font-medium text-foreground">Telefone / WhatsApp</label>
                 <Input value={form.phone} onChange={set("phone")} placeholder="(11) 99999-9999" />
               </div>
               <div className="space-y-1.5">
-                <label className="text-sm font-medium text-gray-700">Segmento</label>
+                <label className="text-sm font-medium text-foreground">Segmento</label>
                 <select value={form.segment} onChange={set("segment")}
                   className="w-full h-9 rounded-md border border-input bg-transparent px-3 py-1 text-sm shadow-sm focus:outline-none focus:ring-1 focus:ring-ring">
                   <option value="">Selecione…</option>
@@ -146,7 +146,7 @@ export default function ProfilePage() {
                 </select>
               </div>
               <div className="space-y-1.5">
-                <label className="text-sm font-medium text-gray-700">Empresa / Imobiliária</label>
+                <label className="text-sm font-medium text-foreground">Empresa / Imobiliária</label>
                 <Input value={form.company_name} onChange={set("company_name")} placeholder="Ex: Imobiliária Santos Ltda." />
               </div>
 
@@ -154,7 +154,7 @@ export default function ProfilePage() {
 
               <div className="flex gap-2 pt-1">
                 <Button onClick={save} disabled={saving}
-                  className="bg-[#E55A4F] hover:bg-[#E55A4F]/90 text-white gap-1.5">
+                  className="gap-1.5">
                   {saving ? <><Loader2 size={14} className="animate-spin" />Salvando…</> : <><Check size={14} />Salvar</>}
                 </Button>
                 <Button variant="outline" onClick={cancelEdit} disabled={saving} className="gap-1.5">
@@ -173,17 +173,17 @@ export default function ProfilePage() {
       </Card>
 
       {/* Link de indicação */}
-      <Card className="shadow-none border-gray-200">
+      <Card className="shadow-none border-border">
         <CardHeader className="pb-2">
           <CardTitle className="text-base">Link de indicação</CardTitle>
         </CardHeader>
         <CardContent className="space-y-3">
-          <div className="bg-gray-50 border border-gray-200 rounded-lg px-3 py-2">
-            <p className="text-xs text-gray-500 mb-0.5">Código UTM</p>
-            <p className="text-sm font-mono font-medium text-gray-900">{partner.utm_code}</p>
+          <div className="bg-muted border border-border rounded-lg px-3 py-2">
+            <p className="text-xs text-muted-foreground mb-0.5">Código UTM</p>
+            <p className="text-sm font-mono font-medium text-foreground">{partner.utm_code}</p>
           </div>
-          <div className="bg-gray-50 border border-gray-200 rounded-lg px-3 py-2 flex items-center justify-between gap-3">
-            <p className="text-xs text-[#E55A4F] break-all">{partner.referral_url}</p>
+          <div className="bg-muted border border-border rounded-lg px-3 py-2 flex items-center justify-between gap-3">
+            <p className="text-xs text-primary break-all">{partner.referral_url}</p>
             <Button
               size="sm"
               variant="outline"
@@ -193,7 +193,7 @@ export default function ProfilePage() {
               {copied ? <><Check size={13} />Copiado</> : <><Copy size={13} />Copiar</>}
             </Button>
           </div>
-          <p className="text-xs text-gray-400">
+          <p className="text-xs text-muted-foreground/80">
             Compartilhe este link para indicar proprietários. A janela de atribuição é de{" "}
             <strong>180 dias</strong> a partir do registro do lead.
           </p>

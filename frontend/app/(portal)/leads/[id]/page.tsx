@@ -32,9 +32,9 @@ const DISQUALIFY_REASONS = [
 
 function Row({ label, value }: { label: string; value: React.ReactNode }) {
   return (
-    <div className="flex justify-between py-2 border-b border-gray-50 last:border-0">
-      <span className="text-sm text-gray-500">{label}</span>
-      <span className="text-sm font-medium text-gray-900 text-right">{value}</span>
+    <div className="flex justify-between py-2 border-b border-border/50 last:border-0">
+      <span className="text-sm text-muted-foreground">{label}</span>
+      <span className="text-sm font-medium text-foreground text-right">{value}</span>
     </div>
   );
 }
@@ -121,20 +121,20 @@ export default function LeadDetailPage() {
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-3">
           <Link href="/leads">
-            <Button variant="ghost" size="sm" className="gap-1.5 text-gray-500">
+            <Button variant="ghost" size="sm" className="gap-1.5 text-muted-foreground">
               <ArrowLeft size={15} />Voltar
             </Button>
           </Link>
           <div>
-            <h1 className="text-2xl font-bold text-gray-900">{lead.full_name}</h1>
-            <p className="text-gray-500 text-sm">Lead #{lead.id}</p>
+            <h1 className="text-2xl font-bold text-foreground">{lead.full_name}</h1>
+            <p className="text-muted-foreground text-sm">Lead #{lead.id}</p>
           </div>
         </div>
         <StatusBadge status={lead.status} />
       </div>
 
       {/* Dados */}
-      <Card className="shadow-none border-gray-200">
+      <Card className="shadow-none border-border">
         <CardHeader className="pb-2">
           <CardTitle className="text-base">Dados do lead</CardTitle>
         </CardHeader>
@@ -146,7 +146,7 @@ export default function LeadDetailPage() {
             <Row
               label="Parceiro"
               value={
-                <Link href={`/partners/${lead.partner_id}`} className="hover:text-[#E55A4F] underline">
+                <Link href={`/partners/${lead.partner_id}`} className="hover:text-primary underline">
                   {partnerName || `#${lead.partner_id}`}
                 </Link>
               }
@@ -165,7 +165,7 @@ export default function LeadDetailPage() {
 
       {/* Endereço */}
       {lead.address_city && (
-        <Card className="shadow-none border-gray-200">
+        <Card className="shadow-none border-border">
           <CardHeader className="pb-2">
             <CardTitle className="text-base">Endereço do imóvel</CardTitle>
           </CardHeader>
@@ -193,7 +193,7 @@ export default function LeadDetailPage() {
 
       {/* Ações — admin only, não-terminais */}
       {me?.is_admin && !isTerminal && (
-        <Card className="shadow-none border-gray-200">
+        <Card className="shadow-none border-border">
           <CardHeader className="pb-2">
             <CardTitle className="text-base">Ações</CardTitle>
           </CardHeader>
@@ -248,9 +248,9 @@ export default function LeadDetailPage() {
             )}
 
             {lead.status === "QUALIFIED" && (
-              <p className="text-xs text-gray-400">
+              <p className="text-xs text-muted-foreground/80">
                 Para converter em imóvel, use{" "}
-                <Link href="/properties/new" className="text-[#E55A4F] underline">
+                <Link href="/properties/new" className="text-primary underline">
                   cadastrar imóvel
                 </Link>{" "}
                 e selecione este lead.

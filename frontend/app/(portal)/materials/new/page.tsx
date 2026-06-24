@@ -103,8 +103,8 @@ export default function NewMaterialPage() {
     <div className="space-y-6">
       <div className="flex items-start justify-between gap-4">
         <div>
-          <h1 className="text-2xl font-bold text-gray-900">Novo material</h1>
-          <p className="text-gray-500 text-sm mt-1">
+          <h1 className="text-2xl font-bold text-foreground">Novo material</h1>
+          <p className="text-muted-foreground text-sm mt-1">
             Cadastre artes, textos e apresentações para o portal do parceiro.
           </p>
         </div>
@@ -117,24 +117,24 @@ export default function NewMaterialPage() {
         <div className="text-red-600 bg-red-50 border border-red-200 rounded-xl p-4 text-sm">{error}</div>
       )}
 
-      <Card className="bg-white border-gray-200 shadow-none">
+      <Card className="bg-card border-border shadow-none">
         <CardHeader>
           <CardTitle className="text-base">Dados do material</CardTitle>
         </CardHeader>
         <CardContent>
           <form className="space-y-4" onSubmit={(e) => void handleSubmit(e)}>
             <div className="space-y-1">
-              <label className="text-sm text-gray-600">Título</label>
+              <label className="text-sm text-muted-foreground">Título</label>
               <Input value={title} onChange={(e) => setTitle(e.target.value)} required />
             </div>
 
             <div className="space-y-1">
-              <label className="text-sm text-gray-600">Descrição</label>
+              <label className="text-sm text-muted-foreground">Descrição</label>
               <Input value={description} onChange={(e) => setDescription(e.target.value)} />
             </div>
 
             <div className="space-y-1">
-              <label className="text-sm text-gray-600">Categoria</label>
+              <label className="text-sm text-muted-foreground">Categoria</label>
               <select
                 className="h-8 w-full rounded-lg border border-input bg-transparent px-2.5 py-1 text-sm"
                 value={category}
@@ -147,34 +147,34 @@ export default function NewMaterialPage() {
             </div>
 
             <div className="space-y-1">
-              <label className="text-sm text-gray-600">Tags (separadas por vírgula)</label>
+              <label className="text-sm text-muted-foreground">Tags (separadas por vírgula)</label>
               <Input value={tags} onChange={(e) => setTags(e.target.value)} />
             </div>
 
             <div className="space-y-1">
-              <label className="text-sm text-gray-600">Arquivo</label>
+              <label className="text-sm text-muted-foreground">Arquivo</label>
               <input
                 className="h-8 w-full rounded-lg border border-input bg-transparent px-2.5 py-1 text-sm"
                 type="file"
                 required
                 onChange={handleFileChange}
               />
-              <p className="text-xs text-gray-500">
+              <p className="text-xs text-muted-foreground">
                 Permitidos: {ALLOWED_EXTENSIONS.join(", ")}. Tamanho máximo: 20 MB.
               </p>
             </div>
 
             {file && (
-              <div className="rounded-lg border border-gray-200 p-3 space-y-2">
-                <p className="text-sm font-medium text-gray-800">Pré-visualização</p>
-                <p className="text-xs text-gray-600">Arquivo: {file.name}</p>
-                <p className="text-xs text-gray-600">Tipo: {file.type || "desconhecido"}</p>
-                <p className="text-xs text-gray-600">Tamanho: {formatSize(file.size)}</p>
+              <div className="rounded-lg border border-border p-3 space-y-2">
+                <p className="text-sm font-medium text-foreground">Pré-visualização</p>
+                <p className="text-xs text-muted-foreground">Arquivo: {file.name}</p>
+                <p className="text-xs text-muted-foreground">Tipo: {file.type || "desconhecido"}</p>
+                <p className="text-xs text-muted-foreground">Tamanho: {formatSize(file.size)}</p>
                 {previewUrl && (
                   <img
                     src={previewUrl}
                     alt="Preview do arquivo selecionado"
-                    className="max-h-40 rounded border border-gray-200"
+                    className="max-h-40 rounded border border-border"
                   />
                 )}
               </div>
@@ -182,13 +182,13 @@ export default function NewMaterialPage() {
 
             {saving && (
               <div className="space-y-2">
-                <div className="h-2 w-full rounded bg-gray-100 overflow-hidden">
+                <div className="h-2 w-full rounded bg-muted overflow-hidden">
                   <div
-                    className="h-2 bg-[#E55A4F] transition-all"
+                    className="h-2 bg-primary transition-all"
                     style={{ width: `${uploadProgress}%` }}
                   />
                 </div>
-                <p className="text-xs text-gray-600">Upload: {uploadProgress}%</p>
+                <p className="text-xs text-muted-foreground">Upload: {uploadProgress}%</p>
               </div>
             )}
 

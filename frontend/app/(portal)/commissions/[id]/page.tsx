@@ -31,9 +31,9 @@ function brl(v: string | number | null | undefined) {
 
 function Row({ label, value }: { label: string; value: React.ReactNode }) {
   return (
-    <div className="flex justify-between py-2 border-b border-gray-50 last:border-0">
-      <span className="text-sm text-gray-500">{label}</span>
-      <span className="text-sm font-medium text-gray-900 text-right">{value}</span>
+    <div className="flex justify-between py-2 border-b border-border/50 last:border-0">
+      <span className="text-sm text-muted-foreground">{label}</span>
+      <span className="text-sm font-medium text-foreground text-right">{value}</span>
     </div>
   );
 }
@@ -128,13 +128,13 @@ export default function CommissionDetailPage() {
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-3">
           <Link href="/commissions">
-            <Button variant="ghost" size="sm" className="gap-1.5 text-gray-500">
+            <Button variant="ghost" size="sm" className="gap-1.5 text-muted-foreground">
               <ArrowLeft size={15} />Voltar
             </Button>
           </Link>
           <div>
-            <h1 className="text-2xl font-bold text-gray-900">Comissão #{comm.id}</h1>
-            <p className="text-gray-500 text-sm">{partnerName || `Parceiro #${comm.partner_id}`}</p>
+            <h1 className="text-2xl font-bold text-foreground">Comissão #{comm.id}</h1>
+            <p className="text-muted-foreground text-sm">{partnerName || `Parceiro #${comm.partner_id}`}</p>
           </div>
         </div>
         <StatusBadge status={comm.status} />
@@ -154,7 +154,7 @@ export default function CommissionDetailPage() {
       )}
 
       {/* Detalhes */}
-      <Card className="shadow-none border-gray-200">
+      <Card className="shadow-none border-border">
         <CardHeader className="pb-2">
           <CardTitle className="text-base">Detalhes</CardTitle>
         </CardHeader>
@@ -163,7 +163,7 @@ export default function CommissionDetailPage() {
           <Row label="Imóvel" value={propertyLabel || `#${comm.property_id}`} />
           <Row label="Modelo de contrato" value={`Modelo ${comm.contract_model}`} />
           <Row label="Base de cálculo" value={brl(comm.commission_base)} />
-          <Row label="Valor da comissão" value={<span className="text-lg font-bold text-[#E55A4F]">{brl(comm.commission_amount)}</span>} />
+          <Row label="Valor da comissão" value={<span className="text-lg font-bold text-primary">{brl(comm.commission_amount)}</span>} />
           <Row label="Vencimento" value={new Date(comm.payment_due_date + "T12:00:00").toLocaleDateString("pt-BR")} />
           {comm.nfse_number && <Row label="NFS-e" value={comm.nfse_number} />}
           {isCancelled && comm.cancellation_reason && (
@@ -178,7 +178,7 @@ export default function CommissionDetailPage() {
 
       {/* Ações */}
       {!isPaid && !isCancelled && (
-        <Card className="shadow-none border-gray-200">
+        <Card className="shadow-none border-border">
           <CardHeader className="pb-2">
             <CardTitle className="text-base">Ações</CardTitle>
           </CardHeader>
@@ -186,7 +186,7 @@ export default function CommissionDetailPage() {
             {/* NFS-e */}
             {(comm.status === "AWAITING_NFSE" || comm.status === "APPROVED") && (
               <div className="space-y-1.5">
-                <label className="text-sm font-medium text-gray-700">Número da NFS-e</label>
+                <label className="text-sm font-medium text-foreground">Número da NFS-e</label>
                 <Input
                   value={nfseNumber}
                   onChange={(e) => setNfseNumber(e.target.value)}
