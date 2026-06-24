@@ -9,6 +9,7 @@ import {
 } from "react";
 import { useRouter, usePathname } from "next/navigation";
 import { getMe, type PartnerResponse } from "@/lib/api";
+import { isAdminOnlyRoute } from "@/lib/admin-routes";
 
 type AuthCtx = {
   partner: PartnerResponse | null;
@@ -56,6 +57,10 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     if (!token && !isPublic) { router.replace("/login"); return; }
     if (token && partner?.must_change_password && pathname !== "/change-password") {
       router.replace("/change-password");
+      return;
+    }
+    if (token && partner && !partner.is_admin && isAdminOnlyRoute(pathname)) {
+      router.replace("/dashboard");
       return;
     }
     if (token && isPublic && pathname !== "/indicar") router.replace("/dashboard");

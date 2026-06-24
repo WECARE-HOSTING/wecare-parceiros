@@ -24,15 +24,15 @@ import { useEffect, useState } from "react";
 import { Badge } from "@/components/ui/badge";
 
 const NAV = [
-  { href: "/dashboard",   label: "Dashboard",  icon: LayoutDashboard, adminOnly: false },
-  { href: "/leads",       label: "Leads",      icon: Users,           adminOnly: false },
-  { href: "/properties",  label: "Imóveis",    icon: Building2,       adminOnly: false },
-  { href: "/commissions", label: "Comissões",  icon: DollarSign,      adminOnly: false },
-  { href: "/materials",   label: "Materiais",  icon: FolderOpen,      adminOnly: false },
-  { href: "/notifications", label: "Notificações", icon: Bell,         adminOnly: false },
-  { href: "/partners",    label: "Parceiros",  icon: UserPlus,        adminOnly: true  },
-  { href: "/admin/kanban", label: "Kanban",    icon: Kanban,          adminOnly: true  },
-  { href: "/profile",     label: "Meu perfil", icon: UserCircle,      adminOnly: false },
+  { href: "/dashboard",     label: "Dashboard",    icon: LayoutDashboard, adminOnly: false },
+  { href: "/leads",         label: "Leads",        icon: Users,           adminOnly: false },
+  { href: "/commissions",   label: "Comissões",    icon: DollarSign,      adminOnly: false },
+  { href: "/properties",    label: "Imóveis",      icon: Building2,       adminOnly: true  },
+  { href: "/materials",     label: "Materiais",    icon: FolderOpen,      adminOnly: true  },
+  { href: "/notifications", label: "Notificações", icon: Bell,            adminOnly: true  },
+  { href: "/partners",      label: "Parceiros",    icon: UserPlus,        adminOnly: true  },
+  { href: "/admin/kanban",  label: "Kanban",       icon: Kanban,          adminOnly: true  },
+  { href: "/profile",       label: "Meu Perfil",   icon: UserCircle,      adminOnly: false },
 ];
 
 export function SidebarNav({ utmLink }: { utmLink?: string }) {
@@ -42,6 +42,7 @@ export function SidebarNav({ utmLink }: { utmLink?: string }) {
   const [unreadCount, setUnreadCount] = useState(0);
 
   useEffect(() => {
+    if (!partner?.is_admin) return;
     let active = true;
     const load = async () => {
       try {
@@ -57,7 +58,7 @@ export function SidebarNav({ utmLink }: { utmLink?: string }) {
       active = false;
       window.clearInterval(timer);
     };
-  }, []);
+  }, [partner?.is_admin]);
 
   function copyLink() {
     if (!utmLink) return;
