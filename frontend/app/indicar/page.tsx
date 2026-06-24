@@ -48,7 +48,7 @@ export default function IndicarPage() {
   const rawUtmCampaign = params.get("utm_campaign") ?? "";
   const utmCode =
     params.get("utm_code") ??
-    (rawUtmCampaign.startsWith("ref_") ? rawUtmCampaign : rawUtmCampaign || params.get("ref") ?? "");
+    (rawUtmCampaign.startsWith("ref_") ? rawUtmCampaign : (rawUtmCampaign || params.get("ref") ?? ""));
 
   const [step, setStep] = useState<Step>("form");
   const [errorMsg, setErrorMsg] = useState("");
