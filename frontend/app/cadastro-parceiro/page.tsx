@@ -85,7 +85,7 @@ Programa de Parceria WeCare Hosting — Versão ${TERM_VERSION}
 
 1. CONTROLADOR DE DADOS
 WECARE HOSTING SERVIÇOS LTDA, CNPJ 30.870.784/0001-70, Cotia — SP.
-Contato do encarregado (DPO): felipe@wecarehosting.com.br
+Contato do encarregado (DPO): contato@wecarehosting.com.br
 
 2. DADOS COLETADOS
 Coletamos os seguintes dados pessoais no momento do cadastro e durante a vigência da parceria:
@@ -122,7 +122,7 @@ Você tem direito a:
 • Solicitar anonimização, bloqueio ou eliminação de dados desnecessários.
 • Revogar o consentimento a qualquer momento, sem prejuízo das finalidades legais.
 • Solicitar a portabilidade dos dados a outro fornecedor.
-Para exercer seus direitos, entre em contato: felipe@wecarehosting.com.br
+Para exercer seus direitos, entre em contato: contato@wecarehosting.com.br
 
 8. SEGURANÇA
 Adotamos medidas técnicas e organizacionais adequadas para proteger seus dados contra acesso não autorizado, perda ou destruição, incluindo criptografia de dados em trânsito e restrição de acesso por função.
@@ -658,8 +658,8 @@ export default function CadastroParceiro() {
           WeCare Hosting Serviços LTDA · CNPJ 30.870.784/0001-70 · Cotia — SP
           <br />
           Dúvidas?{" "}
-          <a href="mailto:felipe@wecarehosting.com.br" className="underline text-[#B79152]">
-            felipe@wecarehosting.com.br
+          <a href="mailto:contato@wecarehosting.com.br" className="underline text-[#B79152]">
+            contato@wecarehosting.com.br
           </a>
         </p>
       </div>

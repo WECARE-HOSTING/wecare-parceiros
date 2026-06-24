@@ -104,8 +104,8 @@ export default function LoginPage() {
 
           <p className="text-center text-xs text-[#0C2330]/50 mt-4">
             Dúvidas? Entre em contato com{" "}
-            <a href="mailto:felipe@wecarehosting.com.br" className="underline text-[#B79152]">
-              felipe@wecarehosting.com.br
+            <a href="mailto:contato@wecarehosting.com.br" className="underline text-[#B79152]">
+              contato@wecarehosting.com.br
             </a>
           </p>
         </div>

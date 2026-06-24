@@ -112,7 +112,7 @@ export default function IndicarPage() {
             Obrigado pelo interesse. Nossa equipe entrará em contato em breve para dar andamento ao processo.
           </p>
           <div className="bg-[#E55A4F]/5 rounded-xl p-4 text-sm text-[#E55A4F]">
-            Guarde este contato: <strong>felipe@wecarehosting.com.br</strong>
+            Guarde este contato: <strong>contato@wecarehosting.com.br</strong>
           </div>
         </div>
       </main>
