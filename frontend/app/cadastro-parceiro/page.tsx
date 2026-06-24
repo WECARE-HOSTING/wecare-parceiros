@@ -534,10 +534,19 @@ export default function CadastroParceiro() {
                 <Label required>CPF ou CNPJ</Label>
                 <Input
                   value={form.document}
-                  onChange={set("document")}
-                  placeholder="000.000.000-00"
+                  onChange={(e) => {
+                    const digits = e.target.value.replace(/\D/g, "").slice(0, 14);
+                    setForm((prev) => ({ ...prev, document: digits }));
+                  }}
+                  inputMode="numeric"
+                  pattern="[0-9]*"
+                  maxLength={14}
+                  placeholder="00000000000"
                   required
                 />
+                <p className="text-xs text-[#0C2330]/50 mt-1">
+                  Digite apenas números (CPF: 11 dígitos / CNPJ: 14 dígitos)
+                </p>
               </div>
               <div>
                 <Label>Telefone / WhatsApp</Label>
