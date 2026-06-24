@@ -3,13 +3,14 @@
 import { useState } from "react";
 import { useSearchParams } from "next/navigation";
 import { Loader2, CheckCircle2, AlertCircle, User, FileText } from "lucide-react";
+import { PublicHeader } from "@/components/public-header";
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:8000";
 
 
 function Label({ children, required }: { children: React.ReactNode; required?: boolean }) {
   return (
-    <label className="block text-sm font-medium text-gray-700 mb-1">
+    <label className="block text-sm font-medium text-[#0C2330] mb-1 font-[family-name:var(--font-inter)]">
       {children}
       {required && <span className="text-red-500 ml-0.5">*</span>}
     </label>
@@ -22,7 +23,7 @@ function Input({
 }: React.InputHTMLAttributes<HTMLInputElement>) {
   return (
     <input
-      className={`w-full h-10 px-3 rounded-lg border border-gray-200 bg-white text-sm focus:outline-none focus:ring-2 focus:ring-[#E55A4F]/30 focus:border-[#E55A4F] transition ${className}`}
+      className={`w-full h-10 px-3 rounded-lg border border-[#B79152]/30 bg-white text-sm text-[#0C2330] focus:outline-none focus:ring-2 focus:ring-[#B79152]/40 focus:border-[#B79152] transition font-[family-name:var(--font-inter)] ${className}`}
       {...props}
     />
   );
@@ -31,9 +32,9 @@ function Input({
 function Section({ icon: Icon, title, children }: { icon: React.ElementType; title: string; children: React.ReactNode }) {
   return (
     <div className="space-y-4">
-      <div className="flex items-center gap-2 text-[#E55A4F]">
+      <div className="flex items-center gap-2 text-[#B79152]">
         <Icon size={16} />
-        <h2 className="font-semibold text-sm uppercase tracking-wide">{title}</h2>
+        <h2 className="font-semibold text-sm uppercase tracking-wide font-[family-name:var(--font-inter)]">{title}</h2>
       </div>
       <div className="space-y-3">{children}</div>
     </div>
@@ -102,17 +103,23 @@ export default function IndicarPage() {
   // ── Tela de sucesso ──────────────────────────────────────────────────────────
   if (step === "success") {
     return (
-      <main className="min-h-screen bg-gray-50 flex items-center justify-center px-4">
-        <div className="bg-white rounded-2xl shadow-sm border border-gray-100 max-w-md w-full p-10 text-center space-y-4">
-          <div className="w-16 h-16 rounded-full bg-green-100 flex items-center justify-center mx-auto">
-            <CheckCircle2 size={32} className="text-green-600" />
-          </div>
-          <h1 className="text-xl font-bold text-gray-900">Indicação recebida!</h1>
-          <p className="text-gray-500 text-sm leading-relaxed">
-            Obrigado pelo interesse. Nossa equipe entrará em contato em breve para dar andamento ao processo.
-          </p>
-          <div className="bg-[#E55A4F]/5 rounded-xl p-4 text-sm text-[#E55A4F]">
-            Guarde este contato: <strong>contato@wecarehosting.com.br</strong>
+      <main className="min-h-screen bg-[#F2EAD9] font-[family-name:var(--font-inter)]">
+        <PublicHeader />
+        <div className="flex items-center justify-center px-4 py-12">
+          <div className="bg-white rounded-2xl shadow-sm border border-[#B79152]/25 max-w-md w-full p-10 text-center space-y-4">
+            <div className="w-16 h-16 rounded-full bg-green-100 flex items-center justify-center mx-auto">
+              <CheckCircle2 size={32} className="text-green-600" />
+            </div>
+            <h1 className="text-xl font-bold text-[#0C2330] font-[family-name:var(--font-spectral)]">Indicação recebida!</h1>
+            <p className="text-[#0C2330]/70 text-sm leading-relaxed">
+              Obrigado pelo interesse. Nossa equipe entrará em contato em breve para dar andamento ao processo.
+            </p>
+            <div className="bg-[#B79152]/10 border border-[#B79152]/30 rounded-xl p-4 text-sm text-[#0C2330]/80">
+              Guarde este contato:{" "}
+              <a href="mailto:contato@wecarehosting.com.br" className="text-[#B79152] font-semibold underline">
+                contato@wecarehosting.com.br
+              </a>
+            </div>
           </div>
         </div>
       </main>
@@ -122,19 +129,22 @@ export default function IndicarPage() {
   // ── Tela de erro ─────────────────────────────────────────────────────────────
   if (step === "error") {
     return (
-      <main className="min-h-screen bg-gray-50 flex items-center justify-center px-4">
-        <div className="bg-white rounded-2xl shadow-sm border border-gray-100 max-w-md w-full p-10 text-center space-y-4">
-          <div className="w-16 h-16 rounded-full bg-red-100 flex items-center justify-center mx-auto">
-            <AlertCircle size={32} className="text-red-500" />
+      <main className="min-h-screen bg-[#F2EAD9] font-[family-name:var(--font-inter)]">
+        <PublicHeader />
+        <div className="flex items-center justify-center px-4 py-12">
+          <div className="bg-white rounded-2xl shadow-sm border border-[#B79152]/25 max-w-md w-full p-10 text-center space-y-4">
+            <div className="w-16 h-16 rounded-full bg-red-100 flex items-center justify-center mx-auto">
+              <AlertCircle size={32} className="text-red-500" />
+            </div>
+            <h1 className="text-xl font-bold text-[#0C2330] font-[family-name:var(--font-spectral)]">Não foi possível enviar</h1>
+            <p className="text-red-600 text-sm">{errorMsg}</p>
+            <button
+              onClick={() => setStep("form")}
+              className="text-sm text-[#B79152] underline"
+            >
+              Tentar novamente
+            </button>
           </div>
-          <h1 className="text-xl font-bold text-gray-900">Não foi possível enviar</h1>
-          <p className="text-red-600 text-sm">{errorMsg}</p>
-          <button
-            onClick={() => setStep("form")}
-            className="text-sm text-[#E55A4F] underline"
-          >
-            Tentar novamente
-          </button>
         </div>
       </main>
     );
@@ -142,27 +152,16 @@ export default function IndicarPage() {
 
   // ── Formulário ───────────────────────────────────────────────────────────────
   return (
-    <main className="min-h-screen bg-gray-50">
-      {/* Header */}
-      <header className="bg-[#E55A4F] px-6 py-4">
-        <div className="max-w-xl mx-auto flex items-center gap-3">
-          <div className="w-8 h-8 rounded-lg bg-white/20 flex items-center justify-center">
-            <span className="text-white font-bold text-sm">W</span>
-          </div>
-          <div>
-            <p className="text-white font-semibold text-sm leading-none">WeCare Hosting</p>
-            <p className="text-white/60 text-xs">Programa de Parceria</p>
-          </div>
-        </div>
-      </header>
+    <main className="min-h-screen bg-[#F2EAD9] font-[family-name:var(--font-inter)]">
+      <PublicHeader />
 
       <div className="max-w-xl mx-auto px-4 py-8 space-y-6">
         {/* Chamada */}
         <div className="text-center space-y-2 pb-2">
-          <h1 className="text-2xl font-bold text-gray-900">
+          <h1 className="text-2xl font-bold text-[#0C2330] font-[family-name:var(--font-spectral)]">
             Indique seu imóvel para a WeCare
           </h1>
-          <p className="text-gray-500 text-sm leading-relaxed">
+          <p className="text-[#0C2330]/70 text-sm leading-relaxed">
             Preencha os dados abaixo e nossa equipe entrará em contato para apresentar
             como transformar seu imóvel em renda com a gestão profissional da WeCare Hosting.
           </p>
@@ -175,7 +174,7 @@ export default function IndicarPage() {
           </div>
         )}
 
-        <form onSubmit={handleSubmit} className="bg-white rounded-2xl border border-gray-100 shadow-sm p-6 space-y-6">
+        <form onSubmit={handleSubmit} className="bg-white rounded-2xl border border-[#B79152]/25 shadow-sm p-6 space-y-6">
           {/* Dados pessoais */}
           <Section icon={User} title="Dados do Proprietário">
             <div>
@@ -218,7 +217,7 @@ export default function IndicarPage() {
             </div>
           </Section>
 
-          <hr className="border-gray-100" />
+          <hr className="border-[#B79152]/15" />
 
           {/* LGPD */}
           <Section icon={FileText} title="Consentimento">
@@ -227,12 +226,12 @@ export default function IndicarPage() {
                 type="checkbox"
                 checked={form.lgpd_consent}
                 onChange={set("lgpd_consent")}
-                className="mt-0.5 accent-[#E55A4F]"
+                className="mt-0.5 accent-[#B79152]"
               />
-              <span className="text-sm text-gray-600 leading-relaxed">
+              <span className="text-sm text-[#0C2330]/80 leading-relaxed">
                 Autorizo a WeCare Hosting a armazenar e utilizar meus dados para contato
                 e análise da indicação, conforme a{" "}
-                <span className="text-[#E55A4F] underline cursor-pointer">
+                <span className="text-[#B79152] underline cursor-pointer">
                   Lei Geral de Proteção de Dados (LGPD)
                 </span>
                 . Meus dados não serão compartilhados com terceiros.
@@ -243,7 +242,7 @@ export default function IndicarPage() {
           <button
             type="submit"
             disabled={step === "loading" || !utmCode}
-            className="w-full h-11 rounded-xl bg-[#E55A4F] hover:bg-[#E55A4F]/90 disabled:opacity-50 text-white font-semibold text-sm transition flex items-center justify-center gap-2"
+            className="w-full h-11 rounded-xl bg-[#B79152] hover:bg-[#B79152]/90 disabled:opacity-50 text-[#0C2330] font-semibold text-sm transition flex items-center justify-center gap-2"
           >
             {step === "loading" ? (
               <>
@@ -256,7 +255,7 @@ export default function IndicarPage() {
           </button>
         </form>
 
-        <p className="text-center text-xs text-gray-400">
+        <p className="text-center text-xs text-[#0C2330]/50">
           WeCare Hosting · Gestão Profissional de Imóveis para Temporada
         </p>
       </div>
