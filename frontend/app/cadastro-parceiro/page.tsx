@@ -512,11 +512,7 @@ export default function CadastroParceiro() {
       <PublicHeader rightLink={{ href: "/login", label: "Já sou parceiro" }} />
 
       <div className="max-w-lg mx-auto px-4 py-10 space-y-8">
-        <div className="text-center space-y-3">
-          <h1 className="text-2xl sm:text-3xl font-bold text-[#0C2330] leading-tight font-[family-name:var(--font-spectral)]">
-            Programa de Parceria WeCare — Transforme sua rede em receita recorrente
-          </h1>
-        </div>
+        <BenefitsGrid />
 
         <form onSubmit={handleSubmit} className="bg-white rounded-2xl border border-[#B79152]/25 shadow-sm p-6 space-y-6">
           <Section icon={User} title="Seus dados">
@@ -660,8 +656,6 @@ export default function CadastroParceiro() {
             </p>
           )}
         </form>
-
-        <BenefitsGrid />
 
         <p className="text-center text-xs text-[#0C2330]/50">
           WeCare Hosting Serviços LTDA · CNPJ 30.870.784/0001-70 · Cotia — SP
