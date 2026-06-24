@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { useAuth } from "@/app/providers";
 import { updatePartner } from "@/lib/api";
+import { formatPhone } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -43,7 +44,7 @@ export default function ProfilePage() {
   const [copied, setCopied] = useState(false);
 
   const [form, setForm] = useState({
-    phone: partner?.phone ?? "",
+    phone: (partner?.phone ?? "").replace(/\D/g, ""),
     segment: partner?.segment ?? "",
     company_name: partner?.company_name ?? "",
   });
@@ -55,7 +56,7 @@ export default function ProfilePage() {
 
   function startEdit() {
     setForm({
-      phone: partner?.phone ?? "",
+      phone: (partner?.phone ?? "").replace(/\D/g, ""),
       segment: partner?.segment ?? "",
       company_name: partner?.company_name ?? "",
     });
@@ -135,7 +136,16 @@ export default function ProfilePage() {
             <div className="space-y-4">
               <div className="space-y-1.5">
                 <label className="text-sm font-medium text-foreground">Telefone / WhatsApp</label>
-                <Input value={form.phone} onChange={set("phone")} placeholder="(11) 99999-9999" />
+                <Input
+                  value={formatPhone(form.phone)}
+                  onChange={(e) => {
+                    const digits = e.target.value.replace(/\D/g, "").slice(0, 11);
+                    setForm((p) => ({ ...p, phone: digits }));
+                  }}
+                  inputMode="numeric"
+                  maxLength={15}
+                  placeholder="(11) 99999-9999"
+                />
               </div>
               <div className="space-y-1.5">
                 <label className="text-sm font-medium text-foreground">Segmento</label>
@@ -164,7 +174,7 @@ export default function ProfilePage() {
             </div>
           ) : (
             <>
-              <Row label="Telefone" value={partner.phone} />
+              <Row label="Telefone" value={partner.phone ? formatPhone(partner.phone) : null} />
               <Row label="Segmento" value={partner.segment} />
               <Row label="Empresa" value={partner.company_name} />
             </>

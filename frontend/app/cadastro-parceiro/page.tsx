@@ -14,6 +14,7 @@ import {
 } from "lucide-react";
 import { PublicHeader } from "@/components/public-header";
 import { registerPartner, uploadPartnerDocument, RegisterPartnerError } from "@/lib/api";
+import { formatPhone } from "@/lib/utils";
 
 const TERM_VERSION = "1.0";
 const DEFAULT_PASSWORD = "Wecare@2026";
@@ -227,14 +228,6 @@ function TermModal({
   );
 }
 
-function formatPhone(digits: string): string {
-  const d = digits.replace(/\D/g, "").slice(0, 11);
-  if (d.length === 0) return "";
-  if (d.length <= 2) return `(${d}`;
-  if (d.length <= 7) return `(${d.slice(0, 2)}) ${d.slice(2)}`;
-  return `(${d.slice(0, 2)}) ${d.slice(2, 7)}-${d.slice(7)}`;
-}
-
 function BenefitsGrid() {
   return (
     <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 text-center">
@@ -279,6 +272,7 @@ export default function CadastroParceiro() {
     term_consent: false,
     lgpd_consent: false,
   });
+  const [segmentChoice, setSegmentChoice] = useState("");
 
   const canSubmit = form.term_consent && form.lgpd_consent;
 
@@ -614,12 +608,31 @@ export default function CadastroParceiro() {
             </div>
             <div>
               <Label>Segmento</Label>
-              <SelectEl value={form.segment} onChange={set("segment")}>
+              <SelectEl
+                value={segmentChoice}
+                onChange={(e) => {
+                  const value = e.target.value;
+                  setSegmentChoice(value);
+                  if (value === "Outro") {
+                    setForm((prev) => ({ ...prev, segment: "" }));
+                  } else {
+                    setForm((prev) => ({ ...prev, segment: value }));
+                  }
+                }}
+              >
                 <option value="">Selecione...</option>
                 {SEGMENTS.map((s) => (
                   <option key={s} value={s}>{s}</option>
                 ))}
               </SelectEl>
+              {segmentChoice === "Outro" && (
+                <Input
+                  className="mt-2"
+                  value={form.segment}
+                  onChange={(e) => setForm((prev) => ({ ...prev, segment: e.target.value }))}
+                  placeholder="Descreva seu segmento"
+                />
+              )}
             </div>
           </Section>
 
