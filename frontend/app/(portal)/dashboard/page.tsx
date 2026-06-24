@@ -23,6 +23,7 @@ import {
   TrendingUp,
   UserPlus,
   AlertCircle,
+  XCircle,
   FileText,
   Upload,
 } from "lucide-react";
@@ -224,15 +225,14 @@ function PartnerView({ partnerId, createdAt }: { partnerId: number; createdAt: s
 
   return (
     <div className="space-y-6">
-      {!data ? <SkeletonGrid cols={4} /> : (
+      {!data ? <SkeletonGrid cols={3} /> : (
         <>
           <div>
             <p className="text-xs font-semibold text-muted-foreground/80 uppercase tracking-wide mb-3">Leads</p>
-            <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
-              <StatCard title="Leads ativos"   value={data.leads_new ?? 0}        icon={UserPlus}    accent="bg-primary" />
-              <StatCard title="Em andamento"   value={data.leads_in_progress ?? 0} icon={Clock}       accent="bg-yellow-500" />
-              <StatCard title="Convertidos"    value={data.converted_leads ?? 0}   icon={CheckCircle} accent="bg-green-600" />
-              <StatCard title="Total de leads" value={data.total_leads ?? 0}       icon={Users} />
+            <div className="grid grid-cols-2 lg:grid-cols-3 gap-4">
+              <StatCard title="Leads ativos"    value={data.leads_new ?? 0}           icon={UserPlus} accent="bg-primary" />
+              <StatCard title="Em andamento"    value={data.leads_in_progress ?? 0}   icon={Clock}    accent="bg-yellow-500" />
+              <StatCard title="Não convertidos" value={data.leads_not_converted ?? 0} icon={XCircle} />
             </div>
           </div>
 

@@ -293,6 +293,10 @@ def get_dashboard(partner_id: int, current: CurrentPartner, db: Session = Depend
             models.Lead.partner_id == partner_id,
             models.Lead.status.in_(["CONTACTED", "QUALIFIED"]),
         ),
+        leads_not_converted=count(
+            models.Lead.partner_id == partner_id,
+            models.Lead.status.in_(["EXPIRED", "DISQUALIFIED"]),
+        ),
         converted_leads=count(
             models.Lead.partner_id == partner_id,
             models.Lead.status == "CONVERTED",

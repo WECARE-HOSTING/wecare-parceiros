@@ -134,6 +134,7 @@ class PartnerDashboard(BaseModel):
     active_leads: int
     leads_new: int
     leads_in_progress: int
+    leads_not_converted: int
     converted_leads: int
     total_properties: int
     operational_properties: int

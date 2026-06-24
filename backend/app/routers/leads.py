@@ -68,7 +68,7 @@ def public_register_lead(payload: schemas.LeadCreate, db: Session = Depends(get_
         lgpd_consent=True,
         lgpd_consent_at=now,
         lgpd_consent_ip=payload.lgpd_consent_ip,
-        status="NEW",
+        status="CONTACTED",
         attribution_expires_at=now + timedelta(days=180),
         created_at=now,
         updated_at=now,

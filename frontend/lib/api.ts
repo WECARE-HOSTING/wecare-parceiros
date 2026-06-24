@@ -89,6 +89,7 @@ export type PartnerDashboard = {
   active_leads: number;
   leads_new?: number;
   leads_in_progress?: number;
+  leads_not_converted?: number;
   converted_leads: number;
   total_properties: number;
   operational_properties: number;
