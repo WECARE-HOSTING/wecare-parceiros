@@ -14,6 +14,88 @@ router = APIRouter(prefix="/leads", tags=["Leads"])
 logger = logging.getLogger(__name__)
 
 
+@router.post("/public", response_model=schemas.LeadResponse, status_code=201, summary="Indicação pública via link UTM")
+def public_register_lead(payload: schemas.LeadCreate, db: Session = Depends(get_db)):
+    """
+    Endpoint público chamado pelo formulário /indicar.
+    Não exige autenticação — identifica o parceiro pelo utm_code.
+    """
+    if not payload.lgpd_consent:
+        raise HTTPException(status_code=400, detail="O aceite da LGPD é obrigatório.")
+
+    partner = db.scalar(select(models.Partner).where(models.Partner.utm_code == payload.utm_code))
+    if not partner:
+        raise HTTPException(status_code=404, detail="Parceiro não encontrado.")
+    if partner.status != "ACTIVE":
+        raise HTTPException(status_code=400, detail="Link de indicação inválido.")
+
+    now = datetime.utcnow()
+
+    for field, value, label in [
+        (models.Lead.cpf, payload.cpf, "CPF"),
+        (models.Lead.email, str(payload.email), "e-mail"),
+    ]:
+        if not value:
+            continue
+        dup = db.scalar(
+            select(models.Lead).where(
+                field == value,
+                models.Lead.attribution_expires_at > now,
+            )
+        )
+        if dup:
+            raise HTTPException(
+                status_code=409,
+                detail=f"Conflito: lead ativo com este {label} já existe na base.",
+            )
+
+    lead = models.Lead(
+        partner_id=partner.id,
+        full_name=payload.full_name,
+        cpf=payload.cpf,
+        email=str(payload.email),
+        phone=payload.phone,
+        address_street=payload.address_street,
+        address_number=payload.address_number,
+        address_complement=payload.address_complement,
+        address_city=payload.address_city,
+        address_state=payload.address_state,
+        address_zip=payload.address_zip,
+        utm_code=payload.utm_code,
+        utm_source=payload.utm_source,
+        utm_medium=payload.utm_medium,
+        utm_campaign=payload.utm_campaign,
+        lgpd_consent=True,
+        lgpd_consent_at=now,
+        lgpd_consent_ip=payload.lgpd_consent_ip,
+        status="NEW",
+        attribution_expires_at=now + timedelta(days=180),
+        created_at=now,
+        updated_at=now,
+    )
+    db.add(lead)
+    db.commit()
+    db.refresh(lead)
+    logger.info(
+        "public_lead_registered partner_id=%s lead_id=%s city=%s",
+        partner.id,
+        lead.id,
+        lead.address_city,
+    )
+
+    create_new_lead_notification(
+        db,
+        partner_id=partner.id,
+        lead_id=lead.id,
+        lead_name=lead.full_name,
+        city=lead.address_city,
+    )
+    db.commit()
+
+    notifications.notify_new_lead(partner.email, partner.full_name, lead.full_name, lead.address_city)
+    return lead
+
+
 @router.post("", response_model=schemas.LeadResponse, status_code=201, summary="Registrar indicação")
 def register_lead(payload: schemas.LeadCreate, db: Session = Depends(get_db)):
     """
