@@ -1,6 +1,6 @@
 import os
 import uuid
-from datetime import datetime
+from datetime import date, datetime
 from decimal import Decimal
 from pathlib import Path
 
@@ -13,9 +13,10 @@ from sqlalchemy.orm import Session
 from app import models, notifications, schemas
 from app.auth import AdminPartner, CurrentPartner, hash_password
 from app.database import get_db
-from app.utils import generate_temp_password, generate_utm_code, infer_document_type
+from app.utils import generate_utm_code, infer_document_type
 
 BASE_REFERRAL_URL = os.getenv("FRONTEND_URL", "http://localhost:3000") + "/indicar"
+DEFAULT_PARTNER_PASSWORD = "Wecare@2026"
 UPLOADS_DIR = Path(os.getenv("UPLOADS_DIR", "./uploads"))
 
 _ALLOWED_TYPES = {"application/pdf", "image/jpeg", "image/png", "image/jpg"}
@@ -35,8 +36,13 @@ def register_partner(
     request: Request,
     db: Session = Depends(get_db),
 ):
-    """Endpoint público. O parceiro se cadastra, assina o Termo e recebe credenciais por e-mail."""
-    temp_password = generate_temp_password()
+    """Endpoint público. O parceiro se cadastra, assina o Termo e recebe acesso imediato."""
+    email = str(payload.email)
+    if db.scalar(select(models.Partner).where(models.Partner.email == email)):
+        raise HTTPException(status_code=409, detail="Este e-mail já está cadastrado.")
+    if db.scalar(select(models.Partner).where(models.Partner.document == payload.document)):
+        raise HTTPException(status_code=409, detail="Este CPF/CNPJ já está cadastrado.")
+
     utm_code = generate_utm_code(db)
     referral_url = (
         f"{BASE_REFERRAL_URL}"
@@ -50,15 +56,15 @@ def register_partner(
         full_name=payload.full_name,
         document=payload.document,
         document_type=infer_document_type(payload.document),
-        email=str(payload.email),
+        email=email,
         phone=payload.phone,
         segment=payload.segment,
         company_name=payload.company_name,
-        hashed_password=hash_password(temp_password),
+        hashed_password=hash_password(DEFAULT_PARTNER_PASSWORD),
         is_admin=False,
         utm_code=utm_code,
         referral_url=referral_url,
-        status="PENDING",
+        status="ACTIVE",
         must_change_password=True,
         term_accepted_at=now,
         term_ip=client_ip,
@@ -72,13 +78,10 @@ def register_partner(
         db.refresh(partner)
     except IntegrityError:
         db.rollback()
-        raise HTTPException(
-            status_code=409,
-            detail="Já existe cadastro com este documento ou e-mail.",
-        )
-    notifications.notify_partner_registered(partner.email, partner.full_name, temp_password)
+        raise HTTPException(status_code=409, detail="Este e-mail ou CPF/CNPJ já está cadastrado.")
+    notifications.notify_partner_registered(partner.email, partner.full_name, DEFAULT_PARTNER_PASSWORD)
     return {
-        "detail": "Cadastro realizado! Você receberá suas credenciais de acesso por e-mail em breve.",
+        "detail": "Cadastro realizado! Bem-vindo à WeCare.",
         "partner_id": partner.id,
     }
 
@@ -266,6 +269,13 @@ def get_dashboard(partner_id: int, current: CurrentPartner, db: Session = Depend
             select(func.coalesce(func.sum(models.Commission.commission_amount), 0)).where(*filters)
         ) or Decimal("0")
 
+    today = date.today()
+    month_start = today.replace(day=1)
+    if today.month == 12:
+        next_month_start = date(today.year + 1, 1, 1)
+    else:
+        next_month_start = date(today.year, today.month + 1, 1)
+
     return schemas.PartnerDashboard(
         partner_id=partner_id,
         partner_name=partner.full_name,
@@ -274,6 +284,14 @@ def get_dashboard(partner_id: int, current: CurrentPartner, db: Session = Depend
         active_leads=count(
             models.Lead.partner_id == partner_id,
             models.Lead.status.in_(["NEW", "CONTACTED", "QUALIFIED"]),
+        ),
+        leads_new=count(
+            models.Lead.partner_id == partner_id,
+            models.Lead.status == "NEW",
+        ),
+        leads_in_progress=count(
+            models.Lead.partner_id == partner_id,
+            models.Lead.status.in_(["CONTACTED", "QUALIFIED"]),
         ),
         converted_leads=count(
             models.Lead.partner_id == partner_id,
@@ -295,5 +313,11 @@ def get_dashboard(partner_id: int, current: CurrentPartner, db: Session = Depend
         total_commissions_pending=Decimal(str(sum_commissions(
             models.Commission.partner_id == partner_id,
             models.Commission.status.in_(["PENDING", "AWAITING_NFSE", "APPROVED"]),
+        ))),
+        commissions_to_receive_month=Decimal(str(sum_commissions(
+            models.Commission.partner_id == partner_id,
+            models.Commission.status.in_(["PENDING", "AWAITING_NFSE"]),
+            models.Commission.payment_due_date >= month_start,
+            models.Commission.payment_due_date < next_month_start,
         ))),
     )

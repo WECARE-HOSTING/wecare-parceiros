@@ -87,12 +87,15 @@ export type PartnerDashboard = {
   utm_link: string;
   total_leads: number;
   active_leads: number;
+  leads_new?: number;
+  leads_in_progress?: number;
   converted_leads: number;
   total_properties: number;
   operational_properties: number;
   pending_commissions: number;
   total_commissions_paid: string;
   total_commissions_pending: string;
+  commissions_to_receive_month?: string;
 };
 
 export type LeadResponse = {
@@ -326,11 +329,37 @@ export type PartnerSelfRegisterPayload = {
   term_version?: string;
 };
 
-export const registerPartner = (data: PartnerSelfRegisterPayload) =>
-  request<{ detail: string; partner_id: number }>("/partners/register", {
+export class RegisterPartnerError extends Error {
+  field: "email" | "document" | null;
+
+  constructor(message: string, field: "email" | "document" | null = null) {
+    super(message);
+    this.name = "RegisterPartnerError";
+    this.field = field;
+  }
+}
+
+export async function registerPartner(data: PartnerSelfRegisterPayload) {
+  const res = await fetch(`${API_URL}/partners/register`, {
     method: "POST",
+    headers: { "Content-Type": "application/json" },
     body: JSON.stringify(data),
   });
+  if (!res.ok) {
+    const err = await res.json().catch(() => ({ detail: res.statusText }));
+    const detail = typeof err.detail === "string" ? err.detail : "Erro desconhecido";
+    if (res.status === 409) {
+      const field = detail.includes("e-mail")
+        ? "email"
+        : detail.includes("CPF/CNPJ")
+          ? "document"
+          : null;
+      throw new RegisterPartnerError(detail, field);
+    }
+    throw new Error(detail);
+  }
+  return res.json() as Promise<{ detail: string; partner_id: number }>;
+}
 
 export const uploadPartnerDocument = async (
   partnerId: number,

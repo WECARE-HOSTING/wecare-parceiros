@@ -13,9 +13,10 @@ import {
   X,
 } from "lucide-react";
 import { PublicHeader } from "@/components/public-header";
-import { registerPartner, uploadPartnerDocument } from "@/lib/api";
+import { registerPartner, uploadPartnerDocument, RegisterPartnerError } from "@/lib/api";
 
 const TERM_VERSION = "1.0";
+const DEFAULT_PASSWORD = "Wecare@2026";
 
 const SEGMENTS = [
   "Assessoria e Consultoria Imobiliária",
@@ -257,6 +258,7 @@ type Phase = "form" | "submitting" | "upload" | "done" | "error";
 export default function CadastroParceiro() {
   const [phase, setPhase] = useState<Phase>("form");
   const [errorMsg, setErrorMsg] = useState("");
+  const [fieldErrors, setFieldErrors] = useState<{ email?: string; document?: string }>({});
   const [partnerId, setPartnerId] = useState<number | null>(null);
   const [uploading, setUploading] = useState(false);
   const [uploadError, setUploadError] = useState("");
@@ -291,6 +293,8 @@ export default function CadastroParceiro() {
     e.preventDefault();
     if (!canSubmit) return;
     setPhase("submitting");
+    setFieldErrors({});
+    setErrorMsg("");
     try {
       const res = await registerPartner({
         full_name: form.full_name,
@@ -303,8 +307,13 @@ export default function CadastroParceiro() {
         term_version: TERM_VERSION,
       });
       setPartnerId(res.partner_id);
-      setPhase("upload");
+      setPhase("done");
     } catch (err: unknown) {
+      if (err instanceof RegisterPartnerError && err.field) {
+        setFieldErrors({ [err.field]: err.message });
+        setPhase("form");
+        return;
+      }
       setErrorMsg(err instanceof Error ? err.message : "Erro inesperado. Tente novamente.");
       setPhase("error");
     }
@@ -387,19 +396,27 @@ export default function CadastroParceiro() {
             <div className="w-16 h-16 rounded-full bg-green-100 flex items-center justify-center mx-auto">
               <CheckCircle2 size={32} className="text-green-600" />
             </div>
-            <h1 className="text-xl font-bold text-[#0C2330] font-[family-name:var(--font-spectral)]">Tudo pronto!</h1>
-            <p className="text-[#0C2330]/70 text-sm leading-relaxed">
-              Cadastro enviado. A equipe WeCare analisará seu perfil em até{" "}
-              <strong>7 dias úteis</strong> e você receberá as credenciais de acesso por e-mail.
-            </p>
-            <div className="bg-[#0C2330]/5 rounded-xl p-4 text-sm text-[#0C2330]/80 text-left space-y-2 border border-[#B79152]/20">
-              <p className="font-semibold text-[#0C2330] font-[family-name:var(--font-spectral)]">Próximos passos:</p>
-              <p>1. WeCare analisa e ativa sua conta</p>
-              <p>2. Você recebe e-mail com credenciais de acesso</p>
-              <p>3. Faz login, troca a senha e começa a indicar</p>
+            <h1 className="text-xl font-bold text-[#0C2330] font-[family-name:var(--font-spectral)]">
+              Cadastro realizado! Bem-vindo à WeCare.
+            </h1>
+            <div className="bg-[#0C2330]/5 rounded-xl p-4 text-sm text-[#0C2330]/80 text-left space-y-3 border border-[#B79152]/20">
+              <div>
+                <p className="text-xs text-[#0C2330]/50 uppercase tracking-wide font-medium">E-mail de acesso</p>
+                <p className="font-medium text-[#0C2330] mt-0.5">{form.email}</p>
+              </div>
+              <div>
+                <p className="text-xs text-[#0C2330]/50 uppercase tracking-wide font-medium">Senha de acesso</p>
+                <p className="font-mono font-semibold text-[#0C2330] mt-0.5">{DEFAULT_PASSWORD}</p>
+              </div>
             </div>
-            <Link href="/login" className="inline-block text-sm text-[#B79152] hover:underline font-medium">
-              Já tenho acesso → Entrar no portal
+            <p className="text-sm font-medium text-[#B79152] bg-[#B79152]/10 border border-[#B79152]/30 rounded-xl px-4 py-3">
+              No primeiro acesso você será solicitado a criar uma nova senha.
+            </p>
+            <Link
+              href="/login"
+              className="inline-flex items-center justify-center w-full h-11 rounded-xl bg-[#B79152] hover:bg-[#B79152]/90 text-[#0C2330] text-sm font-semibold transition"
+            >
+              Acessar o portal
             </Link>
           </div>
         </div>
@@ -551,6 +568,9 @@ export default function CadastroParceiro() {
                 <p className="text-xs text-[#0C2330]/50 mt-1">
                   Digite apenas números
                 </p>
+                {fieldErrors.document && (
+                  <p className="text-xs text-red-600 mt-1">{fieldErrors.document}</p>
+                )}
               </div>
               <div>
                 <Label>Telefone / WhatsApp</Label>
@@ -575,6 +595,9 @@ export default function CadastroParceiro() {
                 placeholder="voce@empresa.com.br"
                 required
               />
+              {fieldErrors.email && (
+                <p className="text-xs text-red-600 mt-1">{fieldErrors.email}</p>
+              )}
             </div>
           </Section>
 

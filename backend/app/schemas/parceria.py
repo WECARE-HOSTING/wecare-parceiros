@@ -132,12 +132,15 @@ class PartnerDashboard(BaseModel):
     utm_link: str
     total_leads: int
     active_leads: int
+    leads_new: int
+    leads_in_progress: int
     converted_leads: int
     total_properties: int
     operational_properties: int
     pending_commissions: int
     total_commissions_paid: Decimal
     total_commissions_pending: Decimal
+    commissions_to_receive_month: Decimal
 
 
 class LeadCreate(BaseModel):

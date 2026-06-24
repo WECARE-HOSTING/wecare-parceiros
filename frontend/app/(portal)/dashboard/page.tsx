@@ -33,6 +33,14 @@ function brl(value: string | number) {
   );
 }
 
+function fmtDate(dateStr: string) {
+  return new Date(dateStr).toLocaleDateString("pt-BR", {
+    day: "2-digit",
+    month: "2-digit",
+    year: "numeric",
+  });
+}
+
 function StatCard({
   title,
   value,
@@ -200,7 +208,7 @@ function AdminView() {
   );
 }
 
-function PartnerView({ partnerId, name }: { partnerId: number; name: string }) {
+function PartnerView({ partnerId, createdAt }: { partnerId: number; createdAt: string }) {
   const [data, setData] = useState<PartnerDashboard | null>(null);
   const [error, setError] = useState("");
 
@@ -216,25 +224,42 @@ function PartnerView({ partnerId, name }: { partnerId: number; name: string }) {
 
   return (
     <div className="space-y-6">
-      {!data ? <SkeletonGrid cols={3} /> : (
-        <div className="grid grid-cols-2 lg:grid-cols-3 gap-4">
-          <StatCard title="Total de Leads"       value={data.total_leads}                   sub={`${data.active_leads} ativos`}          icon={Users} />
-          <StatCard title="Leads Convertidos"    value={data.converted_leads}               icon={TrendingUp}  accent="bg-indigo-500" />
-          <StatCard title="Imóveis"              value={data.total_properties}              sub={`${data.operational_properties} em operação`} icon={Building2} />
-          <StatCard title="Comissões Pendentes"  value={data.pending_commissions}           icon={Clock}       accent="bg-yellow-500" />
-          <StatCard title="A Receber"            value={brl(data.total_commissions_pending)} icon={DollarSign}  accent="bg-primary" />
-          <StatCard title="Total Recebido"       value={brl(data.total_commissions_paid)}   icon={CheckCircle} accent="bg-green-600" />
-        </div>
-      )}
+      {!data ? <SkeletonGrid cols={4} /> : (
+        <>
+          <div>
+            <p className="text-xs font-semibold text-muted-foreground/80 uppercase tracking-wide mb-3">Leads</p>
+            <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
+              <StatCard title="Leads ativos"   value={data.leads_new ?? 0}        icon={UserPlus}    accent="bg-primary" />
+              <StatCard title="Em andamento"   value={data.leads_in_progress ?? 0} icon={Clock}       accent="bg-yellow-500" />
+              <StatCard title="Convertidos"    value={data.converted_leads ?? 0}   icon={CheckCircle} accent="bg-green-600" />
+              <StatCard title="Total de leads" value={data.total_leads ?? 0}       icon={Users} />
+            </div>
+          </div>
 
-      <div className="bg-primary/5 border border-primary/20 rounded-xl p-5">
-        <h2 className="text-sm font-semibold text-primary mb-2">Como funciona sua comissão</h2>
-        <ul className="text-sm text-muted-foreground space-y-1">
-          <li>• Você recebe o equivalente à taxa de administração WeCare do <strong>1º mês completo</strong> de operação do imóvel indicado.</li>
-          <li>• Pagamento em até o dia <strong>10 do mês seguinte</strong> ao primeiro mês de operação, mediante emissão de NFS-e.</li>
-          <li>• Janela de atribuição: <strong>180 dias</strong> a partir do registro do lead.</li>
-        </ul>
-      </div>
+          <div>
+            <p className="text-xs font-semibold text-muted-foreground/80 uppercase tracking-wide mb-3">Comissões</p>
+            <div className="grid grid-cols-2 lg:grid-cols-2 gap-4">
+              <StatCard
+                title="Comissão a receber"
+                value={brl(data.commissions_to_receive_month ?? 0)}
+                sub="mês atual"
+                icon={DollarSign}
+                accent="bg-yellow-500"
+              />
+              <StatCard
+                title="Comissões recebidas"
+                value={brl(data.total_commissions_paid ?? 0)}
+                sub="acumulado total"
+                icon={CheckCircle}
+                accent="bg-green-600"
+              />
+            </div>
+            <p className="text-xs text-muted-foreground mt-3">
+              Parceiro WeCare desde: {fmtDate(createdAt)}
+            </p>
+          </div>
+        </>
+      )}
     </div>
   );
 }
@@ -269,7 +294,7 @@ export default function DashboardPage() {
 
       {partner?.is_admin
         ? <AdminView />
-        : partner && <PartnerView partnerId={partner.id} name={partner.full_name} />
+        : partner && <PartnerView partnerId={partner.id} createdAt={partner.created_at} />
       }
     </div>
   );
