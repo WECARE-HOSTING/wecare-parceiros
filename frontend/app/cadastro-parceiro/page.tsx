@@ -226,6 +226,14 @@ function TermModal({
   );
 }
 
+function formatPhone(digits: string): string {
+  const d = digits.replace(/\D/g, "").slice(0, 11);
+  if (d.length === 0) return "";
+  if (d.length <= 2) return `(${d}`;
+  if (d.length <= 7) return `(${d.slice(0, 2)}) ${d.slice(2)}`;
+  return `(${d.slice(0, 2)}) ${d.slice(2, 7)}-${d.slice(7)}`;
+}
+
 function BenefitsGrid() {
   return (
     <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 text-center">
@@ -541,14 +549,19 @@ export default function CadastroParceiro() {
                   required
                 />
                 <p className="text-xs text-[#0C2330]/50 mt-1">
-                  Digite apenas números (CPF: 11 dígitos / CNPJ: 14 dígitos)
+                  Digite apenas números
                 </p>
               </div>
               <div>
                 <Label>Telefone / WhatsApp</Label>
                 <Input
-                  value={form.phone}
-                  onChange={set("phone")}
+                  value={formatPhone(form.phone)}
+                  onChange={(e) => {
+                    const digits = e.target.value.replace(/\D/g, "").slice(0, 11);
+                    setForm((prev) => ({ ...prev, phone: digits }));
+                  }}
+                  inputMode="numeric"
+                  maxLength={15}
                   placeholder="(11) 99999-9999"
                 />
               </div>
