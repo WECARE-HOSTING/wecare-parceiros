@@ -1,0 +1,56 @@
+services:
+  postgres:
+    image: postgres:16-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: wecare_parceiros
+      POSTGRES_USER: wecare
+      POSTGRES_PASSWORD: wecare_dev_password
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U wecare -d wecare_parceiros"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    ports:
+      - "18790:18790"
+    environment:
+      DATABASE_URL: postgresql://wecare:wecare_dev_password@postgres:5432/wecare_parceiros
+      SECRET_KEY: wecare-dev-secret-TROQUE-EM-PRODUCAO
+      TOKEN_EXPIRE_HOURS: "8"
+      FRONTEND_URL: http://localhost:3000
+      CORS_ORIGINS: http://localhost:3000
+      UPLOADS_DIR: /app/uploads
+      RESEND_API_KEY: ""
+      FROM_EMAIL: "WeCare Parceiros <parceiros@wecarehosting.com.br>"
+      BOOTSTRAP_TOKEN: ""
+    volumes:
+      - uploads_data:/app/uploads
+    depends_on:
+      postgres:
+        condition: service_healthy
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    environment:
+      NEXT_PUBLIC_API_URL: http://localhost:18790/api/v1
+    depends_on:
+      - backend
+
+volumes:
+  postgres_data:
+  uploads_data:
