@@ -7,13 +7,13 @@ const STATUS_MAP: Record<string, { label: string; className: string }> = {
   ACTIVE:     { label: "Ativo",        className: "bg-green-100 text-green-700" },
   SUSPENDED:  { label: "Suspenso",     className: "bg-yellow-100 text-yellow-700" },
   TERMINATED: { label: "Encerrado",    className: "bg-red-100 text-red-700" },
-  // Lead
-  NEW:          { label: "Novo",         className: "bg-gray-100 text-gray-700" },
-  CONTACTED:    { label: "Contatado",    className: "bg-blue-100 text-blue-700" },
-  QUALIFIED:    { label: "Qualificado",  className: "bg-indigo-100 text-indigo-700" },
-  CONVERTED:    { label: "Convertido",   className: "bg-green-100 text-green-700" },
-  EXPIRED:      { label: "Expirado",     className: "bg-red-100 text-red-700" },
-  DISQUALIFIED: { label: "Inelegível",   className: "bg-red-100 text-red-700" },
+  // Lead (rótulos do parceiro — alinhados ao dashboard)
+  NEW:          { label: "Ativo",           className: "bg-wecare-gold/10 text-wecare-gold" },
+  CONTACTED:    { label: "Em andamento",    className: "bg-blue-100 text-blue-700" },
+  QUALIFIED:    { label: "Em andamento",    className: "bg-blue-100 text-blue-700" },
+  CONVERTED:    { label: "Convertido",      className: "bg-green-100 text-green-700" },
+  EXPIRED:      { label: "Não convertido", className: "bg-gray-100 text-gray-600" },
+  DISQUALIFIED: { label: "Não convertido", className: "bg-gray-100 text-gray-600" },
   // Property
   LEAD:            { label: "Lead",           className: "bg-gray-100 text-gray-700" },
   PROPOSAL_SENT:   { label: "Proposta Env.",  className: "bg-blue-100 text-blue-700" },
