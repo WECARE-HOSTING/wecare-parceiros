@@ -46,9 +46,7 @@ type Step = "form" | "loading" | "success" | "error";
 export default function IndicarPage() {
   const params = useSearchParams();
   const rawUtmCampaign = params.get("utm_campaign") ?? "";
-  const utmCode =
-    params.get("utm_code") ??
-    (rawUtmCampaign.startsWith("ref_") ? rawUtmCampaign : (rawUtmCampaign || params.get("ref") ?? ""));
+  const utmCode = params.get("utm_code") ?? (rawUtmCampaign || "");
 
   const [step, setStep] = useState<Step>("form");
   const [errorMsg, setErrorMsg] = useState("");
