@@ -11,7 +11,6 @@ import { Input } from "@/components/ui/input";
 export default function ChangePasswordPage() {
   const { partner, setPartner } = useAuth();
   const router = useRouter();
-  const [current, setCurrent] = useState("");
   const [next, setNext] = useState("");
   const [confirm, setConfirm] = useState("");
   const [error, setError] = useState("");
@@ -24,7 +23,7 @@ export default function ChangePasswordPage() {
     if (next.length < 6) { setError("A nova senha deve ter pelo menos 6 caracteres."); return; }
     setLoading(true);
     try {
-      await changePassword(current, next);
+      await changePassword(next);
       if (partner) setPartner({ ...partner, must_change_password: false });
       router.replace("/dashboard");
     } catch (err: unknown) {
@@ -49,18 +48,6 @@ export default function ChangePasswordPage() {
           </p>
 
           <form onSubmit={handleSubmit} className="space-y-4">
-            <div className="space-y-1">
-              <label className="text-sm font-medium text-gray-700">Senha atual (provisória)</label>
-              <Input
-                type="password"
-                placeholder="••••••••"
-                value={current}
-                onChange={(e) => setCurrent(e.target.value)}
-                required
-                disabled={loading}
-              />
-            </div>
-
             <div className="space-y-1">
               <label className="text-sm font-medium text-gray-700">Nova senha</label>
               <Input

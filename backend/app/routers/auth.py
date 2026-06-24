@@ -79,8 +79,13 @@ def change_password(
     current: CurrentPartner,
     db: Session = Depends(get_db),
 ):
-    if not current.hashed_password or not verify_password(payload.current_password, current.hashed_password):
-        raise HTTPException(status_code=400, detail="Senha atual incorreta.")
+    if not current.must_change_password:
+        if not payload.current_password:
+            raise HTTPException(status_code=400, detail="Senha atual obrigatória.")
+        if not current.hashed_password or not verify_password(
+            payload.current_password, current.hashed_password
+        ):
+            raise HTTPException(status_code=400, detail="Senha atual incorreta.")
     current.hashed_password = hash_password(payload.new_password)
     current.must_change_password = False
     db.commit()

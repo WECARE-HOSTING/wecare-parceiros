@@ -556,10 +556,12 @@ export const resetPassword = (token: string, new_password: string) =>
     body: JSON.stringify({ token, new_password }),
   });
 
-export const changePassword = (current_password: string, new_password: string) =>
+export const changePassword = (new_password: string, current_password?: string) =>
   request<{ detail: string }>("/auth/change-password", {
     method: "POST",
-    body: JSON.stringify({ current_password, new_password }),
+    body: JSON.stringify(
+      current_password != null ? { current_password, new_password } : { new_password },
+    ),
   });
 
 // ── Properties extra ──────────────────────────────────────────────────────────
