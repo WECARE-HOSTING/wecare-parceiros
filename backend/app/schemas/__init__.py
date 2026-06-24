@@ -25,6 +25,10 @@ from app.schemas.parceria import (
     MaterialCreate,
     MaterialResponse,
     MaterialDownloadResponse,
+    KanbanPropertySummary,
+    KanbanCommissionSummary,
+    KanbanLeadCard,
+    KanbanResponse,
 )
 
 __all__ = [
@@ -54,4 +58,8 @@ __all__ = [
     "MaterialCreate",
     "MaterialResponse",
     "MaterialDownloadResponse",
+    "KanbanPropertySummary",
+    "KanbanCommissionSummary",
+    "KanbanLeadCard",
+    "KanbanResponse",
 ]

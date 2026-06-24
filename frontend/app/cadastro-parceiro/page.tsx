@@ -1,6 +1,5 @@
 "use client";
 
-import Image from "next/image";
 import Link from "next/link";
 import { useRef, useState } from "react";
 import {
@@ -13,6 +12,7 @@ import {
   Upload,
   X,
 } from "lucide-react";
+import { PublicHeader } from "@/components/public-header";
 import { registerPartner, uploadPartnerDocument } from "@/lib/api";
 
 const TERM_VERSION = "1.0";
@@ -34,6 +34,12 @@ const DOC_TYPES = [
   { value: "rg_cpf", label: "RG ou CPF" },
   { value: "contrato_social", label: "Contrato Social" },
   { value: "comprovante_endereco", label: "Comprovante de Endereço" },
+];
+
+const BENEFITS = [
+  { label: "Sem esforço operacional", sub: "A WeCare cuida de toda a operação" },
+  { label: "Comissão em 12 meses", sub: "Receita recorrente pelo primeiro ano" },
+  { label: "Link rastreado exclusivo", sub: "Atribuição automática dos seus leads" },
 ];
 
 // ── Conteúdo dos termos ───────────────────────────────────────────────────────
@@ -131,7 +137,7 @@ Esta política pode ser atualizada periodicamente. Alterações relevantes serã
 
 function Label({ children, required }: { children: React.ReactNode; required?: boolean }) {
   return (
-    <label className="block text-sm font-medium text-gray-700 mb-1">
+    <label className="block text-sm font-medium text-[#0C2330] mb-1 font-[family-name:var(--font-inter)]">
       {children}
       {required && <span className="text-red-500 ml-0.5">*</span>}
     </label>
@@ -141,7 +147,7 @@ function Label({ children, required }: { children: React.ReactNode; required?: b
 function Input({ className = "", ...props }: React.InputHTMLAttributes<HTMLInputElement>) {
   return (
     <input
-      className={`w-full h-10 px-3 rounded-lg border border-gray-200 bg-white text-sm focus:outline-none focus:ring-2 focus:ring-[#E55A4F]/30 focus:border-[#E55A4F] transition ${className}`}
+      className={`w-full h-10 px-3 rounded-lg border border-[#B79152]/30 bg-white text-sm text-[#0C2330] focus:outline-none focus:ring-2 focus:ring-[#B79152]/40 focus:border-[#B79152] transition font-[family-name:var(--font-inter)] ${className}`}
       {...props}
     />
   );
@@ -150,7 +156,7 @@ function Input({ className = "", ...props }: React.InputHTMLAttributes<HTMLInput
 function SelectEl({ className = "", ...props }: React.SelectHTMLAttributes<HTMLSelectElement>) {
   return (
     <select
-      className={`w-full h-10 px-3 rounded-lg border border-gray-200 bg-white text-sm focus:outline-none focus:ring-2 focus:ring-[#E55A4F]/30 focus:border-[#E55A4F] transition ${className}`}
+      className={`w-full h-10 px-3 rounded-lg border border-[#B79152]/30 bg-white text-sm text-[#0C2330] focus:outline-none focus:ring-2 focus:ring-[#B79152]/40 focus:border-[#B79152] transition font-[family-name:var(--font-inter)] ${className}`}
       {...props}
     />
   );
@@ -159,9 +165,9 @@ function SelectEl({ className = "", ...props }: React.SelectHTMLAttributes<HTMLS
 function Section({ icon: Icon, title, children }: { icon: React.ElementType; title: string; children: React.ReactNode }) {
   return (
     <div className="space-y-4">
-      <div className="flex items-center gap-2 text-[#E55A4F]">
+      <div className="flex items-center gap-2 text-[#B79152]">
         <Icon size={16} />
-        <h2 className="font-semibold text-sm uppercase tracking-wide">{title}</h2>
+        <h2 className="font-semibold text-sm uppercase tracking-wide font-[family-name:var(--font-inter)]">{title}</h2>
       </div>
       <div className="space-y-3">{children}</div>
     </div>
@@ -180,45 +186,58 @@ function TermModal({
   onClose: () => void;
 }) {
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50">
-      <div className="bg-white rounded-2xl shadow-xl w-full max-w-2xl flex flex-col max-h-[85vh]">
-        {/* Header */}
-        <div className="flex items-center justify-between px-6 py-4 border-b border-gray-100 shrink-0">
-          <h2 className="font-semibold text-gray-900 text-sm">{title}</h2>
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-[#0C2330]/60">
+      <div className="bg-[#F2EAD9] rounded-2xl shadow-xl w-full max-w-2xl flex flex-col max-h-[85vh] border border-[#B79152]/30">
+        <div className="flex items-center justify-between px-6 py-4 border-b border-[#B79152]/20 shrink-0">
+          <h2 className="font-semibold text-[#0C2330] text-sm font-[family-name:var(--font-spectral)]">{title}</h2>
           <button
             type="button"
             onClick={onClose}
-            className="text-gray-400 hover:text-gray-600 transition"
+            className="text-[#0C2330]/40 hover:text-[#0C2330] transition"
           >
             <X size={18} />
           </button>
         </div>
 
-        {/* Content */}
         <div className="overflow-y-auto flex-1 px-6 py-4">
-          <pre className="text-xs text-gray-600 leading-relaxed whitespace-pre-wrap font-sans">
+          <pre className="text-xs text-[#0C2330]/80 leading-relaxed whitespace-pre-wrap font-[family-name:var(--font-inter)]">
             {content}
           </pre>
         </div>
 
-        {/* Footer */}
-        <div className="px-6 py-4 border-t border-gray-100 flex gap-3 shrink-0">
+        <div className="px-6 py-4 border-t border-[#B79152]/20 flex gap-3 shrink-0">
           <button
             type="button"
             onClick={onClose}
-            className="flex-1 h-10 rounded-xl border border-gray-200 text-gray-600 text-sm font-medium hover:bg-gray-50 transition"
+            className="flex-1 h-10 rounded-xl border border-[#B79152]/40 text-[#0C2330] text-sm font-medium hover:bg-white/50 transition font-[family-name:var(--font-inter)]"
           >
             Fechar
           </button>
           <button
             type="button"
             onClick={onAccept}
-            className="flex-1 h-10 rounded-xl bg-[#E55A4F] hover:bg-[#E55A4F]/90 text-white text-sm font-semibold transition"
+            className="flex-1 h-10 rounded-xl bg-[#B79152] hover:bg-[#B79152]/90 text-[#0C2330] text-sm font-semibold transition font-[family-name:var(--font-inter)]"
           >
             Li e aceito
           </button>
         </div>
       </div>
+    </div>
+  );
+}
+
+function BenefitsGrid() {
+  return (
+    <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 text-center">
+      {BENEFITS.map((b) => (
+        <div
+          key={b.label}
+          className="bg-white/60 rounded-xl border border-[#B79152]/25 p-4"
+        >
+          <p className="text-xs font-semibold text-[#0C2330] font-[family-name:var(--font-spectral)]">{b.label}</p>
+          <p className="text-xs text-[#0C2330]/60 mt-1 font-[family-name:var(--font-inter)]">{b.sub}</p>
+        </div>
+      ))}
     </div>
   );
 }
@@ -297,7 +316,6 @@ export default function CadastroParceiro() {
     }
   }
 
-  // ── Modais ───────────────────────────────────────────────────────────────────
   if (showTermModal) {
     return (
       <>
@@ -332,74 +350,73 @@ export default function CadastroParceiro() {
     );
   }
 
-  // ── Erro ─────────────────────────────────────────────────────────────────────
   if (phase === "error") {
     return (
-      <main className="min-h-screen bg-gray-50 flex items-center justify-center px-4">
-        <div className="bg-white rounded-2xl shadow-sm border border-gray-100 max-w-md w-full p-10 text-center space-y-4">
-          <div className="w-16 h-16 rounded-full bg-red-100 flex items-center justify-center mx-auto">
-            <AlertCircle size={32} className="text-red-500" />
+      <main className="min-h-screen bg-[#F2EAD9] font-[family-name:var(--font-inter)]">
+        <PublicHeader rightLink={{ href: "/login", label: "Já sou parceiro" }} />
+        <div className="flex items-center justify-center px-4 py-12">
+          <div className="bg-white rounded-2xl shadow-sm border border-[#B79152]/25 max-w-lg w-full p-10 text-center space-y-4">
+            <div className="w-16 h-16 rounded-full bg-red-100 flex items-center justify-center mx-auto">
+              <AlertCircle size={32} className="text-red-500" />
+            </div>
+            <h1 className="text-xl font-bold text-[#0C2330] font-[family-name:var(--font-spectral)]">Não foi possível cadastrar</h1>
+            <p className="text-red-600 text-sm">{errorMsg}</p>
+            <button onClick={() => setPhase("form")} className="text-sm text-[#B79152] underline">
+              Tentar novamente
+            </button>
           </div>
-          <h1 className="text-xl font-bold text-gray-900">Não foi possível cadastrar</h1>
-          <p className="text-red-600 text-sm">{errorMsg}</p>
-          <button onClick={() => setPhase("form")} className="text-sm text-[#E55A4F] underline">
-            Tentar novamente
-          </button>
         </div>
       </main>
     );
   }
 
-  // ── Conclusão ─────────────────────────────────────────────────────────────────
   if (phase === "done") {
     return (
-      <main className="min-h-screen bg-gray-50 flex items-center justify-center px-4">
-        <div className="bg-white rounded-2xl shadow-sm border border-gray-100 max-w-md w-full p-10 text-center space-y-5">
-          <div className="w-16 h-16 rounded-full bg-green-100 flex items-center justify-center mx-auto">
-            <CheckCircle2 size={32} className="text-green-600" />
+      <main className="min-h-screen bg-[#F2EAD9] font-[family-name:var(--font-inter)]">
+        <PublicHeader />
+        <div className="flex items-center justify-center px-4 py-12">
+          <div className="bg-white rounded-2xl shadow-sm border border-[#B79152]/25 max-w-lg w-full p-10 text-center space-y-5">
+            <div className="w-16 h-16 rounded-full bg-green-100 flex items-center justify-center mx-auto">
+              <CheckCircle2 size={32} className="text-green-600" />
+            </div>
+            <h1 className="text-xl font-bold text-[#0C2330] font-[family-name:var(--font-spectral)]">Tudo pronto!</h1>
+            <p className="text-[#0C2330]/70 text-sm leading-relaxed">
+              Cadastro enviado. A equipe WeCare analisará seu perfil em até{" "}
+              <strong>7 dias úteis</strong> e você receberá as credenciais de acesso por e-mail.
+            </p>
+            <div className="bg-[#0C2330]/5 rounded-xl p-4 text-sm text-[#0C2330]/80 text-left space-y-2 border border-[#B79152]/20">
+              <p className="font-semibold text-[#0C2330] font-[family-name:var(--font-spectral)]">Próximos passos:</p>
+              <p>1. WeCare analisa e ativa sua conta</p>
+              <p>2. Você recebe e-mail com credenciais de acesso</p>
+              <p>3. Faz login, troca a senha e começa a indicar</p>
+            </div>
+            <Link href="/login" className="inline-block text-sm text-[#B79152] hover:underline font-medium">
+              Já tenho acesso → Entrar no portal
+            </Link>
           </div>
-          <h1 className="text-xl font-bold text-gray-900">Tudo pronto!</h1>
-          <p className="text-gray-500 text-sm leading-relaxed">
-            Cadastro enviado. A equipe WeCare analisará seu perfil em até{" "}
-            <strong>7 dias úteis</strong> e você receberá as credenciais de acesso por e-mail.
-          </p>
-          <div className="bg-[#1a4a3a]/5 rounded-xl p-4 text-sm text-gray-600 text-left space-y-2">
-            <p className="font-semibold text-[#1a4a3a]">Próximos passos:</p>
-            <p>1. WeCare analisa e ativa sua conta</p>
-            <p>2. Você recebe e-mail com credenciais de acesso</p>
-            <p>3. Faz login, troca a senha e começa a indicar</p>
-          </div>
-          <Link href="/login" className="inline-block text-sm text-[#E55A4F] hover:underline">
-            Já tenho acesso → Entrar no portal
-          </Link>
         </div>
       </main>
     );
   }
 
-  // ── Upload pós-cadastro ───────────────────────────────────────────────────────
   if (phase === "upload") {
     return (
-      <main className="min-h-screen bg-gray-50">
-        <header className="bg-[#1a4a3a] px-6 py-4">
-          <div className="max-w-xl mx-auto">
-            <Image src="/logo.png" alt="WeCare" width={110} height={36} priority />
-          </div>
-        </header>
-        <div className="max-w-xl mx-auto px-4 py-8 space-y-6">
+      <main className="min-h-screen bg-[#F2EAD9] font-[family-name:var(--font-inter)]">
+        <PublicHeader />
+        <div className="max-w-lg mx-auto px-4 py-8 space-y-6">
           <div className="text-center space-y-2">
             <div className="w-12 h-12 rounded-full bg-green-100 flex items-center justify-center mx-auto mb-3">
               <CheckCircle2 size={24} className="text-green-600" />
             </div>
-            <h1 className="text-xl font-bold text-gray-900">Cadastro recebido!</h1>
-            <p className="text-gray-500 text-sm">
+            <h1 className="text-xl font-bold text-[#0C2330] font-[family-name:var(--font-spectral)]">Cadastro recebido!</h1>
+            <p className="text-[#0C2330]/70 text-sm">
               Verifique seu e-mail — suas credenciais de acesso já foram enviadas.
             </p>
           </div>
 
-          <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-6 space-y-5">
+          <div className="bg-white rounded-2xl border border-[#B79152]/25 shadow-sm p-6 space-y-5">
             <Section icon={Upload} title="Documentos (opcional, mas recomendado)">
-              <p className="text-sm text-gray-500 leading-relaxed">
+              <p className="text-sm text-[#0C2330]/70 leading-relaxed">
                 Envie seu RG/CPF ou Contrato Social para agilizar a validação do seu cadastro.
                 Você pode pular e enviar depois do primeiro login.
               </p>
@@ -414,7 +431,7 @@ export default function CadastroParceiro() {
               </div>
 
               <div
-                className="border-2 border-dashed border-gray-200 rounded-xl p-6 text-center cursor-pointer hover:border-[#E55A4F]/50 transition"
+                className="border-2 border-dashed border-[#B79152]/30 rounded-xl p-6 text-center cursor-pointer hover:border-[#B79152]/60 transition"
                 onClick={() => fileInputRef.current?.click()}
                 onDragOver={(e) => e.preventDefault()}
                 onDrop={(e) => {
@@ -435,17 +452,17 @@ export default function CadastroParceiro() {
                   }}
                 />
                 {uploading ? (
-                  <div className="flex items-center justify-center gap-2 text-gray-500">
+                  <div className="flex items-center justify-center gap-2 text-[#0C2330]/60">
                     <Loader2 size={16} className="animate-spin" />
                     <span className="text-sm">Enviando…</span>
                   </div>
                 ) : (
                   <>
-                    <Upload size={24} className="mx-auto text-gray-300 mb-2" />
-                    <p className="text-sm text-gray-500">
-                      Arraste um arquivo ou <span className="text-[#E55A4F]">clique aqui</span>
+                    <Upload size={24} className="mx-auto text-[#B79152]/50 mb-2" />
+                    <p className="text-sm text-[#0C2330]/70">
+                      Arraste um arquivo ou <span className="text-[#B79152] font-medium">clique aqui</span>
                     </p>
-                    <p className="text-xs text-gray-400 mt-1">PDF, JPEG ou PNG · máx. 5 MB</p>
+                    <p className="text-xs text-[#0C2330]/50 mt-1">PDF, JPEG ou PNG · máx. 5 MB</p>
                   </>
                 )}
               </div>
@@ -461,7 +478,7 @@ export default function CadastroParceiro() {
                   {uploadedFiles.map((name) => (
                     <div key={name} className="flex items-center gap-2 text-sm bg-green-50 rounded-lg px-3 py-2">
                       <CheckCircle2 size={14} className="text-green-600 shrink-0" />
-                      <span className="text-gray-700 truncate">{name}</span>
+                      <span className="text-[#0C2330] truncate">{name}</span>
                     </div>
                   ))}
                 </div>
@@ -471,14 +488,14 @@ export default function CadastroParceiro() {
             <div className="flex gap-3 pt-1">
               <button
                 onClick={() => setPhase("done")}
-                className="flex-1 h-11 rounded-xl border border-gray-200 text-gray-600 text-sm font-medium hover:bg-gray-50 transition"
+                className="flex-1 h-11 rounded-xl border border-[#B79152]/40 text-[#0C2330] text-sm font-medium hover:bg-[#F2EAD9]/50 transition"
               >
                 Pular esta etapa
               </button>
               {uploadedFiles.length > 0 && (
                 <button
                   onClick={() => setPhase("done")}
-                  className="flex-1 h-11 rounded-xl bg-[#1a4a3a] hover:bg-[#1a4a3a]/90 text-white text-sm font-semibold transition"
+                  className="flex-1 h-11 rounded-xl bg-[#B79152] hover:bg-[#B79152]/90 text-[#0C2330] text-sm font-semibold transition"
                 >
                   Concluir
                 </button>
@@ -490,44 +507,18 @@ export default function CadastroParceiro() {
     );
   }
 
-  // ── Formulário principal ──────────────────────────────────────────────────────
   return (
-    <main className="min-h-screen bg-gray-50">
-      <header className="bg-[#1a4a3a] px-6 py-4">
-        <div className="max-w-xl mx-auto flex items-center justify-between">
-          <div className="flex items-center gap-3">
-            <Image src="/logo.png" alt="WeCare" width={110} height={36} priority />
-            <span className="text-white/60 text-sm hidden sm:inline">Programa de Parceria</span>
-          </div>
-          <Link href="/login" className="text-white/70 hover:text-white text-sm transition">
-            Já sou parceiro
-          </Link>
-        </div>
-      </header>
+    <main className="min-h-screen bg-[#F2EAD9] font-[family-name:var(--font-inter)]">
+      <PublicHeader rightLink={{ href: "/login", label: "Já sou parceiro" }} />
 
-      <div className="max-w-xl mx-auto px-4 py-8 space-y-6">
-        <div className="text-center space-y-2 pb-2">
-          <h1 className="text-2xl font-bold text-gray-900">Seja um Parceiro WeCare</h1>
-          <p className="text-gray-500 text-sm leading-relaxed max-w-md mx-auto">
-            Indique proprietários de imóveis e ganhe comissão equivalente à taxa de administração
-            do primeiro mês completo de operação. Sem esforço operacional.
-          </p>
+      <div className="max-w-lg mx-auto px-4 py-10 space-y-8">
+        <div className="text-center space-y-3">
+          <h1 className="text-2xl sm:text-3xl font-bold text-[#0C2330] leading-tight font-[family-name:var(--font-spectral)]">
+            Programa de Parceria WeCare — Transforme sua rede em receita recorrente
+          </h1>
         </div>
 
-        <div className="grid grid-cols-3 gap-3 text-center">
-          {[
-            { label: "Sem exclusividade", sub: "Mantenha outras parcerias" },
-            { label: "Comissão real", sub: "100% da taxa do 1º mês" },
-            { label: "Portal completo", sub: "Acompanhe seus leads" },
-          ].map((b) => (
-            <div key={b.label} className="bg-white rounded-xl border border-gray-100 p-3 shadow-sm">
-              <p className="text-xs font-semibold text-gray-800">{b.label}</p>
-              <p className="text-xs text-gray-400 mt-0.5">{b.sub}</p>
-            </div>
-          ))}
-        </div>
-
-        <form onSubmit={handleSubmit} className="bg-white rounded-2xl border border-gray-100 shadow-sm p-6 space-y-6">
+        <form onSubmit={handleSubmit} className="bg-white rounded-2xl border border-[#B79152]/25 shadow-sm p-6 space-y-6">
           <Section icon={User} title="Seus dados">
             <div>
               <Label required>Nome completo</Label>
@@ -569,7 +560,7 @@ export default function CadastroParceiro() {
             </div>
           </Section>
 
-          <hr className="border-gray-100" />
+          <hr className="border-[#B79152]/15" />
 
           <Section icon={Building2} title="Atuação profissional">
             <div>
@@ -591,54 +582,52 @@ export default function CadastroParceiro() {
             </div>
           </Section>
 
-          <hr className="border-gray-100" />
+          <hr className="border-[#B79152]/15" />
 
           <Section icon={FileText} title="Termos e consentimento">
-            {/* Checkbox 1 — Termo de Parceria */}
             <label className="flex items-start gap-3 cursor-pointer group">
               <input
                 type="checkbox"
                 checked={form.term_consent}
                 onChange={set("term_consent")}
-                className="mt-0.5 accent-[#E55A4F]"
+                className="mt-0.5 accent-[#B79152]"
               />
-              <span className="text-sm text-gray-600 leading-relaxed">
+              <span className="text-sm text-[#0C2330]/80 leading-relaxed">
                 Li e aceito o{" "}
                 <button
                   type="button"
                   onClick={(e) => { e.preventDefault(); setShowTermModal(true); }}
-                  className="text-[#E55A4F] underline hover:text-[#E55A4F]/80 transition"
+                  className="text-[#B79152] underline hover:text-[#B79152]/80 transition"
                 >
                   Termo de Parceria WeCare
                 </button>{" "}
                 (v{TERM_VERSION}), incluindo as condições de comissionamento, obrigações do parceiro
                 e vigência do programa.{" "}
                 {form.term_consent && (
-                  <CheckCircle2 size={13} className="inline text-green-500 ml-0.5" />
+                  <CheckCircle2 size={13} className="inline text-green-600 ml-0.5" />
                 )}
               </span>
             </label>
 
-            {/* Checkbox 2 — LGPD */}
             <label className="flex items-start gap-3 cursor-pointer group">
               <input
                 type="checkbox"
                 checked={form.lgpd_consent}
                 onChange={set("lgpd_consent")}
-                className="mt-0.5 accent-[#E55A4F]"
+                className="mt-0.5 accent-[#B79152]"
               />
-              <span className="text-sm text-gray-600 leading-relaxed">
+              <span className="text-sm text-[#0C2330]/80 leading-relaxed">
                 Autorizo a WeCare Hosting a tratar meus dados pessoais conforme a{" "}
                 <button
                   type="button"
                   onClick={(e) => { e.preventDefault(); setShowLgpdModal(true); }}
-                  className="text-[#E55A4F] underline hover:text-[#E55A4F]/80 transition"
+                  className="text-[#B79152] underline hover:text-[#B79152]/80 transition"
                 >
                   Política de Privacidade e LGPD
                 </button>{" "}
                 para gestão da parceria comercial e comunicações relacionadas.{" "}
                 {form.lgpd_consent && (
-                  <CheckCircle2 size={13} className="inline text-green-500 ml-0.5" />
+                  <CheckCircle2 size={13} className="inline text-green-600 ml-0.5" />
                 )}
               </span>
             </label>
@@ -647,7 +636,7 @@ export default function CadastroParceiro() {
           <button
             type="submit"
             disabled={phase === "submitting" || !canSubmit}
-            className="w-full h-11 rounded-xl bg-[#E55A4F] hover:bg-[#E55A4F]/90 disabled:opacity-40 text-white font-semibold text-sm transition flex items-center justify-center gap-2"
+            className="w-full h-11 rounded-xl bg-[#B79152] hover:bg-[#B79152]/90 disabled:opacity-40 text-[#0C2330] font-semibold text-sm transition flex items-center justify-center gap-2"
           >
             {phase === "submitting" ? (
               <><Loader2 size={16} className="animate-spin" /> Enviando…</>
@@ -657,17 +646,19 @@ export default function CadastroParceiro() {
           </button>
 
           {!canSubmit && (form.full_name || form.email) && (
-            <p className="text-center text-xs text-gray-400">
+            <p className="text-center text-xs text-[#0C2330]/50">
               Aceite os dois termos acima para continuar.
             </p>
           )}
         </form>
 
-        <p className="text-center text-xs text-gray-400">
+        <BenefitsGrid />
+
+        <p className="text-center text-xs text-[#0C2330]/50">
           WeCare Hosting Serviços LTDA · CNPJ 30.870.784/0001-70 · Cotia — SP
           <br />
           Dúvidas?{" "}
-          <a href="mailto:felipe@wecarehosting.com.br" className="underline">
+          <a href="mailto:felipe@wecarehosting.com.br" className="underline text-[#B79152]">
             felipe@wecarehosting.com.br
           </a>
         </p>
@@ -676,15 +667,10 @@ export default function CadastroParceiro() {
   );
 }
 
-// Shell vazio usado como fundo quando um modal está aberto
 function PageShell() {
   return (
-    <main className="min-h-screen bg-gray-50">
-      <header className="bg-[#1a4a3a] px-6 py-4">
-        <div className="max-w-xl mx-auto">
-          <Image src="/logo.png" alt="WeCare" width={110} height={36} priority />
-        </div>
-      </header>
+    <main className="min-h-screen bg-[#F2EAD9]">
+      <PublicHeader rightLink={{ href: "/login", label: "Já sou parceiro" }} />
     </main>
   );
 }

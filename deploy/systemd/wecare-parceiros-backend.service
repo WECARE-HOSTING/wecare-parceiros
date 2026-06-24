@@ -1,0 +1,15 @@
+[Unit]
+Description=WeCare Parceiros — Backend API (FastAPI)
+After=network.target
+
+[Service]
+User=jarvis
+Group=jarvis
+WorkingDirectory=/home/jarvis/apps/wecare-parceiros/backend
+ExecStart=/home/jarvis/.local/bin/uv run uvicorn main:app --host 127.0.0.1 --port 18790
+Restart=always
+RestartSec=5
+EnvironmentFile=-/home/jarvis/apps/wecare-parceiros/backend/.env
+
+[Install]
+WantedBy=multi-user.target

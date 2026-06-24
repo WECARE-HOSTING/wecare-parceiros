@@ -1,0 +1,16 @@
+[Unit]
+Description=WeCare Parceiros — Frontend (Next.js)
+After=network.target
+
+[Service]
+User=jarvis
+Group=jarvis
+WorkingDirectory=/home/jarvis/apps/wecare-parceiros/frontend
+ExecStart=/usr/bin/node server.js
+Environment=PORT=3001
+Environment=HOSTNAME=127.0.0.1
+Restart=always
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target

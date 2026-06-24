@@ -18,6 +18,7 @@ import {
   UserCircle,
   Bell,
   FolderOpen,
+  Kanban,
 } from "lucide-react";
 import { useEffect, useState } from "react";
 import { Badge } from "@/components/ui/badge";
@@ -30,6 +31,7 @@ const NAV = [
   { href: "/materials",   label: "Materiais",  icon: FolderOpen,      adminOnly: false },
   { href: "/notifications", label: "Notificações", icon: Bell,         adminOnly: false },
   { href: "/partners",    label: "Parceiros",  icon: UserPlus,        adminOnly: true  },
+  { href: "/admin/kanban", label: "Kanban",    icon: Kanban,          adminOnly: true  },
   { href: "/profile",     label: "Meu perfil", icon: UserCircle,      adminOnly: false },
 ];
 

@@ -398,3 +398,53 @@ class MaterialResponse(BaseModel):
 class MaterialDownloadResponse(BaseModel):
     material: MaterialResponse
     download_url: str
+
+
+class KanbanPropertySummary(BaseModel):
+    id: int
+    status: str
+    address_city: str
+    address_state: str
+    owner_name: str
+    contract_model: str
+
+
+class KanbanCommissionSummary(BaseModel):
+    count_pending: int
+    count_paid: int
+    total_pending: Decimal
+    total_paid: Decimal
+    latest_status: str | None
+
+
+class KanbanLeadCard(BaseModel):
+    id: int
+    partner_id: int
+    full_name: str
+    email: str
+    cpf: str
+    phone: str | None
+    address_street: str | None
+    address_number: str | None
+    address_complement: str | None
+    address_city: str | None
+    address_state: str | None
+    address_zip: str | None
+    status: str
+    attribution_expires_at: datetime
+    created_at: datetime
+    partner_name: str
+    partner_utm_code: str
+    days_remaining_attribution: int
+    kanban_column: Literal["NEW", "CONTACTED", "QUALIFIED", "ONBOARDING", "OPERATIONAL", "CANCELLED"]
+    property: KanbanPropertySummary | None
+    commission: KanbanCommissionSummary | None
+
+
+class KanbanResponse(BaseModel):
+    NEW: list[KanbanLeadCard]
+    CONTACTED: list[KanbanLeadCard]
+    QUALIFIED: list[KanbanLeadCard]
+    ONBOARDING: list[KanbanLeadCard]
+    OPERATIONAL: list[KanbanLeadCard]
+    CANCELLED: list[KanbanLeadCard]

@@ -558,3 +558,70 @@ export const updateProperty = (id: number, data: PropertyUpdatePayload) =>
     method: "PATCH",
     body: JSON.stringify(data),
   });
+
+// ── Admin Kanban ──────────────────────────────────────────────────────────────
+
+export type KanbanColumn =
+  | "NEW"
+  | "CONTACTED"
+  | "QUALIFIED"
+  | "ONBOARDING"
+  | "OPERATIONAL"
+  | "CANCELLED";
+
+export type KanbanPropertySummary = {
+  id: number;
+  status: string;
+  address_city: string;
+  address_state: string;
+  owner_name: string;
+  contract_model: string;
+};
+
+export type KanbanCommissionSummary = {
+  count_pending: number;
+  count_paid: number;
+  total_pending: string;
+  total_paid: string;
+  latest_status: string | null;
+};
+
+export type KanbanLeadCard = {
+  id: number;
+  partner_id: number;
+  full_name: string;
+  email: string;
+  cpf: string;
+  phone: string | null;
+  address_street: string | null;
+  address_number: string | null;
+  address_complement: string | null;
+  address_city: string | null;
+  address_state: string | null;
+  address_zip: string | null;
+  status: string;
+  attribution_expires_at: string;
+  created_at: string;
+  partner_name: string;
+  partner_utm_code: string;
+  days_remaining_attribution: number;
+  kanban_column: KanbanColumn;
+  property: KanbanPropertySummary | null;
+  commission: KanbanCommissionSummary | null;
+};
+
+export type KanbanResponse = Record<KanbanColumn, KanbanLeadCard[]>;
+
+export const getAdminKanban = () => request<KanbanResponse>("/admin/kanban");
+
+export const adminUpdateLeadStatus = (id: number, data: LeadStatusUpdate) =>
+  request<LeadResponse>(`/admin/leads/${id}/status`, {
+    method: "PATCH",
+    body: JSON.stringify(data),
+  });
+
+export const adminUpdatePropertyStatus = (id: number, status: string) =>
+  request<PropertyDetailResponse>(`/admin/properties/${id}/status`, {
+    method: "PATCH",
+    body: JSON.stringify({ status }),
+  });

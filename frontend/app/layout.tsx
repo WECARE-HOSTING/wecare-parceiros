@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Poppins } from "next/font/google";
+import { Inter, Poppins, Spectral } from "next/font/google";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { AuthProvider } from "./providers";
 import "./globals.css";
@@ -10,6 +10,17 @@ const poppins = Poppins({
   variable: "--font-poppins",
 });
 
+const inter = Inter({
+  subsets: ["latin"],
+  variable: "--font-inter",
+});
+
+const spectral = Spectral({
+  subsets: ["latin"],
+  weight: ["400", "600", "700"],
+  variable: "--font-spectral",
+});
+
 export const metadata: Metadata = {
   title: "WeCare — Portal do Parceiro",
   description: "Programa de Parceria WeCare Hosting",
@@ -18,7 +29,7 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="pt-BR" className={`${poppins.variable} h-full`}>
+    <html lang="pt-BR" className={`${poppins.variable} ${inter.variable} ${spectral.variable} h-full`}>
       <body className="min-h-full bg-background antialiased">
         <TooltipProvider>
           <AuthProvider>{children}</AuthProvider>
