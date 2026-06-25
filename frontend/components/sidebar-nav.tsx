@@ -4,61 +4,29 @@ import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useAuth } from "@/app/providers";
-import { getNotifications } from "@/lib/api";
 import { cn } from "@/lib/utils";
 import {
   LayoutDashboard,
   Users,
-  Building2,
   DollarSign,
   LogOut,
   Copy,
   CheckCheck,
-  UserPlus,
   UserCircle,
-  Bell,
-  FolderOpen,
-  Kanban,
 } from "lucide-react";
-import { useEffect, useState } from "react";
-import { Badge } from "@/components/ui/badge";
+import { useState } from "react";
 
 const NAV = [
-  { href: "/dashboard",     label: "Dashboard",    icon: LayoutDashboard, adminOnly: false },
-  { href: "/leads",         label: "Leads",        icon: Users,           adminOnly: false },
-  { href: "/commissions",   label: "Comissões",    icon: DollarSign,      adminOnly: false },
-  { href: "/properties",    label: "Imóveis",      icon: Building2,       adminOnly: true  },
-  { href: "/materials",     label: "Materiais",    icon: FolderOpen,      adminOnly: true  },
-  { href: "/notifications", label: "Notificações", icon: Bell,            adminOnly: true  },
-  { href: "/partners",      label: "Parceiros",    icon: UserPlus,        adminOnly: true  },
-  { href: "/admin/kanban",  label: "Kanban",       icon: Kanban,          adminOnly: true  },
-  { href: "/profile",       label: "Meu Perfil",   icon: UserCircle,      adminOnly: false },
+  { href: "/dashboard",   label: "Dashboard",  icon: LayoutDashboard, adminOnly: false },
+  { href: "/leads",       label: "Leads",      icon: Users,           adminOnly: false },
+  { href: "/commissions", label: "Comissões",  icon: DollarSign,      adminOnly: false },
+  { href: "/profile",     label: "Meu Perfil", icon: UserCircle,      adminOnly: false },
 ];
 
 export function SidebarNav({ utmLink }: { utmLink?: string }) {
   const pathname = usePathname();
   const { partner, logout } = useAuth();
   const [copied, setCopied] = useState(false);
-  const [unreadCount, setUnreadCount] = useState(0);
-
-  useEffect(() => {
-    if (!partner?.is_admin) return;
-    let active = true;
-    const load = async () => {
-      try {
-        const data = await getNotifications(1);
-        if (active) setUnreadCount(data.unread_count);
-      } catch {
-        // O menu não deve quebrar se o endpoint falhar
-      }
-    };
-    void load();
-    const timer = window.setInterval(load, 20000);
-    return () => {
-      active = false;
-      window.clearInterval(timer);
-    };
-  }, [partner?.is_admin]);
 
   function copyLink() {
     if (!utmLink) return;
@@ -101,9 +69,6 @@ export function SidebarNav({ utmLink }: { utmLink?: string }) {
             >
               <Icon size={16} className={active ? "text-wecare-navy" : "text-sidebar-foreground/70"} />
               {label}
-              {href === "/notifications" && unreadCount > 0 && (
-                <Badge className="ml-auto bg-sidebar-primary text-wecare-navy hover:bg-sidebar-primary">{unreadCount}</Badge>
-              )}
             </Link>
           );
         })}

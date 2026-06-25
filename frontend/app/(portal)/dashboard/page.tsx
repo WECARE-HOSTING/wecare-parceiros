@@ -135,9 +135,9 @@ function PendingBanner({ partner }: { partner: PartnerResponse }) {
                 {partner.documents!.length} arquivo{partner.documents!.length > 1 ? "s" : ""} enviado{partner.documents!.length > 1 ? "s" : ""}
               </p>
             ) : (
-              <Link href={`/partners/${partner.id}`} className="text-xs text-primary hover:underline">
-                Enviar agora →
-              </Link>
+              <p className="text-xs text-muted-foreground/80">
+                Pendente de envio
+              </p>
             )}
           </div>
         </div>

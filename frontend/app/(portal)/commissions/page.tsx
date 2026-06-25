@@ -183,9 +183,7 @@ export default function CommissionsPage() {
               : paginated!.map((c) => (
                   <TableRow key={c.id} className="hover:bg-muted cursor-pointer">
                     <TableCell className="text-muted-foreground text-sm">
-                      <Link href={`/properties/${c.property_id}`} className="hover:text-primary">
-                        Imóvel #{c.property_id}
-                      </Link>
+                      Imóvel #{c.property_id}
                     </TableCell>
                     <TableCell className="text-muted-foreground text-sm">Modelo {c.contract_model}</TableCell>
                     <TableCell className="text-foreground text-sm font-medium">{brl(c.commission_base)}</TableCell>

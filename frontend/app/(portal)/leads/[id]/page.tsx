@@ -145,11 +145,7 @@ export default function LeadDetailPage() {
           {me?.is_admin && (
             <Row
               label="Parceiro"
-              value={
-                <Link href={`/partners/${lead.partner_id}`} className="hover:text-primary underline">
-                  {partnerName || `#${lead.partner_id}`}
-                </Link>
-              }
+              value={partnerName || `#${lead.partner_id}`}
             />
           )}
           <Row
@@ -247,15 +243,6 @@ export default function LeadDetailPage() {
               </div>
             )}
 
-            {lead.status === "QUALIFIED" && (
-              <p className="text-xs text-muted-foreground/80">
-                Para converter em imóvel, use{" "}
-                <Link href="/properties/new" className="text-primary underline">
-                  cadastrar imóvel
-                </Link>{" "}
-                e selecione este lead.
-              </p>
-            )}
           </CardContent>
         </Card>
       )}
