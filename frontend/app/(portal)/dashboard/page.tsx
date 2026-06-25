@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { useAuth } from "@/app/providers";
 import {
@@ -161,17 +161,29 @@ function AdminView() {
   const [error, setError] = useState("");
 
   useEffect(() => {
-    getAdminDashboard()
-      .then(setData)
-      .catch((e: Error) => setError(e.message));
-  }, []);
+    let cancelled = false;
 
-  if (error) return (
-    <div className="text-red-600 bg-red-50 border border-red-200 rounded-xl p-4 text-sm">{error}</div>
-  );
+    getAdminDashboard()
+      .then((result) => {
+        if (!cancelled) {
+          setData(result);
+          setError("");
+        }
+      })
+      .catch((e: Error) => {
+        if (!cancelled) setError(e.message);
+      });
+
+    return () => {
+      cancelled = true;
+    };
+  }, []);
 
   return (
     <div className="space-y-6">
+      {error && (
+        <div className="text-red-600 bg-red-50 border border-red-200 rounded-xl p-4 text-sm">{error}</div>
+      )}
       {!data ? <SkeletonGrid cols={4} /> : (
         <>
           <div>
@@ -214,17 +226,31 @@ function PartnerView({ partnerId, createdAt }: { partnerId: number; createdAt: s
   const [error, setError] = useState("");
 
   useEffect(() => {
-    getDashboard(partnerId)
-      .then(setData)
-      .catch((e: Error) => setError(e.message));
-  }, [partnerId]);
+    if (partnerId == null || !Number.isFinite(partnerId) || partnerId <= 0) return;
 
-  if (error) return (
-    <div className="text-red-600 bg-red-50 border border-red-200 rounded-xl p-4 text-sm">{error}</div>
-  );
+    let cancelled = false;
+
+    getDashboard(partnerId)
+      .then((result) => {
+        if (!cancelled) {
+          setData(result);
+          setError("");
+        }
+      })
+      .catch((e: Error) => {
+        if (!cancelled) setError(e.message);
+      });
+
+    return () => {
+      cancelled = true;
+    };
+  }, [partnerId]);
 
   return (
     <div className="space-y-6">
+      {error && (
+        <div className="text-red-600 bg-red-50 border border-red-200 rounded-xl p-4 text-sm">{error}</div>
+      )}
       {!data ? <SkeletonGrid cols={3} /> : (
         <>
           <div>
@@ -266,14 +292,23 @@ function PartnerView({ partnerId, createdAt }: { partnerId: number; createdAt: s
 
 export default function DashboardPage() {
   const { partner, setPartner } = useAuth();
+  const partnerId = partner?.id;
+  const isAdmin = partner?.is_admin === true;
+  const stablePartnerId = useRef<number | null>(null);
+  const stableCreatedAt = useRef("");
+
+  if (partnerId != null && Number.isFinite(partnerId) && partnerId > 0) {
+    stablePartnerId.current = partnerId;
+    stableCreatedAt.current = partner?.created_at ?? "";
+  }
+
+  const displayPartnerId = stablePartnerId.current;
 
   // Atualiza dados do parceiro PENDING ao entrar no dashboard
   useEffect(() => {
-    if (partner && !partner.is_admin && partner.status === "PENDING") {
-      getMe().then(setPartner).catch(() => {});
-    }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+    if (!partnerId || isAdmin || partner?.status !== "PENDING") return;
+    getMe().then(setPartner).catch(() => {});
+  }, [partnerId, isAdmin, partner?.status, setPartner]);
 
   return (
     <div className="space-y-6">
@@ -282,20 +317,23 @@ export default function DashboardPage() {
           Olá, {partner?.full_name.split(" ")[0]} 👋
         </h1>
         <p className="text-muted-foreground text-sm mt-1">
-          {partner?.is_admin
+          {isAdmin
             ? "Visão geral do programa WeCare."
             : "Aqui está o resumo da sua parceria com a WeCare."}
         </p>
       </div>
 
-      {partner && !partner.is_admin && partner.status === "PENDING" && (
+      {partner && !isAdmin && partner.status === "PENDING" && (
         <PendingBanner partner={partner} />
       )}
 
-      {partner?.is_admin
-        ? <AdminView />
-        : partner && <PartnerView partnerId={partner.id} createdAt={partner.created_at} />
-      }
+      {isAdmin ? (
+        <AdminView />
+      ) : displayPartnerId != null ? (
+        <PartnerView partnerId={displayPartnerId} createdAt={stableCreatedAt.current} />
+      ) : (
+        <SkeletonGrid cols={3} />
+      )}
     </div>
   );
 }
