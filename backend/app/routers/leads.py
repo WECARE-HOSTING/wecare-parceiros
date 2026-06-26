@@ -1,5 +1,6 @@
-from datetime import datetime, timedelta
+from datetime import date, datetime, timedelta
 import logging
+import re
 
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy import select
@@ -12,6 +13,24 @@ from app.in_app_notifications import create_new_lead_notification
 
 router = APIRouter(prefix="/leads", tags=["Leads"])
 logger = logging.getLogger(__name__)
+
+
+def _next_crm_codes(db: Session) -> tuple[str, str]:
+    """Retorna (codigo_wecare, codigo_cliente) sequenciais baseados no MAX existente."""
+    from sqlalchemy import func as sqlfunc
+
+    def _next(prefix: str, col) -> str:
+        max_val = db.query(sqlfunc.max(col)).filter(col.like(f"{prefix}-%")).scalar()
+        if max_val:
+            m = re.search(r"(\d+)$", max_val)
+            num = int(m.group(1)) + 1 if m else 1
+        else:
+            num = 1
+        return f"{prefix}-{num:05d}"
+
+    wc = _next("WC", models.CrmClient.codigo_wecare)
+    pp = _next("PP", models.CrmClient.codigo_cliente)
+    return wc, pp
 
 
 @router.post("/public", response_model=schemas.LeadResponse, status_code=201, summary="Indicação pública via link UTM")
@@ -76,10 +95,31 @@ def public_register_lead(payload: schemas.LeadCreate, db: Session = Depends(get_
     db.add(lead)
     db.commit()
     db.refresh(lead)
+
+    codigo_wecare, codigo_cliente = _next_crm_codes(db)
+    crm_client = models.CrmClient(
+        codigo_wecare=codigo_wecare,
+        codigo_cliente=codigo_cliente,
+        nome_cliente=lead.full_name,
+        email=lead.email,
+        telefone=lead.phone,
+        cidade=lead.address_city,
+        estado=lead.address_state,
+        canal_aquisicao="Indicação",
+        partner_id=lead.partner_id,
+        fase_atual="1_lead",
+        lead_entrada=date.today(),
+        notas=f"Lead gerado automaticamente via link UTM do parceiro {partner.full_name}",
+    )
+    db.add(crm_client)
+    db.commit()
+    db.refresh(crm_client)
+
     logger.info(
-        "public_lead_registered partner_id=%s lead_id=%s city=%s",
+        "public_lead_registered partner_id=%s lead_id=%s crm_client_id=%s city=%s",
         partner.id,
         lead.id,
+        crm_client.id,
         lead.address_city,
     )
 
