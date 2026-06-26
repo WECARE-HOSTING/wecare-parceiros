@@ -123,6 +123,26 @@ function ImportDialog({
             </label>
           )}
 
+          {!result && (
+            <div className="flex items-center justify-center gap-4 text-sm">
+              <a
+                href="/exemplo-leads.csv"
+                download
+                className="text-primary hover:underline"
+              >
+                Baixar modelo CSV
+              </a>
+              <span className="text-muted-foreground">·</span>
+              <a
+                href="/exemplo-leads.xlsx"
+                download
+                className="text-primary hover:underline"
+              >
+                Baixar modelo Excel
+              </a>
+            </div>
+          )}
+
           {uploadError && (
             <p className="text-sm text-red-600 bg-red-50 border border-red-200 rounded-lg px-3 py-2">
               {uploadError}
