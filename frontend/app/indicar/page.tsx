@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { useSearchParams } from "next/navigation";
-import { Loader2, CheckCircle2, AlertCircle, User, FileText } from "lucide-react";
+import { Loader2, CheckCircle2, AlertCircle, User, FileText, Info } from "lucide-react";
 import { PublicHeader } from "@/components/public-header";
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:8000";
@@ -52,7 +52,6 @@ export default function IndicarPage() {
   const [errorMsg, setErrorMsg] = useState("");
   const [form, setForm] = useState({
     full_name: "",
-    cpf: "",
     email: "",
     phone: "",
     lgpd_consent: false,
@@ -73,6 +72,10 @@ export default function IndicarPage() {
       setErrorMsg("Você precisa aceitar os termos para continuar.");
       return;
     }
+    if (!form.email && !form.phone) {
+      setErrorMsg("Informe ao menos e-mail ou telefone.");
+      return;
+    }
     setStep("loading");
     try {
       const res = await fetch(`${API_URL}/leads/public`, {
@@ -84,8 +87,7 @@ export default function IndicarPage() {
           utm_medium: "referral",
           utm_campaign: utmCode,
           full_name: form.full_name,
-          cpf: form.cpf,
-          email: form.email,
+          email: form.email || undefined,
           phone: form.phone || undefined,
           lgpd_consent: form.lgpd_consent,
         }),
@@ -176,6 +178,12 @@ export default function IndicarPage() {
         )}
 
         <form onSubmit={handleSubmit} className="bg-white rounded-2xl border border-[#B79152]/25 shadow-sm p-6 space-y-6">
+          {errorMsg && step === "form" && (
+            <div className="flex items-center gap-2 text-sm text-red-600 bg-red-50 border border-red-200 rounded-lg px-3 py-2">
+              <AlertCircle size={14} className="shrink-0" />
+              {errorMsg}
+            </div>
+          )}
           {/* Dados pessoais */}
           <Section icon={User} title="Dados do Proprietário">
             <div>
@@ -187,14 +195,18 @@ export default function IndicarPage() {
                 required
               />
             </div>
+            <div className="flex items-center gap-1.5 text-xs text-[#0C2330]/50">
+              <Info size={12} />
+              <span>Informe ao menos e-mail ou telefone.</span>
+            </div>
             <div className="grid grid-cols-2 gap-3">
               <div>
-                <Label required>CPF</Label>
+                <Label>E-mail</Label>
                 <Input
-                  value={form.cpf}
-                  onChange={set("cpf")}
-                  placeholder="000.000.000-00"
-                  required
+                  type="email"
+                  value={form.email}
+                  onChange={set("email")}
+                  placeholder="seu@email.com"
                 />
               </div>
               <div>
@@ -205,16 +217,6 @@ export default function IndicarPage() {
                   placeholder="(11) 99999-9999"
                 />
               </div>
-            </div>
-            <div>
-              <Label required>E-mail</Label>
-              <Input
-                type="email"
-                value={form.email}
-                onChange={set("email")}
-                placeholder="seu@email.com"
-                required
-              />
             </div>
           </Section>
 

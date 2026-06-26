@@ -147,8 +147,8 @@ class PartnerDashboard(BaseModel):
 class LeadCreate(BaseModel):
     utm_code: str
     full_name: str
-    cpf: str
-    email: EmailStr
+    cpf: str | None = None
+    email: EmailStr | None = None
     phone: str | None = None
     address_street: str | None = None
     address_number: str | None = None
@@ -162,9 +162,17 @@ class LeadCreate(BaseModel):
     lgpd_consent: bool
     lgpd_consent_ip: str | None = None
 
+    @model_validator(mode="after")
+    def require_email_or_phone(self) -> Self:
+        if not self.email and not self.phone:
+            raise ValueError("Informe ao menos e-mail ou telefone.")
+        return self
+
     @field_validator("cpf")
     @classmethod
-    def validate_cpf(cls, v: str) -> str:
+    def validate_cpf(cls, v: str | None) -> str | None:
+        if v is None:
+            return v
         digits = "".join(c for c in v if c.isdigit())
         if len(digits) != 11:
             raise ValueError("CPF deve ter 11 dígitos.")
