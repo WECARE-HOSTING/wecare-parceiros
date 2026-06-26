@@ -58,7 +58,7 @@ with Session(engine) as session:
         document_type="CPF",
         email=email,
         utm_code=utm_code,
-        referral_url=f"{frontend_url}/indicar?utm_campaign={utm_code}",
+        referral_url=f"{frontend_url}/cadastro?utm_campaign={utm_code}",
         status="ACTIVE",
         hashed_password=hash_password(password),
         is_admin=True,

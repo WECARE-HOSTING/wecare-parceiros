@@ -101,7 +101,7 @@ def notify_partner_activated(partner_email: str, partner_name: str, utm_link: st
     <p style="background:#EDE5D4;padding:12px 16px;border-radius:6px;word-break:break-all;border-left:3px solid #B79152">
       <a href="{utm_link}" style="color:#0C2330;font-weight:600">{utm_link}</a>
     </p>
-    <p><a href="{BASE_URL}/dashboard"
+    <p><a href="{BASE_URL}/leads"
          style="background:#B79152;color:#0C2330;padding:12px 28px;border-radius:6px;text-decoration:none;font-weight:700">
       Acessar Portal
     </a></p>

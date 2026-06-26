@@ -38,7 +38,7 @@ def _next_crm_codes(db: Session) -> tuple[str, str]:
 @router.post("/public", response_model=schemas.LeadResponse, status_code=201, summary="Indicação pública via link UTM")
 def public_register_lead(payload: schemas.LeadCreate, db: Session = Depends(get_db)):
     """
-    Endpoint público chamado pelo formulário /indicar.
+    Endpoint público chamado pelo formulário /cadastro.
     Não exige autenticação — identifica o parceiro pelo utm_code.
     """
     if not payload.lgpd_consent:

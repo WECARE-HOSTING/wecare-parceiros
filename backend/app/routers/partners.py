@@ -15,7 +15,7 @@ from app.auth import AdminPartner, CurrentPartner, hash_password
 from app.database import get_db
 from app.utils import generate_utm_code, infer_document_type
 
-BASE_REFERRAL_URL = os.getenv("FRONTEND_URL", "http://localhost:3000") + "/indicar"
+BASE_REFERRAL_URL = os.getenv("FRONTEND_URL", "http://localhost:3000") + "/cadastro"
 DEFAULT_PARTNER_PASSWORD = "Wecare@2026"
 UPLOADS_DIR = Path(os.getenv("UPLOADS_DIR", "./uploads"))
 

@@ -227,7 +227,7 @@ export default function CrmPage() {
   // Guard: admin only
   useEffect(() => {
     if (partner !== null && !partner.is_admin) {
-      router.replace("/dashboard");
+      router.replace("/leads");
     }
   }, [partner, router]);
 

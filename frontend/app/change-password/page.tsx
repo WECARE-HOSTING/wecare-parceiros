@@ -25,7 +25,7 @@ export default function ChangePasswordPage() {
     try {
       await changePassword(next);
       if (partner) setPartner({ ...partner, must_change_password: false });
-      router.replace("/dashboard");
+      router.replace("/leads");
     } catch (err: unknown) {
       setError(err instanceof Error ? err.message : "Erro ao alterar senha.");
     } finally {
