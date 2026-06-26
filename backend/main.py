@@ -18,6 +18,7 @@ from app.routers import (
     admin,
     auth,
     commissions,
+    crm,
     leads,
     materials,
     notifications as notifications_router,
@@ -80,6 +81,7 @@ app = FastAPI(
         {"name": "Imóveis",    "description": "Ciclo de vida dos imóveis indicados"},
         {"name": "Receita",    "description": "Registro mensal de receita"},
         {"name": "Comissões",  "description": "Apuração e pagamento de comissões"},
+        {"name": "CRM",        "description": "Funil de clientes proprietários"},
     ],
 )
 
@@ -192,3 +194,4 @@ app.include_router(revenue.router, prefix=API_PREFIX)
 app.include_router(commissions.router, prefix=API_PREFIX)
 app.include_router(notifications_router.router, prefix=API_PREFIX)
 app.include_router(materials.router, prefix=API_PREFIX)
+app.include_router(crm.router, prefix=API_PREFIX)

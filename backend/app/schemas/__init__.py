@@ -29,6 +29,10 @@ from app.schemas.parceria import (
     KanbanCommissionSummary,
     KanbanLeadCard,
     KanbanResponse,
+    CrmClientCreate,
+    CrmClientUpdate,
+    CrmClientFaseUpdate,
+    CrmClientResponse,
 )
 
 __all__ = [
@@ -62,4 +66,8 @@ __all__ = [
     "KanbanCommissionSummary",
     "KanbanLeadCard",
     "KanbanResponse",
+    "CrmClientCreate",
+    "CrmClientUpdate",
+    "CrmClientFaseUpdate",
+    "CrmClientResponse",
 ]

@@ -7,6 +7,9 @@ from app.models.parceria import (
     InAppNotification,
     Material,
     MaterialDownload,
+    CrmClient,
+    FASE_DATE_ATTRS,
+    CRM_FASE_ENUM,
 )
 
 __all__ = [
@@ -18,4 +21,7 @@ __all__ = [
     "InAppNotification",
     "Material",
     "MaterialDownload",
+    "CrmClient",
+    "FASE_DATE_ATTRS",
+    "CRM_FASE_ENUM",
 ]

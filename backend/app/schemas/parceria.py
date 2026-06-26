@@ -404,6 +404,114 @@ class MaterialDownloadResponse(BaseModel):
     download_url: str
 
 
+CrmFase = Literal[
+    "1_lead",
+    "2_reuniao",
+    "3_proposta_contrato",
+    "4_aguardando_docs",
+    "5_assinatura",
+    "operacao",
+    "perdido",
+]
+
+
+class CrmClientCreate(BaseModel):
+    nome_cliente: str
+    nome_imovel: str | None = None
+    email: str | None = None
+    telefone: str | None = None
+    cidade: str | None = None
+    estado: str | None = None
+    canal_aquisicao: str = "Indicação"
+    partner_id: int | None = None
+    fase_atual: CrmFase = "1_lead"
+    proxima_acao: str | None = None
+    prazo: date | None = None
+    notas: str | None = None
+    tipo_imovel: str | None = None
+    capacidade_hospedes: int | None = None
+    valor_setup: Decimal | None = None
+    percentual_admin: Decimal | None = None
+    contrato_assinado: bool = False
+
+    @field_validator("estado")
+    @classmethod
+    def validate_estado(cls, v: str | None) -> str | None:
+        if v is not None and len(v) != 2:
+            raise ValueError("Estado deve ser sigla com 2 letras (ex: SP).")
+        return v.upper() if v else v
+
+
+class CrmClientUpdate(BaseModel):
+    nome_cliente: str | None = None
+    nome_imovel: str | None = None
+    email: str | None = None
+    telefone: str | None = None
+    cidade: str | None = None
+    estado: str | None = None
+    canal_aquisicao: str | None = None
+    partner_id: int | None = None
+    proxima_acao: str | None = None
+    prazo: date | None = None
+    notas: str | None = None
+    tipo_imovel: str | None = None
+    capacidade_hospedes: int | None = None
+    valor_setup: Decimal | None = None
+    percentual_admin: Decimal | None = None
+    contrato_assinado: bool | None = None
+
+    @field_validator("estado")
+    @classmethod
+    def validate_estado(cls, v: str | None) -> str | None:
+        if v is not None and len(v) != 2:
+            raise ValueError("Estado deve ser sigla com 2 letras (ex: SP).")
+        return v.upper() if v else v
+
+
+class CrmClientFaseUpdate(BaseModel):
+    fase: CrmFase
+    notas: str | None = None
+    proxima_acao: str | None = None
+    prazo: date | None = None
+
+
+class CrmClientResponse(BaseModel):
+    model_config = ConfigDict(from_attributes=True)
+    id: int
+    codigo_wecare: str
+    codigo_cliente: str
+    nome_cliente: str
+    nome_imovel: str | None
+    email: str | None
+    telefone: str | None
+    cidade: str | None
+    estado: str | None
+    canal_aquisicao: str
+    partner_id: int | None
+    partner_name: str | None = None
+    fase_atual: str
+    proxima_acao: str | None
+    prazo: date | None
+    notas: str | None
+    tipo_imovel: str | None
+    capacidade_hospedes: int | None
+    valor_setup: Decimal | None
+    percentual_admin: Decimal | None
+    contrato_assinado: bool
+    lead_entrada: date | None
+    lead_saida: date | None
+    reuniao_entrada: date | None
+    reuniao_saida: date | None
+    proposta_entrada: date | None
+    proposta_saida: date | None
+    docs_entrada: date | None
+    docs_saida: date | None
+    assinatura_entrada: date | None
+    assinatura_saida: date | None
+    created_at: datetime
+    updated_at: datetime
+
+
 class KanbanPropertySummary(BaseModel):
     id: int
     status: str

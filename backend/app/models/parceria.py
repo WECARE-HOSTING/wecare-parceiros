@@ -194,6 +194,88 @@ class Commission(Base):
     property: Mapped["Property"] = relationship("Property", back_populates="commissions")
 
 
+CRM_FASE_ENUM = (
+    "1_lead",
+    "2_reuniao",
+    "3_proposta_contrato",
+    "4_aguardando_docs",
+    "5_assinatura",
+    "operacao",
+    "perdido",
+)
+
+# Mapeamento fase → prefixo de coluna de data
+_FASE_COL_PREFIX: dict[str, str] = {
+    "1_lead": "1_lead",
+    "2_reuniao": "2_reuniao",
+    "3_proposta_contrato": "3_proposta",
+    "4_aguardando_docs": "4_docs",
+    "5_assinatura": "5_assinatura",
+}
+
+
+class CrmClient(Base):
+    __tablename__ = "crm_clients"
+
+    id: Mapped[int] = mapped_column(Integer, primary_key=True)
+    codigo_wecare: Mapped[str] = mapped_column(String(20), nullable=False, unique=True)
+    codigo_cliente: Mapped[str] = mapped_column(String(20), nullable=False, unique=True)
+    nome_cliente: Mapped[str] = mapped_column(String(200), nullable=False)
+    nome_imovel: Mapped[str | None] = mapped_column(String(200), nullable=True)
+    email: Mapped[str | None] = mapped_column(String(254), nullable=True)
+    telefone: Mapped[str | None] = mapped_column(String(20), nullable=True)
+    cidade: Mapped[str | None] = mapped_column(String(100), nullable=True)
+    estado: Mapped[str | None] = mapped_column(String(2), nullable=True)
+    canal_aquisicao: Mapped[str] = mapped_column(String(100), nullable=False, default="Indicação")
+    partner_id: Mapped[int | None] = mapped_column(Integer, ForeignKey("partners.id"), nullable=True)
+    fase_atual: Mapped[str] = mapped_column(
+        Enum(*CRM_FASE_ENUM, name="crm_fase_enum"),
+        nullable=False,
+        default="1_lead",
+    )
+    proxima_acao: Mapped[str | None] = mapped_column(String(500), nullable=True)
+    prazo: Mapped[datetime | None] = mapped_column(Date, nullable=True)
+    notas: Mapped[str | None] = mapped_column(String(5000), nullable=True)
+    tipo_imovel: Mapped[str | None] = mapped_column(String(100), nullable=True)
+    capacidade_hospedes: Mapped[int | None] = mapped_column(Integer, nullable=True)
+    valor_setup: Mapped[float | None] = mapped_column(Numeric(12, 2), nullable=True)
+    percentual_admin: Mapped[float | None] = mapped_column(Numeric(5, 2), nullable=True)
+    contrato_assinado: Mapped[bool] = mapped_column(Boolean, nullable=False, default=False)
+    # Datas de entrada/saída por fase
+    lead_entrada: Mapped[datetime | None] = mapped_column(Date, nullable=True)
+    lead_saida: Mapped[datetime | None] = mapped_column(Date, nullable=True)
+    reuniao_entrada: Mapped[datetime | None] = mapped_column(Date, nullable=True)
+    reuniao_saida: Mapped[datetime | None] = mapped_column(Date, nullable=True)
+    proposta_entrada: Mapped[datetime | None] = mapped_column(Date, nullable=True)
+    proposta_saida: Mapped[datetime | None] = mapped_column(Date, nullable=True)
+    docs_entrada: Mapped[datetime | None] = mapped_column(Date, nullable=True)
+    docs_saida: Mapped[datetime | None] = mapped_column(Date, nullable=True)
+    assinatura_entrada: Mapped[datetime | None] = mapped_column(Date, nullable=True)
+    assinatura_saida: Mapped[datetime | None] = mapped_column(Date, nullable=True)
+    deleted: Mapped[bool] = mapped_column(Boolean, nullable=False, default=False)
+    created_at: Mapped[datetime] = mapped_column(DateTime, nullable=False, default=func.now())
+    updated_at: Mapped[datetime] = mapped_column(
+        DateTime, nullable=False, default=func.now(), onupdate=func.now()
+    )
+
+    partner: Mapped["Partner | None"] = relationship("Partner")
+
+    __table_args__ = (
+        Index("ix_crm_clients_fase", "fase_atual"),
+        Index("ix_crm_clients_partner", "partner_id"),
+    )
+
+
+# Mapa fase → atributos de coluna no model (para lógica de transição)
+FASE_DATE_ATTRS: dict[str, tuple[str, str]] = {
+    "1_lead":              ("lead_entrada",      "lead_saida"),
+    "2_reuniao":           ("reuniao_entrada",   "reuniao_saida"),
+    "3_proposta_contrato": ("proposta_entrada",  "proposta_saida"),
+    "4_aguardando_docs":   ("docs_entrada",      "docs_saida"),
+    "5_assinatura":        ("assinatura_entrada","assinatura_saida"),
+}
+
+
 class InAppNotification(Base):
     __tablename__ = "in_app_notifications"
 
