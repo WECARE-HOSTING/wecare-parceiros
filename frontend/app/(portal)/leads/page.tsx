@@ -253,10 +253,20 @@ export default function LeadsPage() {
           <h1 className="text-2xl font-bold text-foreground">Leads</h1>
           <p className="text-muted-foreground text-sm mt-1">Proprietários indicados via seu link exclusivo.</p>
         </div>
-        <div className="flex gap-2">
+        <div className="flex gap-2 items-center flex-wrap">
           <Button variant="outline" size="sm" onClick={() => setImportOpen(true)} className="gap-1.5">
             <Upload size={14} />Importar lista
           </Button>
+          <span className="text-xs text-muted-foreground">
+            Modelo:{" "}
+            <a href="/exemplo-leads.csv" download className="text-xs text-muted-foreground hover:underline">
+              CSV
+            </a>
+            {" · "}
+            <a href="/exemplo-leads.xlsx" download className="text-xs text-muted-foreground hover:underline">
+              Excel
+            </a>
+          </span>
           {leads && leads.length > 0 && (
             <Button variant="outline" size="sm" onClick={handleExport} className="gap-1.5">
               <Download size={14} />Exportar CSV
