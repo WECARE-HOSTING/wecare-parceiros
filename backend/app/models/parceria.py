@@ -35,7 +35,7 @@ class Partner(Base):
     status: Mapped[str] = mapped_column(
         Enum("PENDING", "ACTIVE", "SUSPENDED", "TERMINATED", name="partner_status_enum"),
         nullable=False,
-        default="PENDING",
+        default="ACTIVE",
     )
     hashed_password: Mapped[str | None] = mapped_column(String(200), nullable=True)
     is_admin: Mapped[bool] = mapped_column(Boolean, nullable=False, default=False)
