@@ -21,17 +21,36 @@ def _send(to: str, subject: str, html: str) -> None:
         logger.error("Falha ao enviar e-mail para %s: %s", to, exc)
 
 
+_NAVY  = "#0C2330"
+_GOLD  = "#B79152"
+_IVORY = "#F2EAD9"
+_SAND  = "#EDE5D4"
+
+
 def _base(title: str, body: str) -> str:
     return f"""
-    <div style="font-family:sans-serif;max-width:600px;margin:0 auto;color:#222">
-      <div style="background:#E55A4F;padding:24px;border-radius:8px 8px 0 0">
-        <h1 style="color:#fff;margin:0;font-size:20px">WeCare Hosting — Programa de Parceria</h1>
+    <div style="font-family:'Segoe UI',Arial,sans-serif;max-width:600px;margin:0 auto;color:{_NAVY};background:{_IVORY};border-radius:10px;overflow:hidden;border:1px solid {_SAND}">
+      <!-- Header -->
+      <div style="background:{_NAVY};padding:28px 32px;text-align:center">
+        <p style="margin:0 0 6px;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:{_GOLD};font-weight:600">
+          Programa de Parceria
+        </p>
+        <h1 style="color:{_IVORY};margin:0;font-size:22px;font-weight:700;letter-spacing:-0.3px">
+          WeCare Hosting
+        </h1>
       </div>
-      <div style="background:#f9f9f9;padding:24px;border-radius:0 0 8px 8px">
-        <h2 style="color:#E55A4F;margin-top:0">{title}</h2>
-        {body}
-        <hr style="border:none;border-top:1px solid #ddd;margin:24px 0">
-        <p style="font-size:12px;color:#666">
+      <!-- Gold accent bar -->
+      <div style="height:3px;background:linear-gradient(90deg,{_GOLD},{_NAVY})"></div>
+      <!-- Body -->
+      <div style="padding:32px">
+        <h2 style="color:{_NAVY};margin:0 0 20px;font-size:18px;font-weight:700;border-bottom:2px solid {_GOLD};padding-bottom:10px;display:inline-block">
+          {title}
+        </h2>
+        <div style="color:{_NAVY};line-height:1.7;font-size:15px">
+          {body}
+        </div>
+        <hr style="border:none;border-top:1px solid {_SAND};margin:28px 0 20px">
+        <p style="font-size:11px;color:#4A5F6D;margin:0;line-height:1.6">
           WeCare Hosting Serviços LTDA · CNPJ 30.870.784/0001-70<br>
           Rua Sardenha 21, Cotia — SP
         </p>
@@ -49,21 +68,21 @@ def notify_partner_registered(partner_email: str, partner_name: str, temp_passwo
     <p><strong>Seus dados de acesso ao Portal:</strong></p>
     <table style="width:100%;border-collapse:collapse;margin:8px 0">
       <tr>
-        <td style="padding:8px 12px;background:#f0f0f0;border-radius:4px 0 0 4px;font-size:13px;color:#555;white-space:nowrap">E-mail</td>
-        <td style="padding:8px 12px;background:#f0f0f0;border-radius:0 4px 4px 0;font-size:13px">{partner_email}</td>
+        <td style="padding:8px 12px;background:#EDE5D4;border-radius:4px 0 0 4px;font-size:13px;color:#4A5F6D;white-space:nowrap">E-mail</td>
+        <td style="padding:8px 12px;background:#EDE5D4;border-radius:0 4px 4px 0;font-size:13px">{partner_email}</td>
       </tr>
       <tr><td colspan="2" style="padding:4px"></td></tr>
       <tr>
-        <td style="padding:8px 12px;background:#f0f0f0;border-radius:4px 0 0 4px;font-size:13px;color:#555;white-space:nowrap">Senha temporária</td>
-        <td style="padding:8px 12px;background:#f0f0f0;border-radius:0 4px 4px 0;font-size:15px;font-weight:bold;letter-spacing:1px">{temp_password}</td>
+        <td style="padding:8px 12px;background:#EDE5D4;border-radius:4px 0 0 4px;font-size:13px;color:#4A5F6D;white-space:nowrap">Senha temporária</td>
+        <td style="padding:8px 12px;background:#EDE5D4;border-radius:0 4px 4px 0;font-size:15px;font-weight:bold;letter-spacing:1px;color:#0C2330">{temp_password}</td>
       </tr>
     </table>
-    <p style="font-size:13px;color:#888">
+    <p style="font-size:13px;color:#4A5F6D">
       Por segurança, você será obrigado a criar uma nova senha no primeiro acesso.
     </p>
     <p style="margin-top:20px">
       <a href="{BASE_URL}/login"
-         style="background:#E55A4F;color:#fff;padding:12px 24px;border-radius:6px;text-decoration:none;font-size:14px">
+         style="background:#B79152;color:#0C2330;padding:12px 28px;border-radius:6px;text-decoration:none;font-size:14px;font-weight:700;letter-spacing:0.3px">
         Acessar o Portal
       </a>
     </p>
@@ -79,11 +98,11 @@ def notify_partner_activated(partner_email: str, partner_name: str, utm_link: st
     body = f"""
     <p>Olá, <strong>{partner_name}</strong>!</p>
     <p>Seu cadastro foi <strong>ativado</strong>. Você já pode começar a indicar proprietários.</p>
-    <p style="background:#fdf0ef;padding:12px;border-radius:6px;word-break:break-all">
-      <a href="{utm_link}" style="color:#E55A4F">{utm_link}</a>
+    <p style="background:#EDE5D4;padding:12px 16px;border-radius:6px;word-break:break-all;border-left:3px solid #B79152">
+      <a href="{utm_link}" style="color:#0C2330;font-weight:600">{utm_link}</a>
     </p>
     <p><a href="{BASE_URL}/dashboard"
-         style="background:#E55A4F;color:#fff;padding:12px 24px;border-radius:6px;text-decoration:none">
+         style="background:#B79152;color:#0C2330;padding:12px 28px;border-radius:6px;text-decoration:none;font-weight:700">
       Acessar Portal
     </a></p>
     """
@@ -98,7 +117,7 @@ def notify_new_lead(
     <p>Nova indicação registrada: <strong>{lead_name}</strong>
     {f'em <strong>{lead_city}</strong>' if lead_city else ''}.</p>
     <p><a href="{BASE_URL}/leads"
-         style="background:#E55A4F;color:#fff;padding:12px 24px;border-radius:6px;text-decoration:none">
+         style="background:#B79152;color:#0C2330;padding:12px 28px;border-radius:6px;text-decoration:none;font-weight:700">
       Ver meus leads
     </a></p>
     """
@@ -115,10 +134,10 @@ def notify_commission_generated(
     body = f"""
     <p>Olá, <strong>{partner_name}</strong>!</p>
     <table style="width:100%;border-collapse:collapse">
-      <tr><td style="padding:8px;border-bottom:1px solid #eee"><strong>Imóvel</strong></td>
-          <td style="padding:8px;border-bottom:1px solid #eee">{property_city}</td></tr>
-      <tr><td style="padding:8px;border-bottom:1px solid #eee"><strong>Valor</strong></td>
-          <td style="padding:8px;border-bottom:1px solid #eee;color:#E55A4F;font-size:18px">
+      <tr><td style="padding:8px;border-bottom:1px solid #EDE5D4"><strong>Imóvel</strong></td>
+          <td style="padding:8px;border-bottom:1px solid #EDE5D4">{property_city}</td></tr>
+      <tr><td style="padding:8px;border-bottom:1px solid #EDE5D4"><strong>Valor</strong></td>
+          <td style="padding:8px;border-bottom:1px solid #EDE5D4;color:#B79152;font-size:18px">
             <strong>{commission_amount}</strong></td></tr>
       <tr><td style="padding:8px"><strong>Pagamento até</strong></td>
           <td style="padding:8px">{payment_due_date}</td></tr>
@@ -147,11 +166,11 @@ def notify_password_reset(partner_email: str, partner_name: str, reset_link: str
     <p>Clique no botão abaixo para criar uma nova senha. O link é válido por <strong>60 minutos</strong>.</p>
     <p style="margin:24px 0">
       <a href="{reset_link}"
-         style="background:#E55A4F;color:#fff;padding:12px 24px;border-radius:6px;text-decoration:none">
+         style="background:#B79152;color:#0C2330;padding:12px 28px;border-radius:6px;text-decoration:none;font-weight:700">
         Redefinir senha
       </a>
     </p>
-    <p style="font-size:12px;color:#888">Se você não solicitou esta redefinição, ignore este e-mail.</p>
+    <p style="font-size:12px;color:#4A5F6D">Se você não solicitou esta redefinição, ignore este e-mail.</p>
     """
     _send(partner_email, "Redefinição de senha — WeCare Parceria", _base("Redefinir senha", body))
 

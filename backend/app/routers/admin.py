@@ -104,9 +104,9 @@ def admin_dashboard(_admin: AdminPartner, db: Session = Depends(get_db)):
     month_start = now.replace(day=1, hour=0, minute=0, second=0, microsecond=0)
 
     return schemas.AdminDashboard(
-        partners_total=count(models.Partner.id.isnot(None)),
-        partners_active=count(models.Partner.status == "ACTIVE"),
-        partners_pending=count(models.Partner.status == "PENDING"),
+        partners_total=count(models.Partner.is_admin == False),
+        partners_active=count(models.Partner.status == "ACTIVE", models.Partner.is_admin == False),
+        partners_pending=count(models.Partner.status == "PENDING", models.Partner.is_admin == False),
         leads_total=count(models.Lead.id.isnot(None)),
         leads_active=count(models.Lead.status.in_(["NEW", "CONTACTED", "QUALIFIED"])),
         leads_week=count(models.Lead.created_at >= week_ago),
