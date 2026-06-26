@@ -13,6 +13,7 @@ import {
   Copy,
   CheckCheck,
   UserCircle,
+  Kanban,
 } from "lucide-react";
 import { useState } from "react";
 
@@ -21,6 +22,7 @@ const NAV = [
   { href: "/leads",       label: "Leads",      icon: Users,           adminOnly: false },
   { href: "/commissions", label: "Comissões",  icon: DollarSign,      adminOnly: false },
   { href: "/profile",     label: "Meu Perfil", icon: UserCircle,      adminOnly: false },
+  { href: "/admin/crm",   label: "CRM",        icon: Kanban,          adminOnly: true  },
 ];
 
 export function SidebarNav({ utmLink }: { utmLink?: string }) {

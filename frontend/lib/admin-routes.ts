@@ -1,4 +1,4 @@
-const ADMIN_ONLY_ROUTE_PREFIXES = [] as const;
+const ADMIN_ONLY_ROUTE_PREFIXES = ["/admin"] as const;
 
 export function isAdminOnlyRoute(pathname: string): boolean {
   return ADMIN_ONLY_ROUTE_PREFIXES.some(

@@ -657,3 +657,74 @@ export const adminUpdatePropertyStatus = (id: number, status: string) =>
     method: "PATCH",
     body: JSON.stringify({ status }),
   });
+
+// ── CRM ───────────────────────────────────────────────────────────────────────
+
+export type CrmFase =
+  | "1_lead"
+  | "2_reuniao"
+  | "3_proposta_contrato"
+  | "4_aguardando_docs"
+  | "5_assinatura"
+  | "operacao"
+  | "perdido";
+
+export type CrmClientResponse = {
+  id: number;
+  codigo_wecare: string;
+  codigo_cliente: string;
+  nome_cliente: string;
+  nome_imovel: string | null;
+  email: string | null;
+  telefone: string | null;
+  cidade: string | null;
+  estado: string | null;
+  canal_aquisicao: string;
+  partner_id: number | null;
+  partner_name: string | null;
+  fase_atual: CrmFase;
+  proxima_acao: string | null;
+  prazo: string | null;
+  notas: string | null;
+  tipo_imovel: string | null;
+  capacidade_hospedes: number | null;
+  valor_setup: string | null;
+  percentual_admin: string | null;
+  contrato_assinado: boolean;
+  lead_entrada: string | null;
+  lead_saida: string | null;
+  reuniao_entrada: string | null;
+  reuniao_saida: string | null;
+  proposta_entrada: string | null;
+  proposta_saida: string | null;
+  docs_entrada: string | null;
+  docs_saida: string | null;
+  assinatura_entrada: string | null;
+  assinatura_saida: string | null;
+  created_at: string;
+  updated_at: string;
+};
+
+export type CrmFaseUpdate = {
+  fase: CrmFase;
+  notas?: string;
+  proxima_acao?: string;
+  prazo?: string;
+};
+
+export const fetchCrmClients = (
+  params: { fase?: string; partner_id?: number; search?: string } = {}
+) => {
+  const qs = new URLSearchParams();
+  if (params.fase) qs.set("fase", params.fase);
+  if (params.partner_id != null) qs.set("partner_id", String(params.partner_id));
+  if (params.search) qs.set("search", params.search);
+  const q = qs.toString();
+  return request<CrmClientResponse[]>(`/crm/clients${q ? `?${q}` : ""}`);
+};
+
+export const updateCrmClientFase = (id: number, data: CrmFaseUpdate) =>
+  request<CrmClientResponse>(`/crm/clients/${id}/fase`, {
+    method: "PATCH",
+    body: JSON.stringify(data),
+  });
