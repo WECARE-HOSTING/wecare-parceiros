@@ -25,7 +25,13 @@ const NAV = [
   { href: "/admin/crm",   label: "CRM",        icon: Kanban,          adminOnly: true  },
 ];
 
-export function SidebarNav({ utmLink }: { utmLink?: string }) {
+type SidebarNavProps = {
+  utmLink?: string;
+  mobileOpen?: boolean;
+  onMobileClose?: () => void;
+};
+
+export function SidebarNav({ utmLink, mobileOpen = false, onMobileClose }: SidebarNavProps) {
   const pathname = usePathname();
   const { partner, logout } = useAuth();
   const [copied, setCopied] = useState(false);
@@ -37,8 +43,18 @@ export function SidebarNav({ utmLink }: { utmLink?: string }) {
     setTimeout(() => setCopied(false), 2000);
   }
 
+  function handleNavClick() {
+    onMobileClose?.();
+  }
+
   return (
-    <aside className="w-60 min-h-screen bg-sidebar text-sidebar-foreground border-r border-sidebar-border flex flex-col">
+    <aside
+      className={cn(
+        "w-60 min-h-screen bg-sidebar text-sidebar-foreground border-r border-sidebar-border flex flex-col shrink-0",
+        "fixed inset-y-0 left-0 z-50 transform transition-transform duration-200 ease-in-out md:relative md:translate-x-0",
+        mobileOpen ? "translate-x-0" : "-translate-x-full md:translate-x-0"
+      )}
+    >
       {/* Brand */}
       <div className="px-6 py-5 border-b border-sidebar-border">
         <Image src="/logo.png" alt="WeCare" width={110} height={36} priority />
@@ -62,6 +78,7 @@ export function SidebarNav({ utmLink }: { utmLink?: string }) {
             <Link
               key={href}
               href={href}
+              onClick={handleNavClick}
               className={cn(
                 "flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-colors",
                 active

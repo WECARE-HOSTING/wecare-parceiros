@@ -147,8 +147,15 @@ function PendingBanner({ partner }: { partner: PartnerResponse }) {
 }
 
 function SkeletonGrid({ cols }: { cols: number }) {
+  const gridClass =
+    cols === 4
+      ? "grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4"
+      : cols === 3
+      ? "grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4"
+      : "grid grid-cols-1 sm:grid-cols-2 gap-4";
+
   return (
-    <div className={`grid grid-cols-2 lg:grid-cols-${cols} gap-4`}>
+    <div className={gridClass}>
       {Array.from({ length: cols * 2 }).map((_, i) => (
         <Skeleton key={i} className="h-28 rounded-xl" />
       ))}
@@ -188,7 +195,7 @@ function AdminView() {
         <>
           <div>
             <p className="text-xs font-semibold text-muted-foreground/80 uppercase tracking-wide mb-3">Parceiros</p>
-            <div className="grid grid-cols-2 lg:grid-cols-3 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
               <StatCard title="Parceiros ativos"   value={data.partners_active}  icon={UserPlus}   accent="bg-primary" />
               <StatCard title="Aguardando ativação" value={data.partners_pending} icon={AlertCircle} accent="bg-yellow-500" />
               <StatCard title="Total de parceiros" value={data.partners_total}   icon={Users} />
@@ -197,7 +204,7 @@ function AdminView() {
 
           <div>
             <p className="text-xs font-semibold text-muted-foreground/80 uppercase tracking-wide mb-3">Leads</p>
-            <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
               <StatCard title="Leads esta semana" value={data.leads_week}      icon={TrendingUp}  accent="bg-indigo-500" />
               <StatCard title="Em andamento"       value={data.leads_active}    icon={Clock}       accent="bg-yellow-500" />
               <StatCard title="Convertidos"         value={data.leads_converted} icon={CheckCircle} accent="bg-green-600" />
@@ -207,7 +214,7 @@ function AdminView() {
 
           <div>
             <p className="text-xs font-semibold text-muted-foreground/80 uppercase tracking-wide mb-3">Imóveis &amp; Comissões</p>
-            <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
               <StatCard title="Em operação"       value={data.properties_operational}               icon={Building2}   accent="bg-primary" />
               <StatCard title="Total de imóveis"  value={data.properties_total}                     icon={Building2} />
               <StatCard title="Comissões a pagar" value={brl(data.commissions_pending_amount)}
@@ -255,7 +262,7 @@ function PartnerView({ partnerId, createdAt }: { partnerId: number; createdAt: s
         <>
           <div>
             <p className="text-xs font-semibold text-muted-foreground/80 uppercase tracking-wide mb-3">Leads</p>
-            <div className="grid grid-cols-2 lg:grid-cols-3 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
               <StatCard title="Leads ativos"    value={data.leads_new ?? 0}           icon={UserPlus} accent="bg-primary" />
               <StatCard title="Em andamento"    value={data.leads_in_progress ?? 0}   icon={Clock}    accent="bg-yellow-500" />
               <StatCard title="Não convertidos" value={data.leads_not_converted ?? 0} icon={XCircle} />
@@ -264,7 +271,7 @@ function PartnerView({ partnerId, createdAt }: { partnerId: number; createdAt: s
 
           <div>
             <p className="text-xs font-semibold text-muted-foreground/80 uppercase tracking-wide mb-3">Comissões</p>
-            <div className="grid grid-cols-2 lg:grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <StatCard
                 title="Comissão a receber"
                 value={brl(data.commissions_to_receive_month ?? 0)}
@@ -313,7 +320,7 @@ export default function DashboardPage() {
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="text-2xl font-bold text-foreground">
+        <h1 className="text-xl md:text-2xl font-bold text-foreground">
           Olá, {partner?.full_name.split(" ")[0]} 👋
         </h1>
         <p className="text-muted-foreground text-sm mt-1">

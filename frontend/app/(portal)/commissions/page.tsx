@@ -86,10 +86,10 @@ export default function CommissionsPage() {
 
   return (
     <div className="space-y-6">
-      <div className="flex items-center justify-between">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <h1 className="text-2xl font-bold text-foreground">Comissões</h1>
-          <p className="text-muted-foreground text-sm mt-1">Extrato completo das comissões.</p>
+          <h1 className="text-xl md:text-2xl font-bold text-foreground">Comissões</h1>
+          <p className="text-muted-foreground text-base mt-1">Extrato completo das comissões.</p>
         </div>
         {commissions && commissions.length > 0 && (
           <Button variant="outline" size="sm" onClick={handleExport} className="gap-1.5">
@@ -99,7 +99,7 @@ export default function CommissionsPage() {
       </div>
 
       {commissions && (
-        <div className="grid grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <div className="bg-card rounded-xl border border-border p-5">
             <p className="text-sm text-muted-foreground mb-1">A Receber</p>
             <p className="text-2xl font-bold text-primary">{brl(totalPending)}</p>
@@ -149,6 +149,7 @@ export default function CommissionsPage() {
       )}
 
       <div className="bg-card rounded-xl border border-border overflow-hidden">
+        <div className="overflow-x-auto">
         <Table>
           <TableHeader>
             <TableRow className="bg-muted">
@@ -201,6 +202,7 @@ export default function CommissionsPage() {
                 ))}
           </TableBody>
         </Table>
+        </div>
       </div>
 
       {/* Paginação */}

@@ -169,7 +169,7 @@ function Section({ icon: Icon, title, children }: { icon: React.ElementType; tit
     <div className="space-y-4">
       <div className="flex items-center gap-2 text-[#B79152]">
         <Icon size={16} />
-        <h2 className="font-semibold text-sm uppercase tracking-wide font-[family-name:var(--font-inter)]">{title}</h2>
+        <h2 className="font-semibold text-base uppercase tracking-wide font-[family-name:var(--font-inter)]">{title}</h2>
       </div>
       <div className="space-y-3">{children}</div>
     </div>
@@ -230,14 +230,14 @@ function TermModal({
 
 function BenefitsGrid() {
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 text-center">
+    <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-center">
       {BENEFITS.map((b) => (
         <div
           key={b.label}
-          className="bg-white/60 rounded-xl border border-[#B79152]/25 p-4"
+          className="bg-white/60 rounded-xl border border-[#B79152]/25 p-5"
         >
-          <p className="text-xs font-semibold text-[#0C2330] font-[family-name:var(--font-spectral)]">{b.label}</p>
-          <p className="text-xs text-[#0C2330]/60 mt-1 font-[family-name:var(--font-inter)]">{b.sub}</p>
+          <p className="text-sm font-semibold text-[#0C2330] font-[family-name:var(--font-spectral)]">{b.label}</p>
+          <p className="text-sm text-[#0C2330]/60 mt-1.5 font-[family-name:var(--font-inter)]">{b.sub}</p>
         </div>
       ))}
     </div>
@@ -365,12 +365,12 @@ export default function CadastroParceiro() {
     return (
       <main className="min-h-screen bg-[#F2EAD9] font-[family-name:var(--font-inter)]">
         <PublicHeader rightLink={{ href: "/login", label: "Já sou parceiro" }} />
-        <div className="flex items-center justify-center px-4 py-12">
-          <div className="bg-white rounded-2xl shadow-sm border border-[#B79152]/25 max-w-lg w-full p-10 text-center space-y-4">
+        <div className="flex items-center justify-center px-4 md:px-8 py-12">
+          <div className="bg-white rounded-2xl shadow-sm border border-[#B79152]/25 max-w-2xl w-full p-6 md:p-10 text-center space-y-4">
             <div className="w-16 h-16 rounded-full bg-red-100 flex items-center justify-center mx-auto">
               <AlertCircle size={32} className="text-red-500" />
             </div>
-            <h1 className="text-xl font-bold text-[#0C2330] font-[family-name:var(--font-spectral)]">Não foi possível cadastrar</h1>
+            <h1 className="text-2xl font-bold text-[#0C2330] font-[family-name:var(--font-spectral)]">Não foi possível cadastrar</h1>
             <p className="text-red-600 text-sm">{errorMsg}</p>
             <button onClick={() => setPhase("form")} className="text-sm text-[#B79152] underline">
               Tentar novamente
@@ -385,12 +385,12 @@ export default function CadastroParceiro() {
     return (
       <main className="min-h-screen bg-[#F2EAD9] font-[family-name:var(--font-inter)]">
         <PublicHeader />
-        <div className="flex items-center justify-center px-4 py-12">
-          <div className="bg-white rounded-2xl shadow-sm border border-[#B79152]/25 max-w-lg w-full p-10 text-center space-y-5">
+        <div className="flex items-center justify-center px-4 md:px-8 py-12">
+          <div className="bg-white rounded-2xl shadow-sm border border-[#B79152]/25 max-w-2xl w-full p-6 md:p-10 text-center space-y-5">
             <div className="w-16 h-16 rounded-full bg-green-100 flex items-center justify-center mx-auto">
               <CheckCircle2 size={32} className="text-green-600" />
             </div>
-            <h1 className="text-xl font-bold text-[#0C2330] font-[family-name:var(--font-spectral)]">
+            <h1 className="text-2xl font-bold text-[#0C2330] font-[family-name:var(--font-spectral)]">
               Cadastro realizado! Bem-vindo à WeCare.
             </h1>
             <div className="bg-[#0C2330]/5 rounded-xl p-4 text-sm text-[#0C2330]/80 text-left space-y-3 border border-[#B79152]/20">
@@ -422,18 +422,18 @@ export default function CadastroParceiro() {
     return (
       <main className="min-h-screen bg-[#F2EAD9] font-[family-name:var(--font-inter)]">
         <PublicHeader />
-        <div className="max-w-lg mx-auto px-4 py-8 space-y-6">
+        <div className="max-w-2xl mx-auto px-4 md:px-8 py-8 space-y-6">
           <div className="text-center space-y-2">
             <div className="w-12 h-12 rounded-full bg-green-100 flex items-center justify-center mx-auto mb-3">
               <CheckCircle2 size={24} className="text-green-600" />
             </div>
-            <h1 className="text-xl font-bold text-[#0C2330] font-[family-name:var(--font-spectral)]">Cadastro recebido!</h1>
-            <p className="text-[#0C2330]/70 text-sm">
+            <h1 className="text-2xl font-bold text-[#0C2330] font-[family-name:var(--font-spectral)]">Cadastro recebido!</h1>
+            <p className="text-[#0C2330]/70 text-base leading-relaxed">
               Verifique seu e-mail — suas credenciais de acesso já foram enviadas.
             </p>
           </div>
 
-          <div className="bg-white rounded-2xl border border-[#B79152]/25 shadow-sm p-6 space-y-5">
+          <div className="bg-white rounded-2xl border border-[#B79152]/25 shadow-sm p-6 md:p-8 space-y-5">
             <Section icon={Upload} title="Documentos (opcional, mas recomendado)">
               <p className="text-sm text-[#0C2330]/70 leading-relaxed">
                 Envie seu RG/CPF ou Contrato Social para agilizar a validação do seu cadastro.
@@ -530,21 +530,21 @@ export default function CadastroParceiro() {
     <main className="min-h-screen bg-[#F2EAD9] font-[family-name:var(--font-inter)]">
       <PublicHeader rightLink={{ href: "/login", label: "Já sou parceiro" }} />
 
-      <div className="max-w-lg mx-auto px-4 py-10 space-y-8">
+      <div className="max-w-2xl mx-auto px-4 md:px-8 py-8 md:py-10 space-y-8">
         <BenefitsGrid />
 
-        <form onSubmit={handleSubmit} className="bg-white rounded-2xl border border-[#B79152]/25 shadow-sm p-6 space-y-6">
+        <form onSubmit={handleSubmit} className="bg-white rounded-2xl border border-[#B79152]/25 shadow-sm p-6 md:p-8 space-y-6">
           <Section icon={User} title="Seus dados">
-            <div>
-              <Label required>Nome completo</Label>
-              <Input
-                value={form.full_name}
-                onChange={set("full_name")}
-                placeholder="Como consta no documento"
-                required
-              />
-            </div>
-            <div className="grid grid-cols-2 gap-3">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div className="md:col-span-2">
+                <Label required>Nome completo</Label>
+                <Input
+                  value={form.full_name}
+                  onChange={set("full_name")}
+                  placeholder="Como consta no documento"
+                  required
+                />
+              </div>
               <div>
                 <Label required>CPF ou CNPJ</Label>
                 <Input
@@ -579,60 +579,62 @@ export default function CadastroParceiro() {
                   placeholder="(11) 99999-9999"
                 />
               </div>
-            </div>
-            <div>
-              <Label required>E-mail</Label>
-              <Input
-                type="email"
-                value={form.email}
-                onChange={set("email")}
-                placeholder="voce@empresa.com.br"
-                required
-              />
-              {fieldErrors.email && (
-                <p className="text-xs text-red-600 mt-1">{fieldErrors.email}</p>
-              )}
+              <div className="md:col-span-2">
+                <Label required>E-mail</Label>
+                <Input
+                  type="email"
+                  value={form.email}
+                  onChange={set("email")}
+                  placeholder="voce@empresa.com.br"
+                  required
+                />
+                {fieldErrors.email && (
+                  <p className="text-xs text-red-600 mt-1">{fieldErrors.email}</p>
+                )}
+              </div>
             </div>
           </Section>
 
           <hr className="border-[#B79152]/15" />
 
           <Section icon={Building2} title="Atuação profissional">
-            <div>
-              <Label>Empresa / Nome profissional</Label>
-              <Input
-                value={form.company_name}
-                onChange={set("company_name")}
-                placeholder="Razão social ou nome fantasia"
-              />
-            </div>
-            <div>
-              <Label>Segmento</Label>
-              <SelectEl
-                value={segmentChoice}
-                onChange={(e) => {
-                  const value = e.target.value;
-                  setSegmentChoice(value);
-                  if (value === "Outro") {
-                    setForm((prev) => ({ ...prev, segment: "" }));
-                  } else {
-                    setForm((prev) => ({ ...prev, segment: value }));
-                  }
-                }}
-              >
-                <option value="">Selecione...</option>
-                {SEGMENTS.map((s) => (
-                  <option key={s} value={s}>{s}</option>
-                ))}
-              </SelectEl>
-              {segmentChoice === "Outro" && (
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div>
+                <Label>Empresa / Nome profissional</Label>
                 <Input
-                  className="mt-2"
-                  value={form.segment}
-                  onChange={(e) => setForm((prev) => ({ ...prev, segment: e.target.value }))}
-                  placeholder="Descreva seu segmento"
+                  value={form.company_name}
+                  onChange={set("company_name")}
+                  placeholder="Razão social ou nome fantasia"
                 />
-              )}
+              </div>
+              <div>
+                <Label>Segmento</Label>
+                <SelectEl
+                  value={segmentChoice}
+                  onChange={(e) => {
+                    const value = e.target.value;
+                    setSegmentChoice(value);
+                    if (value === "Outro") {
+                      setForm((prev) => ({ ...prev, segment: "" }));
+                    } else {
+                      setForm((prev) => ({ ...prev, segment: value }));
+                    }
+                  }}
+                >
+                  <option value="">Selecione...</option>
+                  {SEGMENTS.map((s) => (
+                    <option key={s} value={s}>{s}</option>
+                  ))}
+                </SelectEl>
+                {segmentChoice === "Outro" && (
+                  <Input
+                    className="mt-2"
+                    value={form.segment}
+                    onChange={(e) => setForm((prev) => ({ ...prev, segment: e.target.value }))}
+                    placeholder="Descreva seu segmento"
+                  />
+                )}
+              </div>
             </div>
           </Section>
 
@@ -690,7 +692,7 @@ export default function CadastroParceiro() {
           <button
             type="submit"
             disabled={phase === "submitting" || !canSubmit}
-            className="w-full h-11 rounded-xl bg-[#B79152] hover:bg-[#B79152]/90 disabled:opacity-40 text-[#0C2330] font-semibold text-sm transition flex items-center justify-center gap-2"
+            className="w-full min-h-11 rounded-xl bg-[#B79152] hover:bg-[#B79152]/90 disabled:opacity-40 text-[#0C2330] font-semibold text-base transition flex items-center justify-center gap-2"
           >
             {phase === "submitting" ? (
               <><Loader2 size={16} className="animate-spin" /> Enviando…</>

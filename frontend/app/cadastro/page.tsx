@@ -34,7 +34,7 @@ function Section({ icon: Icon, title, children }: { icon: React.ElementType; tit
     <div className="space-y-4">
       <div className="flex items-center gap-2 text-[#B79152]">
         <Icon size={16} />
-        <h2 className="font-semibold text-sm uppercase tracking-wide font-[family-name:var(--font-inter)]">{title}</h2>
+        <h2 className="font-semibold text-base uppercase tracking-wide font-[family-name:var(--font-inter)]">{title}</h2>
       </div>
       <div className="space-y-3">{children}</div>
     </div>
@@ -108,13 +108,13 @@ export default function IndicarPage() {
     return (
       <main className="min-h-screen bg-[#F2EAD9] font-[family-name:var(--font-inter)]">
         <PublicHeader />
-        <div className="flex items-center justify-center px-4 py-12">
-          <div className="bg-white rounded-2xl shadow-sm border border-[#B79152]/25 max-w-md w-full p-10 text-center space-y-4">
+        <div className="flex items-center justify-center px-4 md:px-8 py-12">
+          <div className="bg-white rounded-2xl shadow-sm border border-[#B79152]/25 max-w-2xl w-full p-6 md:p-10 text-center space-y-4">
             <div className="w-16 h-16 rounded-full bg-green-100 flex items-center justify-center mx-auto">
               <CheckCircle2 size={32} className="text-green-600" />
             </div>
-            <h1 className="text-xl font-bold text-[#0C2330] font-[family-name:var(--font-spectral)]">Indicação recebida!</h1>
-            <p className="text-[#0C2330]/70 text-sm leading-relaxed">
+            <h1 className="text-2xl font-bold text-[#0C2330] font-[family-name:var(--font-spectral)]">Indicação recebida!</h1>
+            <p className="text-[#0C2330]/70 text-base leading-relaxed">
               Obrigado pelo interesse. Nossa equipe entrará em contato em breve para dar andamento ao processo.
             </p>
             <div className="bg-[#B79152]/10 border border-[#B79152]/30 rounded-xl p-4 text-sm text-[#0C2330]/80">
@@ -134,12 +134,12 @@ export default function IndicarPage() {
     return (
       <main className="min-h-screen bg-[#F2EAD9] font-[family-name:var(--font-inter)]">
         <PublicHeader />
-        <div className="flex items-center justify-center px-4 py-12">
-          <div className="bg-white rounded-2xl shadow-sm border border-[#B79152]/25 max-w-md w-full p-10 text-center space-y-4">
+        <div className="flex items-center justify-center px-4 md:px-8 py-12">
+          <div className="bg-white rounded-2xl shadow-sm border border-[#B79152]/25 max-w-2xl w-full p-6 md:p-10 text-center space-y-4">
             <div className="w-16 h-16 rounded-full bg-red-100 flex items-center justify-center mx-auto">
               <AlertCircle size={32} className="text-red-500" />
             </div>
-            <h1 className="text-xl font-bold text-[#0C2330] font-[family-name:var(--font-spectral)]">Não foi possível enviar</h1>
+            <h1 className="text-2xl font-bold text-[#0C2330] font-[family-name:var(--font-spectral)]">Não foi possível enviar</h1>
             <p className="text-red-600 text-sm">{errorMsg}</p>
             <button
               onClick={() => setStep("form")}
@@ -158,13 +158,13 @@ export default function IndicarPage() {
     <main className="min-h-screen bg-[#F2EAD9] font-[family-name:var(--font-inter)]">
       <PublicHeader />
 
-      <div className="max-w-xl mx-auto px-4 py-8 space-y-6">
+      <div className="max-w-2xl mx-auto px-4 md:px-8 py-8 md:py-10 space-y-6">
         {/* Chamada */}
-        <div className="text-center space-y-2 pb-2">
-          <h1 className="text-2xl font-bold text-[#0C2330] font-[family-name:var(--font-spectral)]">
+        <div className="text-center space-y-3 pb-2">
+          <h1 className="text-2xl md:text-3xl font-bold text-[#0C2330] font-[family-name:var(--font-spectral)]">
             Indique seu imóvel para a WeCare
           </h1>
-          <p className="text-[#0C2330]/70 text-sm leading-relaxed">
+          <p className="text-[#0C2330]/70 text-base leading-relaxed max-w-xl mx-auto">
             Preencha os dados abaixo e nossa equipe entrará em contato para apresentar
             como transformar seu imóvel em renda com a gestão profissional da WeCare Hosting.
           </p>
@@ -177,7 +177,7 @@ export default function IndicarPage() {
           </div>
         )}
 
-        <form onSubmit={handleSubmit} className="bg-white rounded-2xl border border-[#B79152]/25 shadow-sm p-6 space-y-6">
+        <form onSubmit={handleSubmit} className="bg-white rounded-2xl border border-[#B79152]/25 shadow-sm p-6 md:p-8 space-y-6">
           {errorMsg && step === "form" && (
             <div className="flex items-center gap-2 text-sm text-red-600 bg-red-50 border border-red-200 rounded-lg px-3 py-2">
               <AlertCircle size={14} className="shrink-0" />
@@ -186,20 +186,20 @@ export default function IndicarPage() {
           )}
           {/* Dados pessoais */}
           <Section icon={User} title="Dados do Proprietário">
-            <div>
-              <Label required>Nome completo</Label>
-              <Input
-                value={form.full_name}
-                onChange={set("full_name")}
-                placeholder="Como consta no documento"
-                required
-              />
-            </div>
-            <div className="flex items-center gap-1.5 text-xs text-[#0C2330]/50">
-              <Info size={12} />
-              <span>Informe ao menos e-mail ou telefone.</span>
-            </div>
-            <div className="grid grid-cols-2 gap-3">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div className="md:col-span-2">
+                <Label required>Nome completo</Label>
+                <Input
+                  value={form.full_name}
+                  onChange={set("full_name")}
+                  placeholder="Como consta no documento"
+                  required
+                />
+              </div>
+              <div className="md:col-span-2 flex items-center gap-1.5 text-sm text-[#0C2330]/50">
+                <Info size={14} />
+                <span>Informe ao menos e-mail ou telefone.</span>
+              </div>
               <div>
                 <Label>E-mail</Label>
                 <Input
@@ -245,7 +245,7 @@ export default function IndicarPage() {
           <button
             type="submit"
             disabled={step === "loading" || !utmCode}
-            className="w-full h-11 rounded-xl bg-[#B79152] hover:bg-[#B79152]/90 disabled:opacity-50 text-[#0C2330] font-semibold text-sm transition flex items-center justify-center gap-2"
+            className="w-full min-h-11 rounded-xl bg-[#B79152] hover:bg-[#B79152]/90 disabled:opacity-50 text-[#0C2330] font-semibold text-base transition flex items-center justify-center gap-2"
           >
             {step === "loading" ? (
               <>

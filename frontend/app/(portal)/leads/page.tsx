@@ -248,10 +248,10 @@ export default function LeadsPage() {
         }}
       />
 
-      <div className="flex items-center justify-between">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <h1 className="text-2xl font-bold text-foreground">Leads</h1>
-          <p className="text-muted-foreground text-sm mt-1">Proprietários indicados via seu link exclusivo.</p>
+          <h1 className="text-xl md:text-2xl font-bold text-foreground">Leads</h1>
+          <p className="text-muted-foreground text-base mt-1">Proprietários indicados via seu link exclusivo.</p>
         </div>
         <div className="flex gap-2 items-center flex-wrap">
           <Button variant="outline" size="sm" onClick={() => setImportOpen(true)} className="gap-1.5">
@@ -312,7 +312,8 @@ export default function LeadsPage() {
         <div className="text-red-600 bg-red-50 border border-red-200 rounded-xl p-4 text-sm">{error}</div>
       )}
 
-      <div className="bg-card rounded-xl border border-border overflow-hidden">
+      <div className="bg-card rounded-xl border border-border overflow-hidden hidden md:block">
+        <div className="overflow-x-auto">
         <Table>
           <TableHeader>
             <TableRow className="bg-muted">
@@ -357,6 +358,44 @@ export default function LeadsPage() {
                 ))}
           </TableBody>
         </Table>
+        </div>
+      </div>
+
+      {/* Cards mobile */}
+      <div className="md:hidden space-y-3">
+        {!leads
+          ? Array.from({ length: 3 }).map((_, i) => (
+              <div key={i} className="bg-card rounded-xl border border-border p-4 space-y-2">
+                <Skeleton className="h-5 w-3/4" />
+                <Skeleton className="h-4 w-1/2" />
+                <Skeleton className="h-4 w-1/3" />
+              </div>
+            ))
+          : filtered!.length === 0
+          ? (
+              <div className="bg-card rounded-xl border border-border p-8 text-center text-muted-foreground/80">
+                {search || statusFilter
+                  ? "Nenhum lead encontrado para este filtro."
+                  : "Nenhum lead registrado ainda. Compartilhe seu link de indicação!"}
+              </div>
+            )
+          : paginated!.map((lead) => (
+              <Link
+                key={lead.id}
+                href={`/leads/${lead.id}`}
+                className="block bg-card rounded-xl border border-border p-4 space-y-2 hover:border-primary/40 transition-colors"
+              >
+                <div className="flex items-start justify-between gap-2">
+                  <p className="font-medium text-foreground text-base">{lead.full_name}</p>
+                  <StatusBadge status={lead.status} />
+                </div>
+                <p className="text-sm text-muted-foreground truncate">{lead.email}</p>
+                <div className="flex items-center justify-between text-sm text-muted-foreground pt-1">
+                  <span>Registrado: {fmtDate(lead.created_at)}</span>
+                  <span>Janela: {daysLeft(lead.attribution_expires_at)}</span>
+                </div>
+              </Link>
+            ))}
       </div>
 
       {/* Paginação */}

@@ -21,9 +21,9 @@ const SEGMENTS = [
 
 function Row({ label, value }: { label: string; value: React.ReactNode }) {
   return (
-    <div className="flex justify-between py-2 border-b border-border/50 last:border-0">
-      <span className="text-sm text-muted-foreground">{label}</span>
-      <span className="text-sm font-medium text-foreground text-right">{value ?? "—"}</span>
+    <div className="flex flex-col sm:flex-row sm:justify-between gap-1 sm:gap-4 py-3 border-b border-border/50 last:border-0">
+      <span className="text-sm text-muted-foreground shrink-0">{label}</span>
+      <span className="text-sm font-medium text-foreground sm:text-right break-words">{value ?? "—"}</span>
     </div>
   );
 }
@@ -98,14 +98,14 @@ export default function ProfilePage() {
   if (!partner) return null;
 
   return (
-    <div className="max-w-xl space-y-6">
-      <div className="flex items-center justify-between">
+    <div className="max-w-xl w-full space-y-6">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <h1 className="text-2xl font-bold text-foreground">Meu perfil</h1>
-          <p className="text-muted-foreground text-sm mt-1">Seus dados e link de indicação.</p>
+          <h1 className="text-xl md:text-2xl font-bold text-foreground">Meu perfil</h1>
+          <p className="text-muted-foreground text-base mt-1">Seus dados e link de indicação.</p>
         </div>
         {!editing && (
-          <Button variant="outline" size="sm" onClick={startEdit} className="gap-1.5">
+          <Button variant="outline" size="sm" onClick={startEdit} className="gap-1.5 min-h-10 w-full sm:w-auto">
             <Pencil size={14} />Editar
           </Button>
         )}
@@ -162,12 +162,12 @@ export default function ProfilePage() {
 
               {error && <p className="text-sm text-red-600 bg-red-50 border border-red-200 rounded-lg px-3 py-2">{error}</p>}
 
-              <div className="flex gap-2 pt-1">
+              <div className="flex flex-col sm:flex-row gap-2 pt-1">
                 <Button onClick={save} disabled={saving}
-                  className="gap-1.5">
+                  className="gap-1.5 min-h-10 w-full sm:w-auto">
                   {saving ? <><Loader2 size={14} className="animate-spin" />Salvando…</> : <><Check size={14} />Salvar</>}
                 </Button>
-                <Button variant="outline" onClick={cancelEdit} disabled={saving} className="gap-1.5">
+                <Button variant="outline" onClick={cancelEdit} disabled={saving} className="gap-1.5 min-h-10 w-full sm:w-auto">
                   <X size={14} />Cancelar
                 </Button>
               </div>
@@ -192,13 +192,13 @@ export default function ProfilePage() {
             <p className="text-xs text-muted-foreground mb-0.5">Código UTM</p>
             <p className="text-sm font-mono font-medium text-foreground">{partner.utm_code}</p>
           </div>
-          <div className="bg-muted border border-border rounded-lg px-3 py-2 flex items-center justify-between gap-3">
-            <p className="text-xs text-primary break-all">{partner.referral_url}</p>
+          <div className="bg-muted border border-border rounded-lg px-3 py-2 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+            <p className="text-sm text-primary break-all">{partner.referral_url}</p>
             <Button
               size="sm"
               variant="outline"
               onClick={copyLink}
-              className={`shrink-0 gap-1.5 transition-colors ${copied ? "border-green-400 text-green-600" : ""}`}
+              className={`shrink-0 gap-1.5 min-h-10 w-full sm:w-auto transition-colors ${copied ? "border-green-400 text-green-600" : ""}`}
             >
               {copied ? <><Check size={13} />Copiado</> : <><Copy size={13} />Copiar</>}
             </Button>

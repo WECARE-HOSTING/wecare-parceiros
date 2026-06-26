@@ -41,11 +41,11 @@ export default function ForgotPasswordPage() {
     <div className="min-h-screen bg-[#F2EAD9] font-[family-name:var(--font-inter)]">
       <PublicHeader rightLink={{ href: "/cadastro-parceiro", label: "Quero ser parceiro" }} />
 
-      <div className="flex items-center justify-center px-4 py-12">
-        <div className="w-full max-w-sm">
+      <div className="flex items-center justify-center px-4 md:px-8 py-8 md:py-12">
+        <div className="w-full max-w-md">
           <div className="bg-[#0C2330] rounded-2xl shadow-lg border border-[#B79152]/30 overflow-hidden">
-            <div className="px-8 pt-8 pb-2 text-center">
-              <h2 className="text-xl font-semibold text-[#F2EAD9] font-[family-name:var(--font-spectral)]">
+            <div className="px-6 md:px-8 pt-8 pb-2 text-center">
+              <h2 className="text-xl md:text-2xl font-semibold text-[#F2EAD9] font-[family-name:var(--font-spectral)]">
                 Portal do Parceiro
               </h2>
               <p className="text-sm text-[#F2EAD9]/60 mt-1">
@@ -53,7 +53,7 @@ export default function ForgotPasswordPage() {
               </p>
             </div>
 
-            <div className="bg-[#F2EAD9] m-4 mt-2 rounded-xl p-6">
+            <div className="bg-[#F2EAD9] m-4 mt-2 rounded-xl p-6 md:p-8">
               {sent ? (
                 <div className="text-center space-y-4">
                   <div className="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center mx-auto">
@@ -99,7 +99,7 @@ export default function ForgotPasswordPage() {
 
                     <Button
                       type="submit"
-                      className="w-full bg-[#B79152] hover:bg-[#B79152]/90 text-[#0C2330] font-semibold"
+                      className="w-full min-h-10 bg-[#B79152] hover:bg-[#B79152]/90 text-[#0C2330] font-semibold text-base"
                       disabled={isSubmitting}
                     >
                       {isSubmitting ? (
