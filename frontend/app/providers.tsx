@@ -63,7 +63,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       router.replace("/leads");
       return;
     }
-    if (token && isPublic && pathname !== "/cadastro") router.replace("/leads");
+    if (token && isPublic && pathname !== "/cadastro") router.replace(partner?.is_admin ? "/admin/crm" : "/leads");
   }, [ready, token, partner, pathname, router]);
 
   const setAuth = useCallback((t: string, p: PartnerResponse) => {

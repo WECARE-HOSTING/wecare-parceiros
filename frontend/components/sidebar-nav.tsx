@@ -18,11 +18,11 @@ import {
 import { useState } from "react";
 
 const NAV = [
-  { href: "/dashboard",   label: "Dashboard",  icon: LayoutDashboard, adminOnly: false },
+  { href: "/admin/crm",   label: "CRM",        icon: Kanban,          adminOnly: true  },
   { href: "/leads",       label: "Leads",      icon: Users,           adminOnly: false },
   { href: "/commissions", label: "Comissões",  icon: DollarSign,      adminOnly: false },
+  { href: "/dashboard",   label: "Dashboard",  icon: LayoutDashboard, adminOnly: false },
   { href: "/profile",     label: "Meu Perfil", icon: UserCircle,      adminOnly: false },
-  { href: "/admin/crm",   label: "CRM",        icon: Kanban,          adminOnly: true  },
 ];
 
 type SidebarNavProps = {
