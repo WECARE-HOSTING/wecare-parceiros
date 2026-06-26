@@ -1,15 +1,22 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
-import { getLeads, type LeadResponse } from "@/lib/api";
+import { getLeads, uploadLeadsList, type LeadResponse, type LeadsUploadResult } from "@/lib/api";
 import { exportCSV } from "@/lib/csv";
 import { StatusBadge } from "@/components/status-badge";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Skeleton } from "@/components/ui/skeleton";
-import { ChevronLeft, ChevronRight, Download, Search } from "lucide-react";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogDescription,
+} from "@/components/ui/dialog";
+import { ChevronLeft, ChevronRight, Download, Loader2, Search, Upload } from "lucide-react";
 
 const PAGE_SIZE = 20;
 
@@ -34,18 +41,149 @@ function daysLeft(iso: string) {
   return <span className="text-muted-foreground text-xs">{diff} dias</span>;
 }
 
+function ImportDialog({
+  open,
+  onClose,
+}: {
+  open: boolean;
+  onClose: (reload: boolean) => void;
+}) {
+  const [uploading, setUploading] = useState(false);
+  const [result, setResult] = useState<LeadsUploadResult | null>(null);
+  const [uploadError, setUploadError] = useState("");
+  const inputRef = useRef<HTMLInputElement>(null);
+
+  function reset() {
+    setResult(null);
+    setUploadError("");
+    setUploading(false);
+  }
+
+  async function handleFile(e: React.ChangeEvent<HTMLInputElement>) {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    setUploading(true);
+    setUploadError("");
+    setResult(null);
+    try {
+      const res = await uploadLeadsList(file);
+      setResult(res);
+    } catch (err: unknown) {
+      setUploadError(err instanceof Error ? err.message : "Erro inesperado.");
+    } finally {
+      setUploading(false);
+      if (inputRef.current) inputRef.current.value = "";
+    }
+  }
+
+  function handleClose(reload: boolean) {
+    reset();
+    onClose(reload);
+  }
+
+  return (
+    <Dialog open={open} onOpenChange={(v) => { if (!v) handleClose(!!result); }}>
+      <DialogContent className="max-w-md">
+        <DialogHeader>
+          <DialogTitle>Importar lista de leads</DialogTitle>
+          <DialogDescription>
+            Envie um arquivo CSV ou Excel com seus leads. Colunas aceitas:{" "}
+            <span className="font-medium text-foreground">nome, email, telefone, cidade, estado</span>.
+            Máximo de 500 linhas.
+          </DialogDescription>
+        </DialogHeader>
+
+        <div className="space-y-4 pt-2">
+          {!result && (
+            <label
+              className={`flex flex-col items-center justify-center gap-2 border-2 border-dashed border-border rounded-xl p-8 cursor-pointer transition-colors hover:border-primary/50 hover:bg-muted/30 ${
+                uploading ? "opacity-50 pointer-events-none" : ""
+              }`}
+            >
+              <input
+                ref={inputRef}
+                type="file"
+                accept=".csv,.xlsx"
+                className="hidden"
+                onChange={handleFile}
+                disabled={uploading}
+              />
+              {uploading ? (
+                <>
+                  <Loader2 size={24} className="animate-spin text-primary" />
+                  <span className="text-sm text-muted-foreground">Importando…</span>
+                </>
+              ) : (
+                <>
+                  <Upload size={24} className="text-muted-foreground" />
+                  <span className="text-sm font-medium text-foreground">Clique para selecionar arquivo</span>
+                  <span className="text-xs text-muted-foreground">.csv ou .xlsx</span>
+                </>
+              )}
+            </label>
+          )}
+
+          {uploadError && (
+            <p className="text-sm text-red-600 bg-red-50 border border-red-200 rounded-lg px-3 py-2">
+              {uploadError}
+            </p>
+          )}
+
+          {result && (
+            <div className="space-y-3">
+              <div className="bg-muted/40 rounded-xl p-4 space-y-1.5">
+                <div className="flex items-center justify-between text-sm">
+                  <span className="text-muted-foreground">Leads importados</span>
+                  <span className="font-semibold text-green-700">{result.criados}</span>
+                </div>
+                <div className="flex items-center justify-between text-sm">
+                  <span className="text-muted-foreground">Ignorados</span>
+                  <span className="font-medium text-yellow-700">{result.ignorados}</span>
+                </div>
+              </div>
+
+              {result.erros.length > 0 && (
+                <details className="text-xs text-muted-foreground">
+                  <summary className="cursor-pointer hover:text-foreground">
+                    {result.erros.length} aviso{result.erros.length !== 1 ? "s" : ""}
+                  </summary>
+                  <ul className="mt-2 space-y-0.5 pl-2 border-l border-border">
+                    {result.erros.map((e, i) => <li key={i}>{e}</li>)}
+                  </ul>
+                </details>
+              )}
+
+              <div className="flex gap-2 pt-1">
+                <Button variant="outline" size="sm" onClick={() => { reset(); }}>
+                  Importar outro
+                </Button>
+                <Button size="sm" onClick={() => handleClose(true)} className="flex-1">
+                  Fechar e atualizar lista
+                </Button>
+              </div>
+            </div>
+          )}
+        </div>
+      </DialogContent>
+    </Dialog>
+  );
+}
+
 export default function LeadsPage() {
   const [leads, setLeads] = useState<LeadResponse[] | null>(null);
   const [error, setError] = useState("");
   const [search, setSearch] = useState("");
   const [statusFilter, setStatusFilter] = useState("");
   const [page, setPage] = useState(1);
+  const [importOpen, setImportOpen] = useState(false);
 
-  useEffect(() => {
+  function loadLeads() {
     getLeads()
       .then(setLeads)
       .catch((e: Error) => setError(e.message));
-  }, []);
+  }
+
+  useEffect(() => { loadLeads(); }, []);
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => { setPage(1); }, [statusFilter, search]);
@@ -82,16 +220,29 @@ export default function LeadsPage() {
 
   return (
     <div className="space-y-6">
+      <ImportDialog
+        open={importOpen}
+        onClose={(reload) => {
+          setImportOpen(false);
+          if (reload) { setLeads(null); loadLeads(); }
+        }}
+      />
+
       <div className="flex items-center justify-between">
         <div>
           <h1 className="text-2xl font-bold text-foreground">Leads</h1>
           <p className="text-muted-foreground text-sm mt-1">Proprietários indicados via seu link exclusivo.</p>
         </div>
-        {leads && leads.length > 0 && (
-          <Button variant="outline" size="sm" onClick={handleExport} className="gap-1.5">
-            <Download size={14} />Exportar CSV
+        <div className="flex gap-2">
+          <Button variant="outline" size="sm" onClick={() => setImportOpen(true)} className="gap-1.5">
+            <Upload size={14} />Importar lista
           </Button>
-        )}
+          {leads && leads.length > 0 && (
+            <Button variant="outline" size="sm" onClick={handleExport} className="gap-1.5">
+              <Download size={14} />Exportar CSV
+            </Button>
+          )}
+        </div>
       </div>
 
       {/* Busca + Filtros */}

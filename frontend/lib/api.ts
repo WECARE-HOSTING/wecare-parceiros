@@ -728,3 +728,25 @@ export const updateCrmClientFase = (id: number, data: CrmFaseUpdate) =>
     method: "PATCH",
     body: JSON.stringify(data),
   });
+
+export type LeadsUploadResult = {
+  criados: number;
+  ignorados: number;
+  erros: string[];
+};
+
+export async function uploadLeadsList(file: File): Promise<LeadsUploadResult> {
+  const token = getToken();
+  const form = new FormData();
+  form.append("file", file);
+  const res = await fetch(`${API_URL}/leads/upload`, {
+    method: "POST",
+    headers: token ? { Authorization: `Bearer ${token}` } : {},
+    body: form,
+  });
+  if (!res.ok) {
+    const err = await res.json().catch(() => ({ detail: "Erro no upload." }));
+    throw new Error(err.detail ?? "Erro no upload.");
+  }
+  return res.json();
+}

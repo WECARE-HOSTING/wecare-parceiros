@@ -1,8 +1,10 @@
 from datetime import date, datetime, timedelta
+import csv
+import io
 import logging
 import re
 
-from fastapi import APIRouter, Depends, HTTPException
+from fastapi import APIRouter, Depends, File, HTTPException, UploadFile
 from sqlalchemy import select
 from sqlalchemy.orm import Session
 
@@ -229,6 +231,137 @@ def register_lead(payload: schemas.LeadCreate, db: Session = Depends(get_db)):
 
     notifications.notify_new_lead(partner.email, partner.full_name, lead.full_name, lead.address_city)
     return lead
+
+
+_MAX_ROWS = 500
+
+_COL_ALIASES = {
+    "nome": "nome",
+    "name": "nome",
+    "full_name": "nome",
+    "email": "email",
+    "e-mail": "email",
+    "telefone": "phone",
+    "phone": "phone",
+    "fone": "phone",
+    "whatsapp": "phone",
+    "cidade": "cidade",
+    "city": "cidade",
+    "estado": "estado",
+    "state": "estado",
+    "uf": "estado",
+}
+
+
+def _parse_csv(content: bytes) -> list[dict]:
+    text = content.decode("utf-8-sig", errors="replace")
+    sample = text[:2048]
+    sep = ";" if sample.count(";") >= sample.count(",") else ","
+    reader = csv.DictReader(io.StringIO(text), delimiter=sep)
+    return [row for row in reader]
+
+
+def _parse_xlsx(content: bytes) -> list[dict]:
+    import openpyxl
+    wb = openpyxl.load_workbook(io.BytesIO(content), read_only=True, data_only=True)
+    ws = wb.worksheets[0]
+    rows = list(ws.iter_rows(values_only=True))
+    if not rows:
+        return []
+    headers = [str(h).strip().lower() if h is not None else "" for h in rows[0]]
+    result = []
+    for row in rows[1:]:
+        result.append({headers[i]: (str(v).strip() if v is not None else "") for i, v in enumerate(row)})
+    return result
+
+
+def _normalise_row(raw: dict) -> dict:
+    out: dict = {}
+    for key, val in raw.items():
+        canonical = _COL_ALIASES.get(key.strip().lower().replace(" ", "_"))
+        if canonical and val:
+            out[canonical] = val.strip()
+    return out
+
+
+@router.post("/upload", summary="Importar lista de leads (CSV/XLSX)")
+def upload_leads(
+    current: CurrentPartner,
+    db: Session = Depends(get_db),
+    file: UploadFile = File(...),
+):
+    if current.status != "ACTIVE":
+        raise HTTPException(status_code=403, detail="Parceiro não está ativo.")
+
+    content = file.file.read()
+    filename = (file.filename or "").lower()
+
+    if filename.endswith(".xlsx") or file.content_type in (
+        "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+    ):
+        try:
+            raw_rows = _parse_xlsx(content)
+        except Exception as exc:
+            raise HTTPException(status_code=400, detail=f"Erro ao ler XLSX: {exc}") from exc
+    else:
+        try:
+            raw_rows = _parse_csv(content)
+        except Exception as exc:
+            raise HTTPException(status_code=400, detail=f"Erro ao ler CSV: {exc}") from exc
+
+    if len(raw_rows) > _MAX_ROWS:
+        raise HTTPException(
+            status_code=400,
+            detail=f"Limite de {_MAX_ROWS} linhas por upload. O arquivo contém {len(raw_rows)}.",
+        )
+
+    now = datetime.utcnow()
+    expires = now + timedelta(days=180)
+    criados = 0
+    ignorados = 0
+    erros: list[str] = []
+
+    for idx, raw in enumerate(raw_rows, start=2):
+        row = _normalise_row(raw)
+        nome = row.get("nome", "").strip()
+        if not nome:
+            ignorados += 1
+            erros.append(f"Linha {idx}: nome ausente — ignorado.")
+            continue
+
+        email = row.get("email") or None
+        phone = row.get("phone") or None
+
+        lead = models.Lead(
+            partner_id=current.id,
+            full_name=nome,
+            cpf=None,
+            email=email,
+            phone=phone,
+            address_city=row.get("cidade") or None,
+            address_state=(row.get("estado") or "")[:2].upper() or None,
+            utm_code=current.utm_code,
+            utm_source="upload",
+            utm_medium="lista",
+            lgpd_consent=True,
+            lgpd_consent_at=now,
+            status="CONTACTED",
+            attribution_expires_at=expires,
+            created_at=now,
+            updated_at=now,
+        )
+        db.add(lead)
+        try:
+            db.flush()
+            criados += 1
+        except Exception:
+            db.rollback()
+            ignorados += 1
+            erros.append(f"Linha {idx}: {nome} — e-mail ou dado duplicado, ignorado.")
+
+    db.commit()
+    logger.info("upload_leads partner_id=%s criados=%s ignorados=%s", current.id, criados, ignorados)
+    return {"criados": criados, "ignorados": ignorados, "erros": erros}
 
 
 @router.get("", response_model=list[schemas.LeadResponse], summary="Listar leads")
