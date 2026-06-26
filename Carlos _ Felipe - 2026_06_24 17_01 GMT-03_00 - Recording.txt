@@ -1,0 +1,810 @@
+Não, ótimo, que eu, minha primeira sugestão aqui, dashboard não tem que ser a primeira
+página, a primeira página tem que ser a de leads, alguma, vou ver as outras aí.
+A outra página que eu deixei seria uma listagem de leads, que aí a pessoa tem aqui os nomes
+a nomes e tudo mais, vai mostrar aqui nome, e-mail, enfim, o status, se tá ativo, se
+tá não convertido, ou assim por diante, a data em que ele foi registrado, e essa
+janela de inspiração é porque ele tem lá quando, por exemplo, como você vai pagar
+por 12 meses numa comissão, você tem lá quando exatamente, ao último mês, que você
+vai receber comissão para aquele lead, ou enfim, né, então é basicamente isso que
+eu pensei.
+Tem os campos aqui de busca, vai data buscar pelos dados, ou enfim, porque a pessoa fica
+com uma lista extensa.
+Queria adicionar, não tem o que eu podia adicionar?
+Ou adicionar, era isso que eu ia perguntar, hoje o capturar leads, ele tá por esse link,
+aqui embaixo tem o menu, tem o link de indicação, né, que aí deixa eu até, deixa eu compartilhar
+a tela inteira, que aí eu vou mudando de aba aqui, conforme...
+Acho que tava, cara, tava com as abas lá.
+Tava com as abas?
+Tava.
+Ah não, não, não, assim não, beleza.
+Aí, por exemplo, o link, que é inclusive, que tem aqui do parceiro, que é o link que
+ele vai usar para indicar as outras pessoas, por aqui ele faz a indicação.
+Puta, não lembra CPF, não, cara, do parceiro.
+É, eu ainda tô corrigindo essa página aqui, na verdade, é só porque eu já tava reaproveitando
+o que tinha.
+O link original.
+Não, beleza, a gente já tinha falado, acho que, né, só pra simplificar, né.
+E também, cara, eu colocaria assim, ou o email, ou o telefone, entendeu?
+Na verdade, eu não deixaria nada obrigatório.
+Tá bom.
+Sabe por quê?
+Porque o cara indicou, aí a gente valida, a gente faz isso, o cara indica, a gente
+tem que entrar em contato, não consegue, desvalida o lead.
+Fala, ó, a gente não conseguiu falar, ou o email, o telefone tá errado.
+Aí ele vai lá ver que tá desvalidado, a gente começa a falar com o cara.
+Mas eu não deixaria nada obrigatório, quanto menos coisa obrigatória, mais fácil.
+E aí, sobre a indicação, sim, aí pelo link, e dois lá pelo portal mesmo.
+O cara pode lembrar que o negócio, o cara ou pode subir, mandar pra gente de algum jeito,
+tipo, ah, tem uma lista aqui, um PDF, eu tenho um, eu tenho essas coisas, mas não precisa
+fazer nada de sistemático pra aparecer ali, acho que não precisa, nada complexo agora.
+É mais assim, ele pode indicar pelo portal, se ele quiser.
+Sim.
+Ele vai lá e escreve.
+Em vez de fazer por aí, ele vai lá e escreve lá na mão, entendeu?
+Fechou.
+Aqui, inclusive, vai ter a parte lá de quantidade de imóveis e tudo mais, pra pessoa poder
+preencher também, mas, no geral, o contexto é, né, ele teria, é, o parceiro, ele teria
+essa tela aqui, a minha ideia, né, pelo menos, o parceiro, ele teria essa tela aqui pra
+ele acompanhar ali os leads dele, comissão e tudo mais.
+Ele tem aqui uma listagem de leads também, por onde ele consegue verificar e tudo mais.
+Pra que ele possa subir novos leads, eu vou colocar aqui, então, um botão pra ele poder
+fazer o upload de leads e tudo mais, aí ele consegue cadastrar novos ele mesmo por aqui.
+O link vai ficar só pra terceiros meses, quando ele passar pra alguém que quisesse
+autocadastrar e tudo mais, né?
+Uma outra página de financeiro, que aí vai mostrar as comissões dele, quanto que ele
+tenha recebido, total recebido, que aí ele vai mostrar o acumulado do período e tudo
+mais.
+A ideia aqui é ter uma tabela mostrando o detalhamento por imóvel, enfim, quanto que
+ele tá recebendo, né, de comissão e tudo mais.
+Isso daqui eu preciso até ver com você, como que a gente vai fazer essa apuração,
+de onde que viria essa informação aqui, por exemplo?
+Hoje é do Hostaway.
+Hoje é do Hostaway?
+É, hoje é do Hostaway, né, porque a gente olha lá e coloca uma fórmula no Hostaway,
+que é pagamento de lead por indicação, é pagamento de parceiro, a gente coloca
+lá uma fórmula e vai sair lá no Hostaway um relatório com todos os que tem que pagar,
+todos os nomes de cadastro que ficaram lá.
+Legal, e aí uma dúvida, no Hostaway eu consigo criar um campo customizado até eu colocar
+o ID desse parceiro em todos os nomes?
+Consegue, conseguimos.
+Tá bom, que aí eu, toda vez que um imóvel for cadastrado lá, eu abrero.
+A gente coloca o nome lá, tipo Guilherme, não sei o que, num imóvel do coisa, aí
+depois faz o relatório só do Guilherme.
+Tá bom, darinho de onde a gente colocar dois campos ali, um campo do ID, do ID de quem
+é essa carteira e tudo mais e um campo de inspiração, a partir de quando eu paro de
+pagar a comissão.
+Perfeito, tá bom, dá pra colocar e depois você retira os valores financeiros do Hostaway,
+puf, joga aí.
+Tá bom, aí uma dúvida, no Hostaway ele já tem esse cálculo, quando você pensa num
+imóvel, por exemplo, ele já tem um cálculo adente de quanto é a taxa da Wicard?
+Fórmula customizável, também dá, dá pra colocar um campo customizável de valor que
+já calcula o quanto o cara vai ganhar, lá, tipo um valor, vai ter lá o valor, entendeu?
+Lá no Hostaway tem campos customizáveis de fórmulas, de por reserva.
+Hoje a taxa da Wicard é sobre o bruto ou sobre o líquido do proprietário?
+Depende do proprietário, tem proprietário que a gente negociou bruto, tem proprietário
+que a gente negociou líquido, tem proprietário que a gente negociou 15, 20, 25, mas dá
+Agora eu fechei sete imóveis, hoje é 20% do bruto, entendeu?
+Então depende cara, negociação, fica entre 15 e 25 do líquido ou do bruto, mas vai ter
+lá, tem lá, lá a gente pode colocar 15%, 20%, dá pra colocar tudo customizável lá
+dentro e as meninas preenchem, conforme o contrato.
+Fechou, tá bom.
+Então a minha ideia seria...
+Pode falar, mas em toda a lógica minha de concentração de informação de
+propriedade, fórmulas e o que lá, toda a minha lógica foi sempre colocar tudo no
+Hostaway, é um lugar só e API super aberto que a gente consegue extrair, né?
+Que vez consegue extrair esses dados de API de fórmula customizada?
+Tá bom, tá?
+Só isso que eu não tenho certeza que customiza uma fórmula, aparece na API?
+Acho que não, né?
+Acredito que não, geralmente na API ela dá só o resultado, ela não faz a fórmula.
+Quando você consulta por API um campo que é um customizado...
+Não, não, mas se tem call da API pra puxar as fórmulas customizadas, eu acho que não.
+Entendeu o que eu tô falando?
+Tipo assim, eu acho que não tem.
+Tipo assim, eu criei uma fórmula lá, eu consigo puxar essa fórmula que eu criei por API?
+Não tenho certeza, eu não consigo investigar.
+A gente investiga.
+Mas...
+Fechou.
+Aí então a minha ideia, pensando ali em força total do parceiro mesmo,
+seria essas quatro variações de tela aqui.
+Uma com o dashboard, uma com a listagem de leads dele,
+que aí é onde a gente vai incluir pra ele fazer o upload ali de uma lista massiva de contatos e tudo mais.
+Uma página de comissões, que aí ele consegue ver ali o financeiro dele mesmo, enfim.
+E essa página de perfil é só pra se ele quiser alterar e,
+quer alterar meu e-mail, quer alterar meu contato, enfim, por algum motivo.
+Tá, eu tô achando só que o link tá muito grande, cara.
+Tipo, todos vão ficar super grandes assim?
+Não, eu consigo dar uma encurtada nisso daqui, na verdade.
+Boa, boa.
+O lugar de barra, ficar parceiros, barra wikia, barra, e o UTM do cara, né?
+É, deixa eu falar, no final das contas vai ficar esse início aqui, eu não posso...
+Sim, sim, sim.
+...diminuir, só que aí depois do barra vai ficar só esse half aqui.
+Half, alguma coisa.
+Parceiros.wikia.hosting.
+É, tá bom, acho que tá bom. Beleza.
+Se quiser mudar também esse parceiros aqui, a gente pode...
+Pensando, cara, porque assim, imagina assim, tipo,
+ah, eu vou indicar você, ó, vou indicar, só por isso que lá, aí o cara vai lá e fala,
+pô, parceiro, aí o cara fala, pô, o cara tá ganhando pra indicar, entendeu?
+Ah, tá bom.
+Entendeu?
+Eu chamaria, podemos chamar em vez de parceiro, podemos chamar de outra coisa.
+Sabe, assim, tipo assim, podemos chamar de, sei lá, imóveis,
+alguma coisa assim, que não dê a cara de que o cara...
+E quando o proprietário preencher, também não dá a cara de que é um problema de parceria,
+que o proprietário tá...
+Posso então,
+o link do parceiro, o link da pessoa que vai preencher e chamar de cadastro,
+cadastro.wikia.hosting.
+Pode, pode, é isso, ótimo.
+Tá bom, o portal do parceiro, o parceiro acessa pelo parceiros.com,
+agora todo mundo que for de imóveis.
+Olha lá, entra lá naquela que eu preenchi novos,
+não, no link do cara mesmo.
+Ah, no link do cara?
+É, isso, indique seu imóvel para o care host, preenche os dados.
+Ó, lá em cima tá o programa de parceria, eu não colocaria o programa de parceria lá em cima.
+Falta o logo da Wikia, eu senti que faltam também os loguinhos da Wikia.
+Uhum, deixa eu ver uma coisa, preenche os dados,
+eu sei que tu tá em contato para apresentar,
+para apresentar como transformar seu imóvel em renda com gestão profissional da Wikia Hosting.
+Beleza.
+Autorizo armazenar da indicação.
+Acho que eu tiraria dados para contato, só a análise da indicação,
+enviar indicação, tá vendo? Eu trocaria isso.
+Aqui você trocaria para deixar o que? Não entendi.
+Eu tiraria a palavra indicação, aí de cima e embaixo.
+É, eu tinha a indicação da...
+Pode deixar o autorizo para armazenar e utilizar meus dados para contato.
+É, isso, conforme a lei, meus dados não serão compartilhados com terceiros?
+Beleza, aí enviar, só enviar, qual o seu action, tirar a indicação.
+Pode ser só enviar?
+É, do ponto de vista do proprietário que tá recebendo,
+pra ele não falar, esse cara aqui tá ganhando, entendeu?
+Uhum, e também nenhum dos campos vai ser de obrigatórios, né?
+Nenhum campo obrigatório.
+Tá bom.
+O cara preenche o que ele quiser, a quantidade de móveis, aquelas coisas lá depois.
+E aí, na página principal, eu também colocaria talvez o primeiro leads.
+Primeira coisa que ele coisar são os leads dele.
+Calma aí, deixa eu voltar aqui então.
+Depois eu entro com o login via DM.
+Ficou bem legal, hein, cara?
+Então, a página inicial não seria o dashboard, então seria leads.
+É, leads.
+E aí nas páginas de leads, põe aí.
+Na página de leads, aí vai ter os leads dele.
+Aí eu colocaria comissões e dashboards depois.
+Porque eu acho de ordem de importância, cara.
+O cara tá mais querendo ver as comissões do que o dash.
+O dashboard, o que que tem no dashboard?
+Eu ia de novo, você viu isso?
+Dashboard seria basicamente um resumo pra ele.
+Quantos leads ele tem ativos, quantos estão...
+Ah, bem legal, eu sei.
+Mas eu colocaria o leads primeiro, dashboards e comissões.
+Tá legal.
+Bem legal, porque é isso, cara.
+Bem simples.
+Aí deixa...
+A gente tinha falado, né, do outro de materiais, não sei o quê.
+Acho que tinha umas...
+Isso, eu ainda não tá em exibição, porque são páginas que ainda não estão prontas.
+Mas deixa eu entrar aqui com o perfil de administrador.
+Que eu criei aqui um login de administrador também.
+Só pra demonstrar.
+Essa página de dashboards pode ignorar porque vai ser diferente.
+Que aí a ideia seria uma visão de dashboard pra nós, né?
+Pensando ali em Wicare, quantidade de leads, quantidade das parcerias e tudo mais, tal.
+Leads logo, né?
+Alguma coisa do tipo, né?
+A questão dos leads aqui também seria basicamente um consolidado dos leads aqui de todo mundo, né?
+Parte de comissões.
+Isso daqui talvez não faça muito sentido, essa visão.
+Mas eu pensei em uma visão só pra gente ter ali previsão de pagamento.
+Em 30 dias, em 60 dias, ou enfim.
+E se a gente tem como capturar isso, porque basicamente a gente pode ter uma previsão.
+Pra gente já tem reserva, mas...
+Não, a gente tem tudo que é...
+Pode colocar apagar, né?
+A gente consegue ter o apagar lá, porque é tudo que tem de reserva pro mês do cara, só tem que colocar aí.
+Fechou.
+Mas a ideia aqui da principal página também...
+Na verdade, um cambã gerencial que é assim...
+Eu tenho aqui um contato, que são os leads que estão chegando, né?
+Pode...
+Isso, então ele vai cair aqui.
+Aí, por exemplo, em detalhes ele vem, né?
+O contato e tudo mais, tudo certinho.
+Você consegue ir marcando.
+Então, marcar como contatado, ele já qualifica.
+Então, só como eles voltando aqui no cambã.
+Marca essa marinha como contatada, ela já foi, tá contatado.
+Aí, no caso de quem for atuar nisso aqui, que talvez seja a Nicole e tudo mais, ela vai fazendo.
+E aí, por exemplo...
+Não, vai ser eu.
+Sou eu que vou falar com os caras.
+Vai ser você?
+Primeiro, sim.
+Então, por exemplo, eu pensei em uma fase, né?
+Novo, contatado, qualificado, enfim.
+Ótimo.
+Sobe em um boarding, e aí, enfim, vai partir do momento que...
+Cara, peraí, peraí, peraí.
+Por que que esse aí não entra no meu CRM?
+Pode ser.
+Eu ainda não...
+Depois a gente entra lá no meu CRM.
+Porque aí, a hora que o cara virou Lidia aqui, ele é meu CRM.
+E, bum, tem que cair lá.
+Aí, a partir do dia da Lidia, já é lá.
+Então, aqui, basicamente, seria o novo contatado, a partir do momento que ele foi qualificado por você, ele vai pro CRM.
+É isso.
+É.
+Isso.
+Tá bom.
+Eu não sei.
+Eu acho que eu colocaria todos lá.
+E o cara entrou aí e já vai pra lá, cara.
+Porque aí fica tudo lá.
+Tá bom.
+Senão vai ficar doado.
+Vai ficar...
+Imagina pro vendedor.
+O cara não vai ficar querendo entrar dali, dali.
+Ele só quer saber pra ver.
+Esse cara veio do Lidia de indicação onde está a pessoa.
+Beleza.
+Deixa eu te falar aqui.
+Tá bom.
+E aí, o retorno vai ser, então, do sistema de CRM seu.
+Que aí, quando você qualificar lá esse Lidia como fechado, ele vai contabilizar aqui nesse
+portal pra pessoa como ativo.
+Ótimo.
+Isso.
+Quando tá em operação lá, né?
+Quando ele entrar em operação lá, ele vira ativo pro cara aí.
+Isso aí.
+Aí a data que a gente combinou é a data da primeira reserva.
+Pra valer.
+Aí depois a gente arruma isso aí.
+Mas depois a gente arruma.
+Beleza.
+Eu quero botar pra rodar.
+E aí, deixa eu ver, que que mais...
+Tô com dúvida.
+Esse era um ponto que eu ia tirar de dúvida com você.
+Sobre o programa de parcerias.
+Como ele tá escrito.
+Ele explica isso mesmo, que é a data da primeira reserva e tudo mais.
+A taxa da Wicare, ela é fechamento mensal, né?
+Você tem lá o repasso do proprietário e quanto você tiraria de repasso daquele mês,
+certo?
+Perfeito.
+Correto.
+Quando você tem um valor quebrado, imagina que eu reservei um imóvel do dia 25 até o
+dia 5.
+Esse valor ele divide em duas...
+Dividi.
+Dividi.
+Mas isso, ele tem três tipos de data pra você ter visão de data diferente, né?
+Porque quando você for pensar, aí você tem que saber qual corte de data que eu quero
+ver os valores, né?
+Porque uma reserva, ela tem algumas datas.
+Ela tem a data que foi feita a reserva.
+Certo?
+Dia que foi feita a reserva.
+Tem a data de check-in.
+Tem a data de check-out.
+E tem as datas da reserva.
+Durante a reserva, certo?
+Então tem a data check-in, check-out e entre check-in e check-out.
+Ok?
+Ok.
+Dinheiro.
+Você pode ver.
+Ah, eu quero ver.
+Aí você pode fazer o corte de data.
+Você pode fazer o corte por essas quatro datas.
+A data da reserva.
+Ô cara, tipo, hoje, eu quero ver quantas reservas foram feitas hoje pro futuro, todas.
+Quanto que eu vendi hoje?
+Então esse é um corte.
+Dois.
+Todas check-in.
+Quanto que eu ganhei na entrada, quantos são os valores das reservas dos check-in?
+Os valores de reserva de check-out.
+E ele divide por data de calendário.
+Que é isso aí.
+Então ele pega o valor da reserva e divide igualmente nos dias da reserva.
+Então, se tem uma que é do dia 25 ou dia 5, ele vai dividir, tipo, por 10.
+Sei lá, entendeu?
+Que é do dia, imagina que vai até o 30.
+Ele vai dividir por 10 e a gente paga o proprietário com base na data do calendário.
+Entendi.
+Que aí a minha dúvida pro parceiro seria exatamente essa.
+Como a gente vai aqui pagar ele por 12 meses?
+São 12 meses fechados ou?
+Não, são 12 meses.
+Então vamos lá, a gente vai pagar pra ele 12 meses a partir da data da primeira reserva.
+Que é também estranho, velho.
+Acho que eu mudaria isso, cara.
+Acho que a gente paga 12 meses a partir da data da...
+É porque é estranho, né?
+É porque a gente é nesse sentido que assim, se no primeiro mês
+tiver uma reserva, digamos que um imóvel entrou ali, sei lá, na segunda quinzena.
+Em teoria, o primeiro mês dele morre com 15 dias ali.
+Ele não tem um mês cheio de valor aí pra receber, de contábil e tudo mais, né?
+É, a gente não vai ter um mês cheio pra pagar, né?
+Mas aí lá na outra ponta do...
+Quando terminar a gente teria que pagar só durante uns 15 dias.
+Mas eu faria só meses fechados e contaria data da primeira reserva.
+Tá bom.
+Meses fechados.
+Tá bom.
+Fechou.
+Data primeira reserva, 12 meses fechados pra frente.
+Tá bom, fechou.
+Tá bom.
+Que mais?
+Tá bom.
+Então a ideia inicialmente seria essa, né?
+Que eu tava tendo aqui.
+Out.
+Parte de materiais.
+Depois eu vou desenvolver materiais pra pessoa ter ali...
+Legal.
+Logo da Wicare, enfim, pra usar nas redes sociais.
+Tem que ter um PDF de apresentação da Wicare baseado na minha proposta comercial.
+Tá bom.
+Mas não falando de valores.
+Até falando de valores, eu acho.
+Tá falando como a gente faz.
+Talvez a proposta comercial da Wicare.
+Caramba, entendeu?
+Se o cara tiver afim, ele vem.
+Ele vem conversar.
+É que assim, eu só mando proposta comercial depois que eu conversei.
+Então talvez tem que ter informações mais ou menos que tenham.
+Mas você tem a proposta comercial, né?
+Tenho.
+Então cara, a última que eu fiz, acho que você tem, né?
+Tenho, tenho sim.
+Beleza.
+Então a última proposta comercial, eu acho que talvez, não sei se mandar proposta comercial
+Algum elemento que o cara pode mandar com o cara.
+Olha, essa aqui é a empresa.
+Porque a proposta comercial é tipo uma...
+Presenta empresa, né?
+Olha, está aqui a empresa e está aqui o liquidificação.
+Eu acho que os caras veem a proposta comercial, a liquidificação, ele vai...
+Ele vai mandar ver, entendeu?
+Talvez uma proposta comercial reduzida.
+Talvez isso.
+Tá bom.
+Não sei se eu falaria lá na...
+Tiraria talvez a parte de investimento lá, entendeu?
+Fechou.
+Acho que só isso.
+Beleza.
+Mas então...
+Mas esse seria o material único que eu colocaria agora, tá?
+Fechou.
+Eu colocaria a proposta comercial reduzida lá, sem a parte de investimento.
+Porém, especial para o cara.
+Tipo falando que tipo...
+O texto que ele tem que mandar, alguma coisa assim, falando...
+Como eu conheço o pessoal da Wikera, eles dão 50% de desconto.
+Entendeu?
+Tá bom.
+Na taxa de setup.
+Tá bom.
+Mas então pensando, por exemplo, até fechando ali um pouco dos escopos,
+um pouco divididos, pensando numa visão de portal do parceiro,
+primeiramente, você acha que esses menus aqui,
+esses quatro menus reordenados, que nem a gente falou,
+e mais um de documentos.
+É, mais um de documentos.
+Mas esse documento, por enquanto, só aí.
+Ele acho que não vai...
+Só que a gente só vai colocar isso e depois vai acrescentar coisas, né?
+Isso.
+Imagina que legal.
+O cara entra, fala documentos, ele vai lá,
+tem uma proposta comercial já com um textinho bonitinho para ele mandar?
+Ótimo, né?
+E aí, na hora que o cara pergunta...
+Eu acho que tem que ter essas vantagens no link do cara.
+Tem que aparecer essas vantagens ali do lado lá, né?
+Naquele lá em cima do lado.
+Nesse daqui.
+É.
+Do mesmo jeito, algo...
+Eu acho que tá muito pequeno, cara.
+Não sei se a impressão é minha, mas eu acho que o texto tá muito pequeno,
+não tô conseguindo ler.
+Não, pode deixar, porque eu também...
+É.
+Mas do mesmo jeito que na página de cadastro do parceiro,
+embora eu ainda vou refinar isso aqui,
+mas a gente vai colocar alguns pontos das vantagens de se tornar parceiro,
+a gente vai colocar também aqui vantagens de deixar seu imóvel com a Icare.
+Não.
+É, tipo assim...
+Não, a vantagem de deixar meu imóvel com a Icare agora.
+Tipo, se cadastrar agora, você vai ter 50% de desconto na taxa de setup.
+Eu colocaria aí também...
+Olha...
+Não, só isso.
+Não colocaria nada, não.
+Tipo, eu acho que o cara tem que estar pronto antes, entendeu?
+Não levaria o cara pra outro lugar.
+Esse é um dos problemas.
+Se o cara quiser navegar depois pro site da Icare,
+então não sei se eu mandaria o cara pra lá, entendeu?
+É...
+Eu acho que eu mandaria depois que ele enviar a edicação,
+tipo assim, enviar e saiba mais.
+Tá.
+Aí é interessante, porque faz forte o cara enviar.
+Se a gente não colocar nada obrigatório, também fodeu, né?
+O cara pode apertar o botão.
+Mas eu colocaria enviar e saiba mais.
+Porque aí você manda depois o cara pra landing page,
+que não falia nada disso.
+Não é essa aí.
+Inclusive, a gente tem que mudar tudo aí, né?
+Eu colocaria a landing page da proposta comercial.
+Bom, tá bom.
+Se eu não vir o direito,
+pega a proposta comercial e transforma numa landing page.
+Que tá legal já.
+Tá bem já...
+O que eu quero falar tá tudo lá.
+Tá bom, fechou.
+Então é saiba mais, pum-pum,
+e já com o link aí, com o WhatsApp,
+se quiser cair no WhatsApp, conversar direto.
+Acho que é isso.
+Tem uns de funil.
+O cara pega aí, clicar e saiba mais,
+pum, caiu na landing page com o link do WhatsApp.
+Combinado.
+Puta, fechou.
+Tá, então eu faço uma landing resumida lá com a proposta comercial.
+É.
+É.
+É.
+Proposta comercial sem a...
+Sei, cara, eu fico nessa dúvida de falar ou não falar o preço, entendeu?
+Fala o preço.
+Bota a proposta comercial inteira.
+Bota logo.
+Bota logo.
+Porque se o cara vier, ele vem quente.
+Entendeu?
+Ele já vem sabendo.
+Tá bom.
+Respondendo, eu não quero mais trabalho.
+O cara vai falar um monte pra depois descobrir que é 20% e eu não quero.
+Entendeu?
+Pode botar.
+Tá bom.
+Então eu já venho.
+Tanto na proposta que manda pro cara.
+Se o preço for uma barreira tocada, ele já sabe.
+Já sabe.
+Já olha lá e fala.
+Puta, eu nem vou falar.
+Beleza.
+Manda a proposta comercial inteira pro cara.
+E aí uma landing page da proposta comercial, mas com o botão do WhatsApp pra ele clicar
+no WhatsApp se quiser.
+Depois daí.
+É a página depois dessa.
+Tá bom.
+E aí o contato do WhatsApp é o...
+O meu.
+O seu.
+É o meu.
+Por enquanto.
+Depois a gente vai mandar, vou mandar um bot.
+Mas não, deixa comigo, deixa comigo.
+O cara indicou e vai falar comigo.
+Eu que quero fechar.
+Tô fechando, velho.
+Nossa, tá...
+Tô vendo que ele escapa ou não.
+E aí você quer que quando clique nesse botão do WhatsApp ele já venha com alguma mensagem
+definida?
+Aquelas...
+É, aquela mensagem.
+Vindo site.
+Isso.
+Pra você saber de onde tá vindo.
+Isso.
+É só pra eu saber de onde tá vindo.
+Tá bom.
+Tá bom.
+Tá bom.
+Tá.
+Então o que eu tava pensando ali inicialmente desse programa de parcerias é esse.
+Eu vou evoluir.
+Que evoluir acho que tá muito pequenininho.
+Tem uma parte assim.
+Mas é sabe o que?
+É culpa do design.
+Eu acho que lá tem as coisas tão pequenas.
+Ainda falta melhorar um pouquinho aquele negócio do design.
+Falta os logos, né.
+Aí falta deixar mais claro também melhorar essa parte ali em cima das vantagens.
+Maior e pro cara também.
+Falou tudo.
+Acho que tá tudo aí gravado.
+É.
+E eu tô usando aqui a parte do design lá que ele tem as regras de espaçamento que
+o Cloud fez junto com ele e tudo mais.
+Por isso que ele tá pequeno assim.
+Mas aí eu vou fazer ele pra ficar em tela inteira.
+Um pouco mais visual.
+É.
+Eu sei que ficou com uma carinha mesmo de ar, né.
+Tipo, beleza.
+Mas é o que é.
+Pelo menos as cores.
+Tá mais conversando com o que a gente fala.
+Que vermelho é um látrico.
+A crítica foi cara, isso aí é cor de iFood.
+É cor.
+A crítica do iCloud.
+Ela falou.
+Olha comparando com as coisas que você tem no seu site, as coisas do seu site remetem
+a empresas de entrega de alimentação.
+É.
+O bom dessa cor aqui, por exemplo, que quando você me passou esse design novo, a primeira
+coisa que me veio na cabeça foi o do Itaú, o Persom, por exemplo.
+Então, o Personalité, né.
+E aí justamente remete uma coisa um pouco mais refinada e tudo mais.
+É.
+É isso mesmo, cara.
+Ele mandou, ele mandou muito bem.
+Ele leu tudo lá e tal.
+E falou, cara, essas cores aqui por causa disso, disso disso.
+Falei, toco o pau aí.
+O logo também ficou bonitinho, tal.
+A gente vai reformular o site depois com isso.
+Hoje o site também, se o cara entrar lá, tá outra cor, tá outra coisa.
+Beleza.
+Conseguimos falar do outro...
+Claro.
+Do formulário.
+Cara, ele não subiu lá de jeito nenhum, por isso que eu te mandei o zip.
+Fechou.
+Eu recebi aqui o zip, ainda não trabalhei em cima dele, mas vou mexer nele ainda hoje,
+no que vai ser.
+Mas você tinha comentado do agente de marketing lá, né, que você queria passar.
+O zip, só pra eu falar, lá ele já...
+Cara, eu avancei bastante na parada.
+É pra mim o que assim...
+Sabe o que eu faria, Fer, vê se você consegue botar ele no ar.
+Tá bom.
+É a Ziris.
+Aí a gente começa a testar lá.
+É porque ele tá linkando com a API lá do Raik, porque eu acho que vai ficar...
+Não sei se vai ficar caro pro cara ficar conversando, entendeu?
+Pro proprietário ficar conversando com o negócio.
+Acho que tem que por limite.
+Tem isso também.
+E tá...
+Ele tá conectado...
+Você criou uma chave do Clá, né?
+Criei umas chaves no API do Clá.
+Você definiu o modelo dele como Raik?
+Defini.
+Tá bom.
+Eu vou colocar um limite pra API então, eu vou ver qual que você tá usando lá certinho
+e definir um limite pra ela.
+É por sessão, eu não sei o que tem que definir, entendeu?
+É, eu vou colocar tanto por sessão como também um limite, um teto mensal ali, pelo
+menos pra que ele dê alerta pra gente, mesmo que ele não trave, mas que ele nos dê alerta,
+enfim.
+É o que eu não quero.
+É que o proprietário fique lá conversando, entendeu, com o cara.
+Eu já coloquei guardrail, tá bom o guardrail também.
+É só assunto dele, é só assunto da Wicare, mas tem que ver essas coisas que me preocupam.
+E a outra coisa é, ele tá num database lá, tá puxando um database que ele criou, então
+não tá apontando lá pro CRM real, que é pra ele olhar o database dos proprietários
+pra fazer esse guardrail, porque a ideia do guardrail é, só vou conversar sobre aquela
+informação ali, sobre aquele arquivo do proprietário, entendeu?
+Tá bom.
+Aí ele tá gerando um token, eu acho que esse negócio de gerar token também não
+é legal, porque o cara tem que ficar puta, toda hora que ele entrar, ele tem que botar
+o token dele, entendeu?
+Eu acho que é melhor colocar login e senha.
+Acho mais, mais, acho melhor, assim, né?
+Porque toda hora que o cara gerar um token, aí o cara, pô, eu vou conversar agora no
+vídeo conversado, porque esse agente, vamos lá, ele vai funcionar pra várias fases diferentes
+do CRM.
+Então, quando eu estiver conversando com o cara, pra ele preencher os primeiros dados
+da propriedade, vou mandar pra lá.
+Lóca, conversa aqui, me manda os primeiros dados, depois pra ele mandar os dados do contrato,
+depois os propriedades profundo.
+Então são três fases que ele vai usar lá, aí o cara vai ter que ficar lembrando do
+token dele, entendeu?
+Não faz sentido.
+Então eu vou colocar no ar, pra gente poder testar, coloco um limitador ali na API também,
+de quanto que ela tem de gasto e tudo mais, e vou só checar como que tá o guardrail,
+só pra garantir que não possa no meio ali, chocar de modelo, ou pedir que ele expor chave
+de API, ou coisa do tipo, ou qualquer dado ali de faturamento do cloud, mas eu valido
+isso antes de pôr no ar e aí eu te passo certinho.
+Não, beleza, Caio, show, aí vamos lá do agente agora, né?
+Isso, do agente de marketing.
+Eu tinha feito uma proposta inicial lá, que eu até tinha colocado no Railway, pra poder
+testar e tudo mais.
+Eu tenho que hospedar ele agora no VPS, porque o Railway era uma ferramenta gratuita e já
+expirou, a gente não tem mais acesso, né?
+Mas eu queria perguntar pra você é o seguinte, eu lembro que eu tinha colocado diversos skills
+ali de marketing, mais, e tal, e aí o que eu ia ver com você, assim, primordial, o
+que você queria que se a gente fizesse por você hoje, por exemplo, só pra eu garantir
+ter skills mais refinados e um pouco mais direcionado ali?
+Tá, beleza.
+Eu acho que, assim, ele vai ter que fazer, gerar os posts pra gente fazer em mídia social.
+Tá bom.
+Então a gente tá falando lá de Instagram, aí eu tô querendo fazer que ele seja, mas
+o mais importante, só pra ele arrumar lá, mas o mais importante é que ele seja gerador
+de lead, gerador de lead, cara, gerador de lead, é isso.
+Então como?
+Como, né?
+As discussões que eu tô vendo aqui, Caio, beleza, o que é o gerador de lead, aonde
+é que ele vai atacar?
+Aí tem algumas skills que eu acho que é legal fazer, entendeu?
+Eu não sei, tipo, bem o que você tinha pensando como a gente de marketing, se é exatamente
+pegar esses processinhos, falar, cara, beleza, definir aqui que o cara, ideal pra mim seria
+que, tipo, mostrasse a Wicare, falasse o meu planejamento, falasse não sei o que lá,
+e ele falava, beleza, vamos por aqui e vou começar a fazer, tipo, esse é o meu mundo
+ideal, se o cara, ele ajudasse a pensar nessa estratégia e ajudasse a executar.
+Inicialmente, o que eu tinha feito nele como soubo nesse agente, o que que era o comportamento
+dele é que ele olhava no, ele tinha ali datas no nosso calendário e tudo mais, tal, pra
+fazer campanhas ali pra feriados, mas fora isso, ele olhava no Rostal Way, a disponibilidade
+de imóveis, os que estavam com disponibilidade alta e tentava virar campanha por região
+e tudo mais, né?
+Não, ele é bom, eu quero que ele foque totalmente em atração de proprietários, tá bom?
+Aquisições de proprietários.
+Então esse é o primeiro, é o ponto.
+O que temos hoje?
+Temos um planejamento estratégico, é um documento que ele pode olhar, temos um planejamento
+BP financeiro que também ele pode olhar, com esses dois já dá, temos o programa de
+parceria que também já é um negócio que tá feito e com esses dois, com isso, eu quero
+que ele traça a estratégia e execução de marketing, então eu acho que primeiro é
+um agente meio que estratégico pra falar assim, olha, ok, você quer atrair esse CP, esse
+CP, esse CP?
+Eu acho que esse CP você tem que atrair aqui no LinkedIn, então vamos fazer um processo
+de esquentar o lead no LinkedIn, tá ok?
+Vou falar uma outra coisa aqui que é um outro processo que eu quero fazer que eu já
+vi que dá certo.
+No Instagram da Wecare, eu já fiz isso manualmente e vi que dá certo, eu procuro potenciais
+parceiros que tem lá no programa de parceria, então vamos lá, empresa de turnkey, eu fico
+lá procurando, turnkey São Paulo, turnkey não sei o que lá, empresa de turnkey, aí
+eu vou lá, esquenta o lead pra ele virar parceiro, então ele faz o procura, ele esquenta
+o lead, o que que esquenta o lead, ele vai dar like no cara, ele segue, aí ele fala
+pô que lindo isso, comenta, ele faz uns 10 pontos de contato, chama pro ADM, fala cara
+que legal isso aqui e tal, tem alguns clientes que podem precisar do seu trabalho, e aí
+espera, porque aí eu já vi que é muito quente isso cara, você fala assim cara, eu
+tenho alguns clientes aqui que eu acho que seria no lugar de você, vamos conversar pra
+fazer uma parceria, e aí o cara fala lógico, ele é cliente pra ele entendeu, aí ele fecha
+parceria, muito fácil pra gente fechar parceria assim, tá bom, então tipo, imagina se fazendo
+isso de forma autônoma com a Agendica, é bombar de parceiro, a minha ideia é explodir
+parceria através de mídia social e tem um livro que chama Receita Previsível, e eu
+já treinei aqui o agente, eu posso pegar esse livro e jogar no meu agente que eu treinei,
+que ele extrai como que você tem que usar o livro, esse livro é foda, porque ele fala
+assim cara, você tem que fazer exatamente o que eu tô falando, você tem que entrar
+em ponto de contato, tem que te conhecer, não sei o que lá, tem um esquenta antes de
+você oferecer alguma coisa, entendi, eu queria um agente que fizesse isso across as diferentes
+redes sociais, se a gente começar só aí, acho que já vai ser um puta ganho, por quê?
+Porque aí vai entrar no automático, junto com o RP que você fez agora, a indicação
+de lead.
+Cara, falando sério, acho que vai bombar, essa minha ideia não é tão genial, mas
+eu acho que é uma ideia que dá pra fazer com agentes, dá pra automatizar, pegando
+a ideia desse livro e como esquentar o cara pra ele virar parceiro, tudo com a gente.
+Tá bom.
+Faz sentido?
+Faz, faz sim.
+Porque eu fiz no manual, eu falei cara, se eu faço manual, velho, tipo, vai lá dar
+um like no cara, pega os posts do cara, dá like, dá comenta, não sei o que lá, faz
+dois, três dias isso, esquenta o cara, chama pra DM, troca uma ideia com o cara e fala
+ó, eu tenho um cliente que pode te interessar, eu acho que também você tem um cliente que
+pode te interessar da WeCat, vamos conhecer mutuamente nosso trabalho pra ver se rola
+um programa de parceria?
+E aí bota o cara pro programa de parceria, eu quero criar parceiros agora, meu foco é
+criar parceria.
+Tá bom.
+Então, dúvida, então, pensando, a gente tem dois pontos, né, um deles é trazer parcerias
+que efetivamente vão se converter em lead em algum momento, e contato com o lead direto,
+você pensa em alguma coisa também, que nem hoje, quem vem através de parceria vai ter
+50% no setup e tudo mais, e quem vem direto?
+Quem vem direto vem direto, a gente não tá fazendo nenhum trabalho de vir direto, aí
+eu queria fazer o trabalho, então por isso que eu queria ter um agente um pouco mais
+estratégico, eu falava, beleza, link e parceria você vai fazer por aqui, ok, já estamos
+meio que definindo, redes sociais, esquenta o cara, acho o cara, ou lista, meu, tem gente
+fazendo vibe lead, vibe search, esqueci o nome, cara, cara geralista, tem um monte de
+estratégia velho de marketing que a gente pode estar fazendo, entendeu, se eu quiser
+estabelecer estratégia, porque a estratégia de marketing nada mais é do que olhar isso
+e estabelecer vários desses processos, eu te falei um processo, outro processo é geração
+de email marketing, não sei o que, o terceiro processo é postes, redes sociais, nosso
+mesmo pra atrair, o quarto processo é SEO, a gente não faz nada automatizado de agente
+que faz SEO, o quinto processo é AEO também, a gente não faz nada pra aparecer, teve uma
+menina que entrou em contato comigo e falou, cara, eu perguntei pro GPT, eles indicaram
+vocês, o GPT, o cara, como é que a história do GPT indicou a gente, a gente não faz nada,
+entendeu, eu sei que tem um jeito de você começar a ser indicado pelas redes sociais,
+pelas LNMs, então, isso tudo, tudo, não tem isso desenhado, tá, a gente tem só esse
+que eu te falei, que é um processo certo, que eu acho que é pra gerar parceiros, ok,
+próximo passo, eu acho que esse agente tem que ser um agente de marketing estratégico
+agora, pra desenhar isso, será que é melhor eu fazer isso sozinho, tipo, pega um cara aqui e fala,
+beleza, mano, deixa eu criar esse agente, porque da mesma maneira que eu cria o BP,
+eu criar um planejamento estratégico de marketing da WeCat, e aí te dá isso mais pronto,
+porque aí eu acho que é mais fácil executar os agentes?
+Ó, eu acho que é válido, mas eu acho que valeria a pena você fazer a criação desse agente,
+já tendo as skills de marketing nele, né, não usar o cloud puro, porque eu com o cloud puro,
+você vai jogar muita coisa pra você decidir, mas tem umas skills de marketing do cloud,
+e tem umas skills de marketing que eu vi já gerais assim, né, mas de planejamento de marketing,
+entendeu, agora eu tô numa fase de planejamento de marketing, e aí a hora que tiver planejamento de
+marketing, aí sim a gente vai com os agentes, né, cara, tipo, porque os agentes que eu acho que são
+mais são do que processos pré-estabelecidos, né, então eu vou apostar que o cara vai me dar uma
+ideia genial de uma coisa e vai começar a fazer sozinho, entendeu, vou falar assim, beleza,
+ó, minha rede de parcerias, minha estratégia de marketing é essa, vou fazer isso, isso,
+isso, e aí bora botar gente, ah, meu SEO, minha estratégia é essa, aí bora botar gente pra fazer
+SEO, pra criar os blogs, pra postar os blogs, bababá, agora eu quero me debruçar o marketing,
+tá ligado, mas eu só poderia me debruçar o marketing, principalmente agora, depois que tivesse
+minha rede de parceria, porque é meu primeiro ataque, então vou me debruçar agora, então vou
+fazer o seguinte, o que é melhor, eu correr um agente de marketing aqui com o Claudio, meio que
+assim, não sei, cara, na conversa, usando os skills de marketing que ele já tem, usando o BP da
+Wecare, Markdown e tal, tipo, pegar, passar o plano estratégico de marketing, beleza, porque aí eu
+vou fazer o cara de SEO, o cara de AI, me debruçar bastante sobre isso, com os ECPs que já estão
+estabelecidos, pra começar a soltar e começar a atrair os leads, cara, porque eu também agora tenho
+o CRM meu pronto, que é outra coisa que eu tava preocupado, tá meio que pronto, eu consigo tocar,
+meio manual, mas dá pra tocar, você acha que esse meu CRM eu consigo conectar depois ferramentas,
+tipo WhatsApp e tal, pra ficar mais automatizado as respostas e tudo mais?
+Consegue, consegue sim.
+Seguimos, né? Então cara, vamos fazer o seguinte, vamos focar especificamente nessa ferramenta de
+esquentar o lead e virar parceiro, porque é onde você tá focado agora, vamos fazer essa, tipo,
+vamos focar nessa aqui, e aí o planejamento eu vou tocando de lado, mas essa aqui é mais importante,
+cara, porque de tudo que eu conversei, aí eu vou fazer um parêntese, consultoria, BP, não sei o que,
+talvez seja mais importante. Por aqui a gente consegue escalar muito, tá ligado? É muito
+escalável isso aqui, velho. É muito escalável pra conseguir lead de graça. É barato e escalável,
+sabe? Então vamos focar nessa? Fechou. Então esse é a gente que vai fazer essa, essa, essa e eu vou
+fazer então agora o planejamento estratégico de marketing, então planejamento tipo de marketing,
+pensando aqui no geral, eu já fiz o de branding e saiu, o branding da Wicker, saiu as coisas novas,
+tá legal. Agora com isso, fazer o tático, vamos começar a fazer, cara. Agora construtora,
+eu tô indo pra BH, velho, eu tô indo pra BH fazer um prédio lá, animal, eu fico lá no construtora,
+pegando o prédio inteiro, entendeu? Legal. Vamos fazer assim? Porque cara, eu queria que esse
+prédio entrasse no automático e começasse a chegar a lead lá pra nós. Tá bom, vou fazer o
+seguinte então, até pra pôr as coisas no ar e funcionar. A gente para, né? Tem um jogo. Sim,
+sim. Não, o que eu vou fazer é o seguinte, né? Até pra tirar do ar, pôr no ar as coisas, eu vou
+finalizar esse do programa de parcerias então, conectar ele com o CRM, deixar ele todo automatizado
+e tudo mais. A parte de mensuração, como nenhum vídeo já entra tendo que pagar comissão nem nada
+do tipo, você tem um fechamento, mas essa parte de conectar no Rostal E e tudo mais, eu vou entender
+depois, aí eu pego ou você ou a Nicole, pra gente criar lá os campos, identificar esses imóveis,
+tudo mais, até pra gente poder fazer teste, mas isso num segundo momento, mas é que aí a partir
+do momento que o programa de parceria tiver no ar, a gente tem que garantir esse cálculo, né?
+Sim, só isso. Mas a princípio, essa parte inicial tá rodando pra gente conseguir dar o link de
+indicação pro parceiro que for chegando e se cadastrando. Se isso já tiver rodando, Filipe,
+tá nem mal, é só fazer o cara começar a esquentar, porque eu não tava esquentando
+mais os caras porque não tinha pra onde mandar. Se eu começar agora, velho, você vai ver, velho.
+Vai ver. Começar a pegar parceiro lá. Sim. Não, fechou, então eu vou focar nesse ponto aqui
+pra deixar a ferramenta no ar, deixar certinho, e aí eu desenvolvo essa parte, então, de esquentar
+parceiros, de esquentar mids pra captar parceiros. É, aí que eu vou fazer, eu vou desenhar os agentes
+e os processos de marketing. E aí, depois que eu desenhar os processos, a gente vai começar
+trabalhando nos agentes sendo primeiro esse cara aí que vai, que faz essas coisas no Instagram,
+que eu acho que não é simples também. Não é uma coisa tão simples. Galilada, live, não sei se dá,
+tem que pensar, tem que ver se isso rola, né? Não, não é tão complexo, mas é. É, mas eu acho,
+é aquele negócio que o Jake fala, eu tô achando inovaça, é ter o processo, o cara faz isso,
+depois faz isso, depois faz isso, depois responde aqui, aqui tem uma inteligência que responde
+desse jeito, ok, ok, ok, ok. A gente vai colocar 10 steps, quando tá chegando o décimo step a gente
+pula, o cara tá quente, e aí faz o agente sentir que o cara tá quente pra gente fazer uma parceria,
+porque todos esses, por que que tá? Eu desenhei os steps de maneira que todos esses eu posso falar
+essa parceria, ela é de duas mãos. Então, pro corretor, o cara é duas mãos, você indica o cara,
+e eu vou ter um monte de cliente aqui que eu posso indicar pra você também. Então, me dá aí o seu
+contato, entendeu? Tipo, essa é a ideia. Então, vamos que vamos. Beleza. Valeu. Valeu, Carlos. Até mais.
+Tchau, tchau.

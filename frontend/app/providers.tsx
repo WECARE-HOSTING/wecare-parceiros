@@ -52,8 +52,8 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
   useEffect(() => {
     if (!ready) return;
-    const publicPaths = ["/login", "/forgot-password", "/reset-password", "/indicar", "/cadastro-parceiro"];
-    const isPublic = publicPaths.some((p) => pathname === p || pathname.startsWith("/indicar") || pathname.startsWith("/cadastro-parceiro"));
+    const publicPaths = ["/login", "/forgot-password", "/reset-password", "/cadastro", "/cadastro-parceiro"];
+    const isPublic = publicPaths.some((p) => pathname === p || pathname.startsWith("/cadastro") || pathname.startsWith("/cadastro-parceiro"));
     if (!token && !isPublic) { router.replace("/login"); return; }
     if (token && partner?.must_change_password && pathname !== "/change-password") {
       router.replace("/change-password");
@@ -63,7 +63,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       router.replace("/leads");
       return;
     }
-    if (token && isPublic && pathname !== "/indicar") router.replace("/leads");
+    if (token && isPublic && pathname !== "/cadastro") router.replace("/leads");
   }, [ready, token, partner, pathname, router]);
 
   const setAuth = useCallback((t: string, p: PartnerResponse) => {
