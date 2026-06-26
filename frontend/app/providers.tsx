@@ -60,10 +60,10 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       return;
     }
     if (token && partner && !partner.is_admin && isAdminOnlyRoute(pathname)) {
-      router.replace("/dashboard");
+      router.replace("/leads");
       return;
     }
-    if (token && isPublic && pathname !== "/indicar") router.replace("/dashboard");
+    if (token && isPublic && pathname !== "/indicar") router.replace("/leads");
   }, [ready, token, partner, pathname, router]);
 
   const setAuth = useCallback((t: string, p: PartnerResponse) => {
