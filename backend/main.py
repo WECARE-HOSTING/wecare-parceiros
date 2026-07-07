@@ -24,6 +24,7 @@ from app.routers import (
     notifications as notifications_router,
     partners,
     properties,
+    redirect,
     revenue,
 )
 from app import models
@@ -134,13 +135,16 @@ def bootstrap_admin(token: str):
         existing = db.query(models.Partner).filter(models.Partner.is_admin == True).first()
         if existing:
             return {"detail": f"Admin já existe: {existing.email}"}
+        from app.utils import generate_short_code
         frontend_url = os.getenv("FRONTEND_URL", "http://localhost:3000")
+        short_code = generate_short_code(db)
         admin_user = models.Partner(
             full_name="Felipe Malveira",
             document="00000000191",
             document_type="CPF",
             email="felipe@wecarehosting.com.br",
             utm_code="admin_0191",
+            short_code=short_code,
             referral_url=f"{frontend_url}/cadastro?utm_campaign=admin_0191",
             status="ACTIVE",
             hashed_password=hash_password("Wecare@2026"),
@@ -157,7 +161,7 @@ def bootstrap_admin(token: str):
 def create_admin(token: str, full_name: str, email: str, document: str):
     if not BOOTSTRAP_TOKEN or token != BOOTSTRAP_TOKEN:
         raise HTTPException(status_code=403, detail="Token inválido.")
-    from app.utils import generate_utm_code, infer_document_type
+    from app.utils import generate_short_code, generate_utm_code, infer_document_type
     document_digits = "".join(c for c in document if c.isdigit())
     frontend_url = os.getenv("FRONTEND_URL", "http://localhost:3000")
     with Session(engine) as db:
@@ -165,12 +169,14 @@ def create_admin(token: str, full_name: str, email: str, document: str):
         if existing:
             return {"detail": f"Usuário já existe: {existing.email}"}
         utm_code = generate_utm_code(db)
+        short_code = generate_short_code(db)
         partner = models.Partner(
             full_name=full_name,
             document=document_digits,
             document_type=infer_document_type(document_digits),
             email=email,
             utm_code=utm_code,
+            short_code=short_code,
             referral_url=f"{frontend_url}/cadastro?utm_campaign={utm_code}",
             status="ACTIVE",
             hashed_password=hash_password("Wecare@2026"),
@@ -185,6 +191,7 @@ def create_admin(token: str, full_name: str, email: str, document: str):
 
 API_PREFIX = "/api/v1"
 
+app.include_router(redirect.router)
 app.include_router(auth.router, prefix=API_PREFIX)
 app.include_router(admin.router, prefix=API_PREFIX)
 app.include_router(partners.router, prefix=API_PREFIX)

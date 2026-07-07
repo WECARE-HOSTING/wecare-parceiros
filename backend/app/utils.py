@@ -14,12 +14,23 @@ def generate_temp_password() -> str:
     return "WCare@" + "".join(secrets.choice(chars) for _ in range(6))
 
 
+_SHORT_CODE_ALPHABET = string.ascii_lowercase + string.digits
+
+
 def generate_utm_code(db: Session) -> str:
     for _ in range(10):
         code = "ref_" + secrets.token_hex(4)
         if not db.scalar(select(models.Partner).where(models.Partner.utm_code == code)):
             return code
     raise RuntimeError("Não foi possível gerar UTM code único.")
+
+
+def generate_short_code(db: Session) -> str:
+    for _ in range(20):
+        code = "".join(secrets.choice(_SHORT_CODE_ALPHABET) for _ in range(6))
+        if not db.scalar(select(models.Partner).where(models.Partner.short_code == code)):
+            return code
+    raise RuntimeError("Não foi possível gerar short_code único.")
 
 
 def infer_document_type(document: str) -> str:

@@ -13,7 +13,7 @@ from sqlalchemy.orm import Session
 from app import models, notifications, schemas
 from app.auth import AdminPartner, CurrentPartner, hash_password
 from app.database import get_db
-from app.utils import generate_utm_code, infer_document_type
+from app.utils import generate_short_code, generate_utm_code, infer_document_type
 
 BASE_REFERRAL_URL = os.getenv("FRONTEND_URL", "http://localhost:3000") + "/cadastro"
 DEFAULT_PARTNER_PASSWORD = "Wecare@2026"
@@ -44,6 +44,7 @@ def register_partner(
         raise HTTPException(status_code=409, detail="Este CPF/CNPJ já está cadastrado.")
 
     utm_code = generate_utm_code(db)
+    short_code = generate_short_code(db)
     referral_url = (
         f"{BASE_REFERRAL_URL}"
         f"?utm_source=parceiro&utm_medium=referral&utm_campaign={utm_code}"
@@ -63,6 +64,7 @@ def register_partner(
         hashed_password=hash_password(DEFAULT_PARTNER_PASSWORD),
         is_admin=False,
         utm_code=utm_code,
+        short_code=short_code,
         referral_url=referral_url,
         status="ACTIVE",
         must_change_password=True,
@@ -93,6 +95,7 @@ def create_partner(
     db: Session = Depends(get_db),
 ):
     utm_code = generate_utm_code(db)
+    short_code = generate_short_code(db)
     referral_url = (
         f"{BASE_REFERRAL_URL}"
         f"?utm_source=parceiro&utm_medium=referral&utm_campaign={utm_code}"
@@ -110,6 +113,7 @@ def create_partner(
         hashed_password=hash_password(payload.initial_password) if payload.initial_password else None,
         is_admin=False,
         utm_code=utm_code,
+        short_code=short_code,
         referral_url=referral_url,
         status="PENDING",
         created_at=now,

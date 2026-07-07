@@ -41,7 +41,8 @@ export default function ProfilePage() {
   const [editing, setEditing] = useState(false);
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState("");
-  const [copied, setCopied] = useState(false);
+  const [copiedReferral, setCopiedReferral] = useState(false);
+  const [copiedShort, setCopiedShort] = useState(false);
 
   const [form, setForm] = useState({
     phone: (partner?.phone ?? "").replace(/\D/g, ""),
@@ -88,11 +89,18 @@ export default function ProfilePage() {
     }
   }
 
-  async function copyLink() {
+  async function copyReferralLink() {
     if (!partner?.referral_url) return;
     await navigator.clipboard.writeText(partner.referral_url);
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2000);
+    setCopiedReferral(true);
+    setTimeout(() => setCopiedReferral(false), 2000);
+  }
+
+  async function copyShortLink() {
+    if (!partner?.short_link) return;
+    await navigator.clipboard.writeText(partner.short_link);
+    setCopiedShort(true);
+    setTimeout(() => setCopiedShort(false), 2000);
   }
 
   if (!partner) return null;
@@ -192,16 +200,33 @@ export default function ProfilePage() {
             <p className="text-xs text-muted-foreground mb-0.5">Código UTM</p>
             <p className="text-sm font-mono font-medium text-foreground">{partner.utm_code}</p>
           </div>
-          <div className="bg-muted border border-border rounded-lg px-3 py-2 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
-            <p className="text-sm text-primary break-all">{partner.referral_url}</p>
-            <Button
-              size="sm"
-              variant="outline"
-              onClick={copyLink}
-              className={`shrink-0 gap-1.5 min-h-10 w-full sm:w-auto transition-colors ${copied ? "border-green-400 text-green-600" : ""}`}
-            >
-              {copied ? <><Check size={13} />Copiado</> : <><Copy size={13} />Copiar</>}
-            </Button>
+          <div className="bg-muted border border-border rounded-lg px-3 py-2">
+            <p className="text-xs text-muted-foreground mb-0.5">Link completo (UTM)</p>
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+              <p className="text-sm text-primary break-all">{partner.referral_url}</p>
+              <Button
+                size="sm"
+                variant="outline"
+                onClick={copyReferralLink}
+                className={`shrink-0 gap-1.5 min-h-10 w-full sm:w-auto transition-colors ${copiedReferral ? "border-green-400 text-green-600" : ""}`}
+              >
+                {copiedReferral ? <><Check size={13} />Copiado</> : <><Copy size={13} />Copiar</>}
+              </Button>
+            </div>
+          </div>
+          <div className="bg-muted border border-border rounded-lg px-3 py-2">
+            <p className="text-xs text-muted-foreground mb-0.5">Link curto</p>
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+              <p className="text-sm text-primary break-all">{partner.short_link}</p>
+              <Button
+                size="sm"
+                variant="outline"
+                onClick={copyShortLink}
+                className={`shrink-0 gap-1.5 min-h-10 w-full sm:w-auto transition-colors ${copiedShort ? "border-green-400 text-green-600" : ""}`}
+              >
+                {copiedShort ? <><Check size={13} />Copiado</> : <><Copy size={13} />Copiar</>}
+              </Button>
+            </div>
           </div>
           <p className="text-xs text-muted-foreground/80">
             Compartilhe este link para indicar proprietários. A janela de atribuição é de{" "}

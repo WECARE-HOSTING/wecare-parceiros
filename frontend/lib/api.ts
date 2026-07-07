@@ -71,7 +71,9 @@ export type PartnerResponse = {
   segment: string | null;
   company_name: string | null;
   utm_code: string;
+  short_code: string;
   referral_url: string;
+  short_link: string;
   status: string;
   is_admin: boolean;
   must_change_password: boolean;

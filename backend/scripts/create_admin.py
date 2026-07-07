@@ -15,6 +15,7 @@ from sqlalchemy.orm import Session
 
 from app.auth import hash_password
 from app.models.parceria import Partner
+from app.utils import generate_short_code
 
 DATABASE_URL = os.getenv("DATABASE_URL", "sqlite:///./wecare_parceiros.db")
 
@@ -52,12 +53,14 @@ with Session(engine) as session:
         print(f"Erro: já existe um parceiro com o CPF {document}.")
         sys.exit(1)
 
+    short_code = generate_short_code(session)
     admin = Partner(
         full_name=full_name,
         document=document,
         document_type="CPF",
         email=email,
         utm_code=utm_code,
+        short_code=short_code,
         referral_url=f"{frontend_url}/cadastro?utm_campaign={utm_code}",
         status="ACTIVE",
         hashed_password=hash_password(password),

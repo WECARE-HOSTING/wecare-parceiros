@@ -1,8 +1,11 @@
+import os
 from datetime import date, datetime
 from decimal import Decimal
 from typing import Literal, Self
 
-from pydantic import BaseModel, ConfigDict, EmailStr, field_validator, model_validator
+from pydantic import BaseModel, ConfigDict, EmailStr, computed_field, field_validator, model_validator
+
+FRONTEND_URL = os.getenv("FRONTEND_URL", "http://localhost:3000")
 
 
 class PartnerSelfRegister(BaseModel):
@@ -101,6 +104,7 @@ class PartnerResponse(BaseModel):
     segment: str | None
     company_name: str | None
     utm_code: str
+    short_code: str
     referral_url: str
     status: str
     is_admin: bool
@@ -109,6 +113,11 @@ class PartnerResponse(BaseModel):
     term_version: str | None
     documents: list | None
     created_at: datetime
+
+    @computed_field
+    @property
+    def short_link(self) -> str:
+        return f"{FRONTEND_URL}/r/{self.short_code}"
 
 
 class AdminDashboard(BaseModel):

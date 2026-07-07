@@ -31,6 +31,7 @@ class Partner(Base):
     segment: Mapped[str | None] = mapped_column(String(100), nullable=True)
     company_name: Mapped[str | None] = mapped_column(String(200), nullable=True)
     utm_code: Mapped[str] = mapped_column(String(20), nullable=False, unique=True)
+    short_code: Mapped[str] = mapped_column(String(6), nullable=False, unique=True)
     referral_url: Mapped[str] = mapped_column(String(500), nullable=False)
     status: Mapped[str] = mapped_column(
         Enum("PENDING", "ACTIVE", "SUSPENDED", "TERMINATED", name="partner_status_enum"),
