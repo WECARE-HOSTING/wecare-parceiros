@@ -41,7 +41,6 @@ export default function ProfilePage() {
   const [editing, setEditing] = useState(false);
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState("");
-  const [copiedReferral, setCopiedReferral] = useState(false);
   const [copiedShort, setCopiedShort] = useState(false);
 
   const [form, setForm] = useState({
@@ -87,13 +86,6 @@ export default function ProfilePage() {
     } finally {
       setSaving(false);
     }
-  }
-
-  async function copyReferralLink() {
-    if (!partner?.referral_url) return;
-    await navigator.clipboard.writeText(partner.referral_url);
-    setCopiedReferral(true);
-    setTimeout(() => setCopiedReferral(false), 2000);
   }
 
   async function copyShortLink() {
@@ -210,20 +202,6 @@ export default function ProfilePage() {
                 className={`shrink-0 gap-1.5 min-h-10 w-full sm:w-auto transition-colors ${copiedShort ? "border-green-400 text-green-600" : ""}`}
               >
                 {copiedShort ? <><Check size={13} />Copiado</> : <><Copy size={13} />Copiar</>}
-              </Button>
-            </div>
-          </div>
-          <div>
-            <p className="text-xs text-muted-foreground mb-0.5">Link completo</p>
-            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
-              <p className="text-xs text-muted-foreground break-all">{partner.referral_url}</p>
-              <Button
-                size="sm"
-                variant="ghost"
-                onClick={copyReferralLink}
-                className={`shrink-0 gap-1.5 h-8 w-full sm:w-auto transition-colors ${copiedReferral ? "text-green-600" : "text-muted-foreground"}`}
-              >
-                {copiedReferral ? <><Check size={13} />Copiado</> : <><Copy size={13} />Copiar</>}
               </Button>
             </div>
           </div>
