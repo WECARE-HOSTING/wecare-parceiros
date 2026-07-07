@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useRef, useState } from "react";
 import {
   CheckCircle2,
@@ -249,6 +250,7 @@ function BenefitsGrid() {
 type Phase = "form" | "submitting" | "upload" | "done" | "error";
 
 export default function CadastroParceiro() {
+  const router = useRouter();
   const [phase, setPhase] = useState<Phase>("form");
   const [errorMsg, setErrorMsg] = useState("");
   const [fieldErrors, setFieldErrors] = useState<{ email?: string; document?: string }>({});
@@ -406,12 +408,15 @@ export default function CadastroParceiro() {
             <p className="text-sm font-medium text-[#B79152] bg-[#B79152]/10 border border-[#B79152]/30 rounded-xl px-4 py-3">
               No primeiro acesso você será solicitado a criar uma nova senha.
             </p>
-            <Link
-              href="/login"
+            <button
+              type="button"
+              onClick={() =>
+                router.push(`/login?email=${encodeURIComponent(form.email)}&prefill=true`)
+              }
               className="inline-flex items-center justify-center w-full h-11 rounded-xl bg-[#B79152] hover:bg-[#B79152]/90 text-[#0C2330] text-sm font-semibold transition"
             >
               Acessar o portal
-            </Link>
+            </button>
           </div>
         </div>
       </main>

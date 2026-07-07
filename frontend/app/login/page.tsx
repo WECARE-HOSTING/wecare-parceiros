@@ -1,19 +1,37 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
+import { useSearchParams } from "next/navigation";
 import { useAuth } from "@/app/providers";
 import { login, getMe } from "@/lib/api";
 import { PublicHeader } from "@/components/public-header";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 
+const DEFAULT_PASSWORD = "Wecare@2026";
+
 export default function LoginPage() {
   const { setAuth } = useAuth();
+  const searchParams = useSearchParams();
+  const submitButtonRef = useRef<HTMLButtonElement>(null);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [prefilled, setPrefilled] = useState(false);
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    if (searchParams.get("prefill") !== "true") return;
+
+    const emailParam = searchParams.get("email");
+    if (emailParam) setEmail(emailParam);
+    setPassword(DEFAULT_PASSWORD);
+    setPrefilled(true);
+    requestAnimationFrame(() => {
+      submitButtonRef.current?.focus();
+    });
+  }, [searchParams]);
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -85,12 +103,19 @@ export default function LoginPage() {
                 )}
 
                 <Button
+                  ref={submitButtonRef}
                   type="submit"
                   className="w-full min-h-10 bg-[#B79152] hover:bg-[#B79152]/90 text-[#0C2330] font-semibold text-base"
                   disabled={loading}
                 >
                   {loading ? "Entrando..." : "Entrar"}
                 </Button>
+
+                {prefilled && (
+                  <p className="text-center text-xs text-[#0C2330]/60">
+                    Seus dados de acesso foram preenchidos automaticamente. Clique em Entrar.
+                  </p>
+                )}
               </form>
             </div>
           </div>
