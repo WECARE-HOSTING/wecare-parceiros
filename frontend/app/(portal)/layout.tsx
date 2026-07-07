@@ -20,7 +20,7 @@ export default function PortalLayout({ children }: { children: React.ReactNode }
       )}
 
       <SidebarNav
-        utmLink={partner?.referral_url}
+        utmLink={partner?.short_link}
         mobileOpen={sidebarOpen}
         onMobileClose={() => setSidebarOpen(false)}
       />
