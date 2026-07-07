@@ -206,8 +206,8 @@ class LeadResponse(BaseModel):
     id: int
     partner_id: int
     full_name: str
-    email: str
-    cpf: str
+    email: str | None = None
+    cpf: str | None = None
     phone: str | None
     address_street: str | None
     address_number: str | None
@@ -541,8 +541,8 @@ class KanbanLeadCard(BaseModel):
     id: int
     partner_id: int
     full_name: str
-    email: str
-    cpf: str
+    email: str | None = None
+    cpf: str | None = None
     phone: str | None
     address_street: str | None
     address_number: str | None
