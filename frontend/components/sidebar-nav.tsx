@@ -37,8 +37,8 @@ export function SidebarNav({ utmLink, mobileOpen = false, onMobileClose }: Sideb
   const [copied, setCopied] = useState(false);
 
   function copyLink() {
-    if (!utmLink) return;
-    navigator.clipboard.writeText(utmLink);
+    if (!partner?.short_link) return;
+    navigator.clipboard.writeText(partner.short_link);
     setCopied(true);
     setTimeout(() => setCopied(false), 2000);
   }
@@ -94,7 +94,7 @@ export function SidebarNav({ utmLink, mobileOpen = false, onMobileClose }: Sideb
       </nav>
 
       {/* UTM link copy */}
-      {utmLink && (
+      {partner?.short_link && (
         <div className="px-4 py-4 border-t border-sidebar-border">
           <p className="text-sidebar-foreground/60 text-xs uppercase tracking-wider mb-2">Meu link de indicação</p>
           <button
@@ -107,7 +107,7 @@ export function SidebarNav({ utmLink, mobileOpen = false, onMobileClose }: Sideb
               <Copy size={14} className="text-sidebar-foreground/60 shrink-0" />
             )}
             <span className="text-sidebar-foreground/70 text-xs truncate">
-              {copied ? "Copiado!" : utmLink.replace("https://", "")}
+              {copied ? "Copiado!" : partner.short_link.replace("https://", "")}
             </span>
           </button>
         </div>
