@@ -201,21 +201,6 @@ export default function ProfilePage() {
             <p className="text-sm font-mono font-medium text-foreground">{partner.utm_code}</p>
           </div>
           <div className="bg-muted border border-border rounded-lg px-3 py-2">
-            <p className="text-xs text-muted-foreground mb-0.5">Link completo (UTM)</p>
-            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
-              <p className="text-sm text-primary break-all">{partner.referral_url}</p>
-              <Button
-                size="sm"
-                variant="outline"
-                onClick={copyReferralLink}
-                className={`shrink-0 gap-1.5 min-h-10 w-full sm:w-auto transition-colors ${copiedReferral ? "border-green-400 text-green-600" : ""}`}
-              >
-                {copiedReferral ? <><Check size={13} />Copiado</> : <><Copy size={13} />Copiar</>}
-              </Button>
-            </div>
-          </div>
-          <div className="bg-muted border border-border rounded-lg px-3 py-2">
-            <p className="text-xs text-muted-foreground mb-0.5">Link curto</p>
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
               <p className="text-sm text-primary break-all">{partner.short_link}</p>
               <Button
@@ -225,6 +210,20 @@ export default function ProfilePage() {
                 className={`shrink-0 gap-1.5 min-h-10 w-full sm:w-auto transition-colors ${copiedShort ? "border-green-400 text-green-600" : ""}`}
               >
                 {copiedShort ? <><Check size={13} />Copiado</> : <><Copy size={13} />Copiar</>}
+              </Button>
+            </div>
+          </div>
+          <div>
+            <p className="text-xs text-muted-foreground mb-0.5">Link completo</p>
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+              <p className="text-xs text-muted-foreground break-all">{partner.referral_url}</p>
+              <Button
+                size="sm"
+                variant="ghost"
+                onClick={copyReferralLink}
+                className={`shrink-0 gap-1.5 h-8 w-full sm:w-auto transition-colors ${copiedReferral ? "text-green-600" : "text-muted-foreground"}`}
+              >
+                {copiedReferral ? <><Check size={13} />Copiado</> : <><Copy size={13} />Copiar</>}
               </Button>
             </div>
           </div>
