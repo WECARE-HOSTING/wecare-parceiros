@@ -397,8 +397,10 @@ export type PartnerCreate = {
   initial_password?: string;
 };
 
-export const getPartners = () =>
-  request<PartnerResponse[]>("/partners");
+export const getPartners = (opts?: { excludeAdmins?: boolean }) => {
+  const qs = opts?.excludeAdmins ? "?exclude_admins=true" : "";
+  return request<PartnerResponse[]>(`/partners${qs}`);
+};
 
 export const getPartner = (id: number) =>
   request<PartnerResponse>(`/partners/${id}`);

@@ -4,7 +4,7 @@ from datetime import date, datetime
 from decimal import Decimal
 from pathlib import Path
 
-from fastapi import APIRouter, Depends, HTTPException, Request, UploadFile
+from fastapi import APIRouter, Depends, HTTPException, Query, Request, UploadFile
 from fastapi.responses import FileResponse
 from sqlalchemy import func, select
 from sqlalchemy.exc import IntegrityError
@@ -130,8 +130,15 @@ def create_partner(
 
 
 @router.get("", response_model=list[schemas.PartnerResponse], summary="Listar parceiros (admin)")
-def list_partners(_admin: AdminPartner, db: Session = Depends(get_db)):
-    return db.scalars(select(models.Partner).order_by(models.Partner.created_at.desc())).all()
+def list_partners(
+    _admin: AdminPartner,
+    db: Session = Depends(get_db),
+    exclude_admins: bool = Query(False, description="Excluir contas administrativas da listagem"),
+):
+    stmt = select(models.Partner).order_by(models.Partner.created_at.desc())
+    if exclude_admins:
+        stmt = stmt.where(models.Partner.is_admin == False)
+    return db.scalars(stmt).all()
 
 
 @router.get("/{partner_id}", response_model=schemas.PartnerResponse, summary="Consultar parceiro")
