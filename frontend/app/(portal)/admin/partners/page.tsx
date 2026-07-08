@@ -6,7 +6,8 @@ import { useRouter } from "next/navigation";
 import { useAuth } from "@/app/providers";
 import { getPartners, type PartnerResponse } from "@/lib/api";
 import { StatusBadge } from "@/components/status-badge";
-import { Button } from "@/components/ui/button";
+import { Button, buttonVariants } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
 import { Input } from "@/components/ui/input";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Skeleton } from "@/components/ui/skeleton";
@@ -150,12 +151,13 @@ export default function PartnersPage() {
                         </a>
                       </TableCell>
                       <TableCell className="text-right">
-                        <Button variant="outline" size="sm" asChild>
-                          <Link href={`/leads?partner_id=${p.id}`} className="gap-1.5">
-                            <ExternalLink size={13} />
-                            Ver leads
-                          </Link>
-                        </Button>
+                        <Link
+                          href={`/leads?partner_id=${p.id}`}
+                          className={cn(buttonVariants({ variant: "outline", size: "sm" }), "gap-1.5")}
+                        >
+                          <ExternalLink size={13} />
+                          Ver leads
+                        </Link>
                       </TableCell>
                     </TableRow>
                   ))}
@@ -203,12 +205,13 @@ export default function PartnersPage() {
                     {p.short_link.replace("https://", "")}
                   </a>
                 </div>
-                <Button variant="outline" size="sm" asChild className="w-full">
-                  <Link href={`/leads?partner_id=${p.id}`} className="gap-1.5">
-                    <ExternalLink size={13} />
-                    Ver leads
-                  </Link>
-                </Button>
+                <Link
+                  href={`/leads?partner_id=${p.id}`}
+                  className={cn(buttonVariants({ variant: "outline", size: "sm" }), "w-full gap-1.5")}
+                >
+                  <ExternalLink size={13} />
+                  Ver leads
+                </Link>
               </div>
             ))}
       </div>
