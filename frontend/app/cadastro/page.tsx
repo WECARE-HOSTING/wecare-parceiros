@@ -162,11 +162,13 @@ export default function IndicarPage() {
         {/* Chamada */}
         <div className="text-center space-y-3 pb-2">
           <h1 className="text-2xl md:text-3xl font-bold text-[#0C2330] font-[family-name:var(--font-spectral)]">
-            Indique seu imóvel para a WeCare
+            Avalie seu imóvel com a WeCare
           </h1>
           <p className="text-[#0C2330]/70 text-base leading-relaxed max-w-xl mx-auto">
-            Preencha os dados abaixo e nossa equipe entrará em contato para apresentar
-            como transformar seu imóvel em renda com a gestão profissional da WeCare Hosting.
+            A gente avalia o seu imóvel — e você avalia a gente. Preencha os dados abaixo
+            e nossa equipe entra em contato para mostrar o potencial real de renda do seu
+            imóvel, operado como patrimônio, não como inventário. Pensamos como proprietário:
+            é assim que decidimos, juntos, se a parceria faz sentido.
           </p>
         </div>
 
@@ -253,7 +255,7 @@ export default function IndicarPage() {
                 Enviando…
               </>
             ) : (
-              "Enviar indicação"
+              "Avaliar meu imóvel"
             )}
           </button>
         </form>
