@@ -70,6 +70,7 @@ class Lead(Base):
     address_city: Mapped[str | None] = mapped_column(String(100), nullable=True)
     address_state: Mapped[str | None] = mapped_column(String(2), nullable=True)
     address_zip: Mapped[str | None] = mapped_column(String(8), nullable=True)
+    property_description: Mapped[str | None] = mapped_column(String(1000), nullable=True)
     utm_code: Mapped[str] = mapped_column(String(20), nullable=False)
     utm_source: Mapped[str | None] = mapped_column(String(100), nullable=True)
     utm_medium: Mapped[str | None] = mapped_column(String(100), nullable=True)

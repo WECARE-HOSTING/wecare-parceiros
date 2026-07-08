@@ -29,6 +29,19 @@ function Input({
   );
 }
 
+function Textarea({
+  className = "",
+  ...props
+}: React.TextareaHTMLAttributes<HTMLTextAreaElement>) {
+  return (
+    <textarea
+      className={`w-full min-h-[4.5rem] px-3 py-2 rounded-lg border border-[#B79152]/30 bg-white text-sm text-[#0C2330] focus:outline-none focus:ring-2 focus:ring-[#B79152]/40 focus:border-[#B79152] transition font-[family-name:var(--font-inter)] resize-y ${className}`}
+      rows={3}
+      {...props}
+    />
+  );
+}
+
 function Section({ icon: Icon, title, children }: { icon: React.ElementType; title: string; children: React.ReactNode }) {
   return (
     <div className="space-y-4">
@@ -54,6 +67,7 @@ export default function IndicarPage() {
     full_name: "",
     email: "",
     phone: "",
+    property_description: "",
     lgpd_consent: false,
   });
 
@@ -89,6 +103,7 @@ export default function IndicarPage() {
           full_name: form.full_name,
           email: form.email || undefined,
           phone: form.phone || undefined,
+          property_description: form.property_description || undefined,
           lgpd_consent: form.lgpd_consent,
         }),
       });
@@ -221,6 +236,15 @@ export default function IndicarPage() {
               </div>
             </div>
           </Section>
+
+          <div>
+            <Label>Breve descrição do imóvel</Label>
+            <Textarea
+              value={form.property_description}
+              onChange={set("property_description")}
+              placeholder="Ex: Apartamento 2 quartos em Florianópolis, próximo à praia, mobiliado, disponível para temporada..."
+            />
+          </div>
 
           <hr className="border-[#B79152]/15" />
 

@@ -82,6 +82,7 @@ def public_register_lead(payload: schemas.LeadCreate, db: Session = Depends(get_
         address_city=payload.address_city,
         address_state=payload.address_state,
         address_zip=payload.address_zip,
+        property_description=payload.property_description,
         utm_code=payload.utm_code,
         utm_source=payload.utm_source,
         utm_medium=payload.utm_medium,

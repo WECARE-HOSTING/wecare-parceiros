@@ -165,6 +165,7 @@ class LeadCreate(BaseModel):
     address_city: str | None = None
     address_state: str | None = None
     address_zip: str | None = None
+    property_description: str | None = None
     utm_source: str | None = None
     utm_medium: str | None = None
     utm_campaign: str | None = None
