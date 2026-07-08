@@ -223,8 +223,12 @@ export const getAdminDashboard = () =>
 export const getDashboard = (partnerId: number) =>
   request<PartnerDashboard>(`/partners/${partnerId}/dashboard`);
 
-export const getLeads = () =>
-  request<LeadResponse[]>("/leads");
+export const getLeads = (params?: { partner_id?: number }) => {
+  const qs = new URLSearchParams();
+  if (params?.partner_id != null) qs.set("partner_id", String(params.partner_id));
+  const q = qs.toString();
+  return request<LeadResponse[]>(`/leads${q ? `?${q}` : ""}`);
+};
 
 export const getLead = (id: number) =>
   request<LeadResponse>(`/leads/${id}`);

@@ -2,7 +2,9 @@
 
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
-import { getLeads, uploadLeadsList, type LeadResponse, type LeadsUploadResult } from "@/lib/api";
+import { useSearchParams } from "next/navigation";
+import { getLeads, getPartners, uploadLeadsList, type LeadResponse, type LeadsUploadResult, type PartnerResponse } from "@/lib/api";
+import { useAuth } from "@/app/providers";
 import { exportCSV } from "@/lib/csv";
 import { StatusBadge } from "@/components/status-badge";
 import { Button } from "@/components/ui/button";
@@ -190,23 +192,45 @@ function ImportDialog({
 }
 
 export default function LeadsPage() {
+  const searchParams = useSearchParams();
+  const { partner } = useAuth();
+
+  const urlPartnerId = searchParams.get("partner_id");
+  const parsedUrlPartnerId = urlPartnerId ? parseInt(urlPartnerId, 10) : NaN;
+
   const [leads, setLeads] = useState<LeadResponse[] | null>(null);
+  const [partners, setPartners] = useState<PartnerResponse[]>([]);
   const [error, setError] = useState("");
   const [search, setSearch] = useState("");
   const [statusFilter, setStatusFilter] = useState("");
+  const [partnerFilter, setPartnerFilter] = useState<number | "">(
+    !isNaN(parsedUrlPartnerId) ? parsedUrlPartnerId : ""
+  );
   const [page, setPage] = useState(1);
   const [importOpen, setImportOpen] = useState(false);
 
   function loadLeads() {
-    getLeads()
+    const params = partnerFilter !== "" ? { partner_id: partnerFilter } : undefined;
+    getLeads(params)
       .then(setLeads)
       .catch((e: Error) => setError(e.message));
   }
 
-  useEffect(() => { loadLeads(); }, []);
+  useEffect(() => {
+    setLeads(null);
+    loadLeads();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [partnerFilter]);
+
+  useEffect(() => {
+    if (!partner?.is_admin) return;
+    getPartners({ excludeAdmins: true })
+      .then(setPartners)
+      .catch(() => {});
+  }, [partner?.is_admin]);
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  useEffect(() => { setPage(1); }, [statusFilter, search]);
+  useEffect(() => { setPage(1); }, [statusFilter, search, partnerFilter]);
 
   const filtered = leads?.filter((l) => {
     const matchesStatus = !statusFilter || l.status === statusFilter;
@@ -286,6 +310,22 @@ export default function LeadsPage() {
             className="pl-9"
           />
         </div>
+        {partner?.is_admin && (
+          <select
+            value={partnerFilter}
+            onChange={(e) =>
+              setPartnerFilter(e.target.value ? Number(e.target.value) : "")
+            }
+            className="text-sm border border-border bg-card text-foreground rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-primary/30 h-10"
+          >
+            <option value="">Todos os parceiros</option>
+            {partners.map((p) => (
+              <option key={p.id} value={p.id}>
+                {p.full_name}
+              </option>
+            ))}
+          </select>
+        )}
         <div className="flex gap-1.5 flex-wrap">
           {STATUS_FILTERS.map((f) => (
             <button
