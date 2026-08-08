@@ -59,7 +59,7 @@ const PROOFS = [
 
 const ADVANTAGES = [
   { icon: Handshake, title: "Você só indica", desc: "A WeCare cuida de tudo: avaliação do imóvel, contrato, anúncio, precificação, hóspede, limpeza, manutenção e financeiro." },
-  { icon: ShieldCheck, title: "Indique sem medo", desc: "Quem você indica entra no Padrão WeCare: Superhost há 10 anos, zero reclamação no Reclame Aqui, churn abaixo de 1%." },
+  { icon: ShieldCheck, title: "Sua relação não vira aposta", desc: "Quem você indica entra no Padrão WeCare: curadoria na entrada, operação inteira depois. O proprietário volta pra você satisfeito, não com um problema." },
   { icon: Eye, title: "Você fica sabendo de tudo", desc: "Feedback de cada indicação — se foi atendido, se fechou, se está satisfeito. Você nunca é surpreendido." },
   { icon: HeartHandshake, title: "Sem perfil, sem constrangimento", desc: "Se o imóvel não tiver vocação, a WeCare declina com elegância — sem nunca te queimar com o seu cliente." },
 ];

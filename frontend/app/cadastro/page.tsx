@@ -130,7 +130,7 @@ export default function IndicarPage() {
             </div>
             <h1 className="text-2xl font-bold text-[#0C2330] font-[family-name:var(--font-spectral)]">Indicação recebida!</h1>
             <p className="text-[#0C2330]/70 text-base leading-relaxed">
-              Obrigado pelo interesse. Nossa equipe entrará em contato em breve para dar andamento ao processo.
+              Nossa equipe entra em contato para marcar a avaliação do seu imóvel.
             </p>
             <div className="bg-[#B79152]/10 border border-[#B79152]/30 rounded-xl p-4 text-sm text-[#0C2330]/80">
               Guarde este contato:{" "}
@@ -180,17 +180,24 @@ export default function IndicarPage() {
             Avalie seu imóvel com a WeCare
           </h1>
           <p className="text-[#0C2330]/70 text-base leading-relaxed max-w-xl mx-auto">
-            A gente avalia o seu imóvel — e você avalia a gente. Preencha os dados abaixo
-            e nossa equipe entra em contato para mostrar o potencial real de renda do seu
-            imóvel, operado como patrimônio, não como inventário. Pensamos como proprietário:
-            é assim que decidimos, juntos, se a parceria faz sentido.
+            Alguém em quem você confia indicou a WeCare. A gente avalia o seu imóvel e
+            mostra o que ele pode render, operado de ponta a ponta. Você avalia a gente
+            na mesma conversa. Se fizer sentido para os dois lados, seguimos.
           </p>
         </div>
 
         {!utmCode && (
           <div className="bg-yellow-50 border border-yellow-200 rounded-xl p-4 text-sm text-yellow-800">
-            Link de indicação não identificado. Certifique-se de ter acessado este formulário
-            pelo link enviado pelo seu parceiro.
+            <p className="font-medium">Não reconhecemos o link de indicação.</p>
+            <p className="mt-1">
+              O envio fica bloqueado até identificarmos quem indicou você — é assim que
+              garantimos o crédito a quem fez a indicação. Abra o formulário pelo link que
+              seu parceiro enviou, ou escreva para{" "}
+              <a href="mailto:contato@wecarehosting.com.br" className="underline font-medium">
+                contato@wecarehosting.com.br
+              </a>{" "}
+              que a gente resolve por aqui.
+            </p>
           </div>
         )}
 
@@ -242,7 +249,7 @@ export default function IndicarPage() {
             <Textarea
               value={form.property_description}
               onChange={set("property_description")}
-              placeholder="Ex: Apartamento 2 quartos em Florianópolis, próximo à praia, mobiliado, disponível para temporada..."
+              placeholder="Ex: apartamento de 2 quartos nos Jardins, mobiliado, livre para temporada"
             />
           </div>
 
@@ -259,11 +266,10 @@ export default function IndicarPage() {
               />
               <span className="text-sm text-[#0C2330]/80 leading-relaxed">
                 Autorizo a WeCare Hosting a armazenar e utilizar meus dados para contato
-                e análise da indicação, conforme a{" "}
-                <span className="text-[#B79152] underline cursor-pointer">
-                  Lei Geral de Proteção de Dados (LGPD)
-                </span>
-                . Meus dados não serão compartilhados com terceiros.
+                e análise da indicação, conforme a Lei Geral de Proteção de Dados (LGPD).
+                Meus dados não são vendidos nem cedidos para publicidade. Podem ser
+                compartilhados com prestadores de serviço da operação e com autoridades,
+                quando a lei exigir.
               </span>
             </label>
           </Section>
