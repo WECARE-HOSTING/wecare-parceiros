@@ -22,8 +22,7 @@ import {
 import { registerPartner, uploadPartnerDocument, RegisterPartnerError } from "@/lib/api";
 import { formatPhone } from "@/lib/utils";
 
-const TERM_VERSION = "1.0";
-const DEFAULT_PASSWORD = "Wecare@2026";
+const TERM_VERSION = "1.1";
 
 const SEGMENTS = [
   "Assessoria e Consultoria Imobiliária",
@@ -35,6 +34,8 @@ const SEGMENTS = [
   "Contabilidade / BPO Financeiro",
   "Móveis Planejados / Design de Interiores",
   "Incorporadora / Construtora",
+  "Advogado / Consultoria Patrimonial",
+  "Síndico / Administradora de Condomínios",
   "Outro",
 ];
 
@@ -58,7 +59,7 @@ const PROOFS = [
 
 const ADVANTAGES = [
   { icon: Handshake, title: "Você só indica", desc: "A WeCare cuida de tudo: avaliação do imóvel, contrato, anúncio, precificação, hóspede, limpeza, manutenção e financeiro." },
-  { icon: ShieldCheck, title: "Indique sem medo", desc: "Quem você indica entra no Padrão WeCare: Superhost há 10 anos, zero reclamação no Reclame Aqui, churn abaixo de 1%." },
+  { icon: ShieldCheck, title: "Sua relação não vira aposta", desc: "Quem você indica entra no Padrão WeCare: curadoria na entrada, operação inteira depois. O proprietário volta pra você satisfeito, não com um problema." },
   { icon: Eye, title: "Você fica sabendo de tudo", desc: "Feedback de cada indicação — se foi atendido, se fechou, se está satisfeito. Você nunca é surpreendido." },
   { icon: HeartHandshake, title: "Sem perfil, sem constrangimento", desc: "Se o imóvel não tiver vocação, a WeCare declina com elegância — sem nunca te queimar com o seu cliente." },
 ];
@@ -83,10 +84,13 @@ Versão ${TERM_VERSION} · Vigência a partir de 01/04/2025
 3.5 Emitir nota fiscal de serviços (NFS-e) em nome da WeCare para o recebimento de comissões, quando exigido pela legislação aplicável.
 
 4. COMISSÃO
-4.1 O Parceiro fará jus a comissão equivalente a 100% (cem por cento) da taxa de administração cobrada pela WeCare no primeiro mês completo de operação do imóvel indicado.
-4.2 O pagamento ocorrerá em até 30 (trinta) dias após o encerramento do primeiro mês completo de operação, condicionado à adimplência do proprietário.
-4.3 A comissão é devida apenas para indicações registradas através do link UTM exclusivo do Parceiro, dentro do prazo de atribuição de 90 (noventa) dias da primeira visita do lead.
-4.4 Não haverá comissão em casos de cancelamento do contrato antes do início da operação, fraude comprovada ou estorno.
+4.1 A cada indicação que resulte em contrato de gestão assinado, o Parceiro escolhe uma das duas formas de remuneração:
+    (a) R$ 1.500,00 (mil e quinhentos reais), em pagamento único; ou
+    (b) 10% (dez por cento) da taxa de administração cobrada pela WeCare sobre o imóvel indicado, durante os 12 (doze) primeiros meses de operação.
+4.2 A escolha é feita por indicação, e não por parceria: o Parceiro pode optar por caminhos diferentes a cada nova indicação.
+4.3 O pagamento da modalidade (a) ocorre em até 30 (trinta) dias da assinatura do contrato pelo proprietário indicado. Os pagamentos da modalidade (b) ocorrem mensalmente, em até 30 (trinta) dias do repasse de cada mês, condicionados à adimplência do proprietário.
+4.4 A indicação é atribuída ao Parceiro quando registrada por seu link exclusivo no Portal ou quando por ele comunicada à WeCare antes do primeiro contato do proprietário com a empresa, observado o prazo de atribuição de 90 (noventa) dias.
+4.5 Não haverá comissão em casos de cancelamento do contrato antes do início da operação, fraude comprovada ou estorno.
 
 5. PROPRIEDADE INTELECTUAL E SIGILO
 5.1 O acesso ao portal não transfere ao Parceiro qualquer direito sobre marcas, logotipos ou materiais da WeCare.
@@ -258,11 +262,14 @@ function HeroHeader({ rightLink }: { rightLink?: { href: string; label: string }
           Indique <em className="text-[#B79152] font-[family-name:var(--font-spectral)] italic">sem medo</em>.
         </h1>
         <p className="text-[19px] leading-relaxed text-[rgba(242,234,217,0.85)] max-w-[58ch] mb-4 font-[family-name:var(--font-inter)]">
-          A WeCare é uma gestora boutique de aluguel por temporada para imóveis de alto padrão em São Paulo. Opera o imóvel do proprietário de ponta a ponta —{" "}
+          A WeCare é uma gestora boutique de aluguel por temporada. Opera o imóvel do proprietário de ponta a ponta —{" "}
           <em className="font-[family-name:var(--font-spectral)] italic text-[#C9BBA4]">como se fosse próprio</em>.
         </p>
-        <p className="text-[19px] leading-relaxed text-[rgba(242,234,217,0.85)] max-w-[56ch] mb-10 font-[family-name:var(--font-inter)]">
+        <p className="text-[19px] leading-relaxed text-[rgba(242,234,217,0.85)] max-w-[56ch] mb-4 font-[family-name:var(--font-inter)]">
           Você tem a relação. A gente tem o padrão. Indique um proprietário e a WeCare assume a operação inteira — enquanto você fica sabendo de cada passo.
+        </p>
+        <p className="text-[17px] leading-relaxed text-[rgba(242,234,217,0.7)] max-w-[56ch] mb-10 font-[family-name:var(--font-inter)]">
+          Casa ou apartamento, de médio a alto padrão, na capital, no litoral ou no campo. Se o imóvel tiver vocação para temporada, a gente avalia.
         </p>
         <div className="flex items-center gap-6 flex-wrap">
           <button
@@ -615,12 +622,12 @@ export default function CadastroParceiro() {
                   <p className="font-medium text-[#0C2330] mt-0.5">{form.email}</p>
                 </div>
                 <div>
-                  <p className="text-xs text-[#6B675E] uppercase tracking-[0.14em] font-medium">Senha de acesso</p>
-                  <p className="font-mono font-semibold text-[#0C2330] mt-0.5">{DEFAULT_PASSWORD}</p>
+                  <p className="text-xs text-[#6B675E] uppercase tracking-[0.14em] font-medium">Senha temporária</p>
+                  <p className="text-[#0C2330] mt-0.5">Enviada agora para este e-mail.</p>
                 </div>
               </div>
               <p className="text-sm font-medium text-[#9A6A2E] bg-[#F1E6D2] border border-[rgba(183,145,82,0.3)] rounded-lg px-4 py-3">
-                No primeiro acesso você será solicitado a criar uma nova senha.
+                No primeiro acesso você cria a sua senha definitiva.
               </p>
               <button
                 type="button"
