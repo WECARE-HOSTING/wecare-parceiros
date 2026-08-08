@@ -137,19 +137,25 @@ def bootstrap_admin(token: str):
             return {"detail": f"Admin já existe: {existing.email}"}
         from app.utils import generate_short_code
         frontend_url = os.getenv("FRONTEND_URL", "http://localhost:3000")
+        initial_password = os.getenv("ADMIN_INITIAL_PASSWORD")
+        if not initial_password:
+            raise HTTPException(
+                status_code=500,
+                detail="ADMIN_INITIAL_PASSWORD não configurada no ambiente.",
+            )
         short_code = generate_short_code(db)
         admin_user = models.Partner(
-            full_name="Felipe Malveira",
-            document="00000000191",
+            full_name=os.getenv("ADMIN_FULL_NAME", "Administrador WeCare"),
+            document=os.getenv("ADMIN_DOCUMENT", "00000000191"),
             document_type="CPF",
-            email="felipe@wecarehosting.com.br",
+            email=os.getenv("ADMIN_EMAIL", "contato@wecarehosting.com.br"),
             utm_code="admin_0191",
             short_code=short_code,
             referral_url=f"{frontend_url}/cadastro?utm_campaign=admin_0191",
             status="ACTIVE",
-            hashed_password=hash_password("Wecare@2026"),
+            hashed_password=hash_password(initial_password),
             is_admin=True,
-            must_change_password=False,
+            must_change_password=True,
         )
         db.add(admin_user)
         db.commit()
@@ -161,7 +167,12 @@ def bootstrap_admin(token: str):
 def create_admin(token: str, full_name: str, email: str, document: str):
     if not BOOTSTRAP_TOKEN or token != BOOTSTRAP_TOKEN:
         raise HTTPException(status_code=403, detail="Token inválido.")
-    from app.utils import generate_short_code, generate_utm_code, infer_document_type
+    from app.utils import (
+        generate_short_code,
+        generate_temp_password,
+        generate_utm_code,
+        infer_document_type,
+    )
     document_digits = "".join(c for c in document if c.isdigit())
     frontend_url = os.getenv("FRONTEND_URL", "http://localhost:3000")
     with Session(engine) as db:
@@ -170,6 +181,7 @@ def create_admin(token: str, full_name: str, email: str, document: str):
             return {"detail": f"Usuário já existe: {existing.email}"}
         utm_code = generate_utm_code(db)
         short_code = generate_short_code(db)
+        temp_password = generate_temp_password()
         partner = models.Partner(
             full_name=full_name,
             document=document_digits,
@@ -179,14 +191,21 @@ def create_admin(token: str, full_name: str, email: str, document: str):
             short_code=short_code,
             referral_url=f"{frontend_url}/cadastro?utm_campaign={utm_code}",
             status="ACTIVE",
-            hashed_password=hash_password("Wecare@2026"),
+            hashed_password=hash_password(temp_password),
             is_admin=True,
             must_change_password=True,
         )
         db.add(partner)
         db.commit()
         db.refresh(partner)
-        return {"detail": "Admin criado.", "id": partner.id, "email": partner.email}
+        # Única exibição da senha: o endpoint é gated por BOOTSTRAP_TOKEN e a
+        # senha não fica em lugar nenhum além do hash. Anote e troque no 1º acesso.
+        return {
+            "detail": "Admin criado.",
+            "id": partner.id,
+            "email": partner.email,
+            "temp_password": temp_password,
+        }
 
 
 API_PREFIX = "/api/v1"

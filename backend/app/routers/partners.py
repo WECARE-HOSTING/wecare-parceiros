@@ -13,10 +13,14 @@ from sqlalchemy.orm import Session
 from app import models, notifications, schemas
 from app.auth import AdminPartner, CurrentPartner, hash_password
 from app.database import get_db
-from app.utils import generate_short_code, generate_utm_code, infer_document_type
+from app.utils import (
+    generate_short_code,
+    generate_temp_password,
+    generate_utm_code,
+    infer_document_type,
+)
 
 BASE_REFERRAL_URL = os.getenv("FRONTEND_URL", "http://localhost:3000") + "/cadastro"
-DEFAULT_PARTNER_PASSWORD = "Wecare@2026"
 UPLOADS_DIR = Path(os.getenv("UPLOADS_DIR", "./uploads"))
 
 _ALLOWED_TYPES = {"application/pdf", "image/jpeg", "image/png", "image/jpg"}
@@ -50,6 +54,7 @@ def register_partner(
         f"?utm_source=parceiro&utm_medium=referral&utm_campaign={utm_code}"
     )
     now = datetime.utcnow()
+    temp_password = generate_temp_password()
     client_ip = request.headers.get("X-Forwarded-For", "").split(",")[0].strip() or (
         request.client.host if request.client else None
     )
@@ -61,7 +66,7 @@ def register_partner(
         phone=payload.phone,
         segment=payload.segment,
         company_name=payload.company_name,
-        hashed_password=hash_password(DEFAULT_PARTNER_PASSWORD),
+        hashed_password=hash_password(temp_password),
         is_admin=False,
         utm_code=utm_code,
         short_code=short_code,
@@ -81,7 +86,7 @@ def register_partner(
     except IntegrityError:
         db.rollback()
         raise HTTPException(status_code=409, detail="Este e-mail ou CPF/CNPJ já está cadastrado.")
-    notifications.notify_partner_registered(partner.email, partner.full_name, DEFAULT_PARTNER_PASSWORD)
+    notifications.notify_partner_registered(partner.email, partner.full_name, temp_password)
     return {
         "detail": "Cadastro realizado! Bem-vindo à WeCare.",
         "partner_id": partner.id,

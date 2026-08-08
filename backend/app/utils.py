@@ -10,8 +10,14 @@ from app import models
 
 
 def generate_temp_password() -> str:
+    """Senha temporária única, legível o bastante para ser digitada uma vez.
+
+    Nunca substituir por senha fixa em código: este repositório é público, e
+    uma constante aqui vira credencial válida em produção para quem ler o
+    GitHub. O prefixo garante maiúscula e símbolo; a entropia vem do sufixo.
+    """
     chars = string.ascii_uppercase + string.digits
-    return "WCare@" + "".join(secrets.choice(chars) for _ in range(6))
+    return "WCare@" + "".join(secrets.choice(chars) for _ in range(10))
 
 
 _SHORT_CODE_ALPHABET = string.ascii_lowercase + string.digits
