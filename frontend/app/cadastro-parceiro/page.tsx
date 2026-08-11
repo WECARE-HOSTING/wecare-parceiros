@@ -235,7 +235,15 @@ function HeroHeader({ rightLink }: { rightLink?: { href: string; label: string }
   return (
     <header className="bg-[#0C2330] text-[#F2EAD9] px-6">
       <div className="max-w-[1080px] mx-auto pt-7 flex items-center justify-between gap-4">
-        <Image src="/logo.png" alt="WeCare Hosting" width={140} height={30} className="h-[30px] w-auto" priority />
+        <Image
+          src="/brand/wecare-logo-reverso.svg"
+          alt="WeCare Hosting"
+          width={140}
+          height={39}
+          className="h-[34px] w-auto"
+          priority
+          unoptimized
+        />
         <div className="flex items-center gap-4">
           <span className="hidden sm:block text-xs tracking-[0.2em] uppercase text-[#C9BBA4] font-[family-name:var(--font-inter)]">
             Programa de Parceiros

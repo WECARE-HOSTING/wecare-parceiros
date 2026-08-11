@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="WeCare">
+<g transform="translate(8,0)">
+  <path d="M24 61.5 C13.5 45 4.5 35.2 4.5 22 A19.5 19.5 0 1 1 43.5 22 C43.5 35.2 34.5 45 24 61.5 Z" fill="#0C2330"></path>
+  <path d="M12.5 25.5 L24 13.5 L35.5 25.5" stroke="#B79152" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" fill="none"></path>
+  <path d="M15.5 24.7 V33 H32.5 V24.7" stroke="#B79152" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" fill="none" opacity="0.85"></path>
+</g>
+</svg>

@@ -24,7 +24,7 @@ const spectral = Spectral({
 export const metadata: Metadata = {
   title: "WeCare — Portal do Parceiro",
   description: "Programa de Parceria WeCare Hosting",
-  icons: { icon: "/icon.png", apple: "/icon.png" },
+  icons: { icon: "/favicon.svg", apple: "/favicon.svg" },
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

@@ -59,7 +59,15 @@ export function SidebarNav({ utmLink, mobileOpen = false, onMobileClose }: Sideb
     >
       {/* Brand */}
       <div className="px-6 py-5 border-b border-sidebar-border">
-        <Image src="/logo.png" alt="WeCare" width={110} height={36} priority />
+        <Image
+          src="/brand/wecare-logo-reverso.svg"
+          alt="WeCare"
+          width={110}
+          height={31}
+          className="h-[28px] w-auto"
+          priority
+          unoptimized
+        />
         <p className="text-sidebar-foreground/60 text-xs mt-1.5">Portal do Parceiro</p>
       </div>
 

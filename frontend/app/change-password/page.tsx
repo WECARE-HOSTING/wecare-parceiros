@@ -37,7 +37,15 @@ export default function ChangePasswordPage() {
     <div className="min-h-screen flex items-center justify-center bg-gray-50">
       <div className="w-full max-w-sm">
         <div className="text-center mb-8">
-          <Image src="/logo.png" alt="WeCare" width={140} height={46} priority className="mb-2" />
+          <Image
+            src="/brand/wecare-logo-horizontal.svg"
+            alt="WeCare"
+            width={140}
+            height={39}
+            priority
+            unoptimized
+            className="mb-2 h-[36px] w-auto mx-auto"
+          />
           <p className="text-sm text-gray-500">Portal do Parceiro</p>
         </div>
 
