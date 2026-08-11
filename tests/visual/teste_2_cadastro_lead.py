@@ -4,19 +4,20 @@
 from __future__ import annotations
 
 import json
+import os
 import sys
 from pathlib import Path
 
 import httpx
 from playwright.sync_api import sync_playwright
 
-BASE_URL = "https://cadastro.wecarehosting.com.br"
-API_CANDIDATES = [
-    f"{BASE_URL}/api/v1",
-    "https://parceiros.wecarehosting.com.br/api/v1",
-]
-ADMIN_EMAIL = "felipe@wecarehosting.com.br"
-ADMIN_PASSWORD = "Wecare@2026"
+BASE_URL = os.getenv("TEST_BASE_URL", "http://localhost:3000")
+API_CANDIDATES = [f"{BASE_URL}/api/v1"]
+# Credencial NUNCA no código: o repositório é público. Exporte antes de rodar.
+ADMIN_EMAIL = os.getenv("TEST_ADMIN_EMAIL", "")
+ADMIN_PASSWORD = os.getenv("TEST_ADMIN_PASSWORD", "")
+if not ADMIN_EMAIL or not ADMIN_PASSWORD:
+    sys.exit("Defina TEST_ADMIN_EMAIL e TEST_ADMIN_PASSWORD no ambiente.")
 
 LEAD_NAME = "Lead Reteste Visual"
 LEAD_EMAIL = "lead.reteste@teste.com"

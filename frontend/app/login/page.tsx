@@ -9,8 +9,6 @@ import { PublicHeader } from "@/components/public-header";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 
-const DEFAULT_PASSWORD = "Wecare@2026";
-
 export default function LoginPage() {
   const { setAuth } = useAuth();
   const searchParams = useSearchParams();
@@ -24,13 +22,11 @@ export default function LoginPage() {
   useEffect(() => {
     if (searchParams.get("prefill") !== "true") return;
 
+    // Só o e-mail é pré-preenchido. A senha é temporária, única por parceiro e
+    // chega por e-mail — o front não a conhece e não deve conhecer.
     const emailParam = searchParams.get("email");
     if (emailParam) setEmail(emailParam);
-    setPassword(DEFAULT_PASSWORD);
     setPrefilled(true);
-    requestAnimationFrame(() => {
-      submitButtonRef.current?.focus();
-    });
   }, [searchParams]);
 
   async function handleSubmit(e: React.FormEvent) {
@@ -113,7 +109,7 @@ export default function LoginPage() {
 
                 {prefilled && (
                   <p className="text-center text-xs text-[#0C2330]/60">
-                    Seus dados de acesso foram preenchidos automaticamente. Clique em Entrar.
+                    Use a senha temporária que enviamos para o seu e-mail.
                   </p>
                 )}
               </form>
