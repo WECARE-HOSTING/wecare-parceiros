@@ -22,7 +22,7 @@ import {
 import { registerPartner, uploadPartnerDocument, RegisterPartnerError } from "@/lib/api";
 import { formatPhone } from "@/lib/utils";
 
-const TERM_VERSION = "1.1";
+const TERM_VERSION = "1.2";
 
 const SEGMENTS = [
   "Assessoria e Consultoria Imobiliária",
@@ -84,11 +84,12 @@ Versão ${TERM_VERSION} · Vigência a partir de 01/04/2025
 3.5 Emitir nota fiscal de serviços (NFS-e) em nome da WeCare para o recebimento de comissões, quando exigido pela legislação aplicável.
 
 4. COMISSÃO
-4.1 A cada indicação que resulte em contrato de gestão assinado, o Parceiro escolhe uma das duas formas de remuneração:
-    (a) R$ 1.500,00 (mil e quinhentos reais), em pagamento único; ou
-    (b) 10% (dez por cento) da taxa de administração cobrada pela WeCare sobre o imóvel indicado, durante os 12 (doze) primeiros meses de operação.
+4.1 A cada indicação que resulte em contrato de gestão assinado, o Parceiro escolhe uma das três formas de remuneração:
+    (a) R$ 1.500,00 (mil e quinhentos reais), em pagamento único ao Parceiro; ou
+    (b) 10% (dez por cento) da taxa de administração cobrada pela WeCare sobre o imóvel indicado, durante os 12 (doze) primeiros meses de operação, pagos ao Parceiro; ou
+    (c) R$ 1.500,00 (mil e quinhentos reais) de desconto na taxa de setup/entrada cobrada do proprietário indicado, hipótese em que o Parceiro não recebe comissão e o benefício é integralmente repassado ao proprietário indicado.
 4.2 A escolha é feita por indicação, e não por parceria: o Parceiro pode optar por caminhos diferentes a cada nova indicação.
-4.3 O pagamento da modalidade (a) ocorre em até 30 (trinta) dias da assinatura do contrato pelo proprietário indicado. Os pagamentos da modalidade (b) ocorrem mensalmente, em até 30 (trinta) dias do repasse de cada mês, condicionados à adimplência do proprietário.
+4.3 O pagamento da modalidade (a) ocorre em até 30 (trinta) dias da assinatura do contrato pelo proprietário indicado. Os pagamentos da modalidade (b) ocorrem mensalmente, em até 30 (trinta) dias do repasse de cada mês, condicionados à adimplência do proprietário. O desconto da modalidade (c) é aplicado diretamente na cobrança da taxa de setup, no momento da assinatura do contrato.
 4.4 A indicação é atribuída ao Parceiro quando registrada por seu link exclusivo no Portal ou quando por ele comunicada à WeCare antes do primeiro contato do proprietário com a empresa, observado o prazo de atribuição de 90 (noventa) dias.
 4.5 Não haverá comissão em casos de cancelamento do contrato antes do início da operação, fraude comprovada ou estorno.
 
@@ -366,14 +367,14 @@ function RemunerationSection() {
             <em className="italic text-[#B79152]">Você decide.</em>
           </h2>
           <p className="text-base leading-relaxed text-[rgba(242,234,217,0.8)] font-[family-name:var(--font-inter)]">
-            A cada indicação que vira cliente, você escolhe um dos dois caminhos.
+            A cada indicação que vira cliente, você escolhe um dos três caminhos.
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
           <div className="bg-[rgba(242,234,217,0.05)] border border-[rgba(183,145,82,0.45)] rounded-lg p-8 flex flex-col gap-2.5">
             <span className="text-xs tracking-[0.2em] uppercase text-[#C9BBA4] font-[family-name:var(--font-inter)]">Caminho 1 · À vista</span>
-            <span className="font-[family-name:var(--font-spectral)] font-medium text-[clamp(2.375rem,5vw,3.25rem)] text-[#F2EAD9] leading-[1.1]">
+            <span className="font-[family-name:var(--font-spectral)] font-medium text-[clamp(2.1rem,4.2vw,3.25rem)] text-[#F2EAD9] leading-[1.1]">
               R$ 1.500
             </span>
             <span className="w-10 h-px bg-[#B79152] my-1.5" />
@@ -383,12 +384,22 @@ function RemunerationSection() {
           </div>
           <div className="bg-[rgba(242,234,217,0.05)] border border-[rgba(183,145,82,0.45)] rounded-lg p-8 flex flex-col gap-2.5">
             <span className="text-xs tracking-[0.2em] uppercase text-[#C9BBA4] font-[family-name:var(--font-inter)]">Caminho 2 · Recorrente</span>
-            <span className="font-[family-name:var(--font-spectral)] font-medium text-[clamp(2.375rem,5vw,3.25rem)] text-[#F2EAD9] leading-[1.1]">
+            <span className="font-[family-name:var(--font-spectral)] font-medium text-[clamp(2.1rem,4.2vw,3.25rem)] text-[#F2EAD9] leading-[1.1]">
               10% <span className="text-[22px] text-[rgba(242,234,217,0.7)]">/ 12 meses</span>
             </span>
             <span className="w-10 h-px bg-[#B79152] my-1.5" />
             <p className="text-[15px] leading-relaxed text-[rgba(242,234,217,0.75)] font-[family-name:var(--font-inter)]">
               10% da taxa de administração da WeCare pelo primeiro ano. Para quem prefere ganhar mais ao longo dos meses.
+            </p>
+          </div>
+          <div className="bg-[rgba(242,234,217,0.05)] border border-[rgba(183,145,82,0.45)] rounded-lg p-8 flex flex-col gap-2.5">
+            <span className="text-xs tracking-[0.2em] uppercase text-[#C9BBA4] font-[family-name:var(--font-inter)]">Caminho 3 · Para o seu cliente</span>
+            <span className="font-[family-name:var(--font-spectral)] font-medium text-[clamp(2.1rem,4.2vw,3.25rem)] text-[#F2EAD9] leading-[1.1]">
+              R$ 1.500
+            </span>
+            <span className="w-10 h-px bg-[#B79152] my-1.5" />
+            <p className="text-[15px] leading-relaxed text-[rgba(242,234,217,0.75)] font-[family-name:var(--font-inter)]">
+              Desconto na taxa de setup do proprietário que você indicou. Você não recebe nada — o ganho vai inteiro para ele.
             </p>
           </div>
         </div>
